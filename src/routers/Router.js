@@ -31,12 +31,12 @@ import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
 
 const Routes = createStackNavigator({
-    Home: {
-        screen: Home,
-    },
-    Detail: {
-        screen: Detail,
-    },
+    // Home: {
+    //     screen: Home,
+    // },
+    // Detail: {
+    //     screen: Detail,
+    // },
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
