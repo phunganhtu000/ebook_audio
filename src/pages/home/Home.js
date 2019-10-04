@@ -149,6 +149,11 @@ export default class Home extends Component {
         );
     }
 }
-
+function mapStateToProps(state) {
+    return {
+        getdatahome: state.productReducers.gethome,
+        isFetching: state.productReducers.isFetching,
+    };
+}
 {/*<Ebook  navigation={navigation} data={data_book}/>*/
 }

@@ -29,7 +29,7 @@ import ChangeTheme from '../pages/setting/ChangeTheme';
 import Comment from '../pages/video/tabTV/Comment';
 import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
-import ReadPdf from "../screen1/detail/ReadPdf";
+import ReadPdf from '../screen1/detail/ReadPdf';
 
 const Routes = createStackNavigator({
     Home: {

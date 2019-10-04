@@ -3,7 +3,7 @@ import {View, Text, FlatList, Image, TouchableOpacity, Dimensions} from 'react-n
 import {connect} from 'react-redux';
 import {getDetail} from '../../redux/actions/productAction';
 import Constant from '../../utils/Constant_Api';
-import HTML from "react-native-render-html";
+import HTML from 'react-native-render-html';
 
 class Detail extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class Detail extends Component {
         const {data} = this.props;
         const image = `${Constant.images}`;
         // const item = this.props.navigation.state.params.data;
-        console.log('detail: ' + JSON.stringify(data[0].book_file_url));
+        console.log('detail: ' + JSON.stringify(data.book_file_url));
         const {navigate} = this.props.navigation;
         return (
             <View style={{flex: 1}}>
