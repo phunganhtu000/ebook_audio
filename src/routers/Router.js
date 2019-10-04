@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
+import Home from '../screen1/home/Home';
+import Detail from '../screen1/detail/Detail';
+
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {
     createAppContainer,
@@ -28,6 +31,12 @@ import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
 
 const Routes = createStackNavigator({
+    Home: {
+        screen: Home,
+    },
+    Detail: {
+        screen: Detail,
+    },
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
@@ -155,3 +164,4 @@ class RoutesApp extends Component {
 }
 
 export default (RoutesApp);
+

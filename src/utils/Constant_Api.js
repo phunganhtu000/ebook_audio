@@ -2,7 +2,7 @@ const Constant = {
     //main server api url
     url: 'http://gofitshop.000webhostapp.com/',
     //Image url
-    images: 'images/',
+    images: 'http://gofitshop.000webhostapp.com/images/',
     //App info url
     app_info: 'api.php?app_details',
 
