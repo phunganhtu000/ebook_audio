@@ -19,7 +19,7 @@ class Home extends Component {
         const {navigate} = this.props.navigation;
         return (
             <TouchableOpacity onPress={() => navigate('Detail', {data: item})}>
-                <Image style={{width: 130, height: 130}} source={{url: `${image}${item.book_cover_img}`}}/>
+                <Image style={{width: 130, height: 130}} source={{uri: `${image}${item.book_cover_img}`}}/>
                 <Text>{item.book_title}</Text>
             </TouchableOpacity>
         );

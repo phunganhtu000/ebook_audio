@@ -38,13 +38,13 @@ class Profile extends Component {
         };
     }
 
-    async componentDidMount(): void {
-        const rtl = await getDataOfflineMode(constants.isRTL)
-        this.setState({
-            isRTL: rtl
-        })
-
-    }
+    // async componentDidMount(): void {
+    //     const rtl = await getDataOfflineMode(constants.isRTL)
+    //     this.setState({
+    //         isRTL: rtl
+    //     })
+    //
+    // }
 
     signOut = () => {
     }

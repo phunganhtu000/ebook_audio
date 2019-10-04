@@ -124,7 +124,6 @@ export default class Styles {
                 alignItems: 'center',
                 borderRadius: 15,
                 backgroundColor: 'black',
-                opacity: 0.3
             },
             name: {
                 fontSize: 17,

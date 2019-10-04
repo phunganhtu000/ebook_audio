@@ -11,19 +11,17 @@ import {
     ScrollView, ActivityIndicator
 } from 'react-native';
 import HeaderComponent from '../headerComponent/HeaderComponent';
-import FastImage from 'react-native-fast-image';
-import TextComponent from '../../cores/viewComponents/text/TextComponent';
-import {marginTop10, marginTop20} from '../../cores/styles/styleView';
+import LinearGradient from 'react-native-linear-gradient';
 import Locales from '../../assets/languages/languages';
 import Styles from './styles/styles';
-import {Icon} from 'native-base';
-import {colors} from '../../cores/styles/colors';
 import {getDataOfflineMode, inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import Styles_Two from './styles/style_two';
 import styles_three from './styles/style_three';
+import {connect} from "react-redux";
+import {getCategory} from "../../redux/actions/productAction";
 
-export default class Category extends Component {
+class Category extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -47,6 +45,7 @@ export default class Category extends Component {
     }
 
     componentDidMount() {
+        this.props.getCategory();
         this.changeStyle();
     }
 
@@ -106,6 +105,7 @@ export default class Category extends Component {
 
 
     render() {
+        const {category, isFetching} = this.props;
         const styles = this.state.styles
         console.log("styles :" + JSON.stringify(styles))
         const {navigate} = this.props.navigation;
@@ -118,29 +118,38 @@ export default class Category extends Component {
                 <ScrollView>
 
                     <View style={styles.body}>
-                        <FlatList
-                            data={this.state.data}
-                            renderItem={({item}) =>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        navigate('AllItem', {item: item})
-                                    }}
-                                    style={styles.tou}>
-                                    <FastImage
-                                        source={{uri: item.image}}
-                                        style={styles.fastImage}>
-                                        <View style={styles.opacity}>
-                                        </View>
-                                        <Text style={styles.name}>{item.cate}</Text>
-                                    </FastImage>
-                                </TouchableOpacity>
-                            }
-                            numColumns={3}
-                            keyExtractor={(item, index) => item.id}
-                        />
+                        {isFetching == true ?
+                            <FlatList
+                                data={category}
+                                renderItem={({item}) =>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            navigate('AllItem', {item: item})
+                                        }}
+                                        style={styles.tou}>
+                                        <LinearGradient
+                                            start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                                            colors={['#d8e76a', '#eb9454']}
+                                            style={styles.opacity}>
+                                                <Text style={styles.name}>{item.category_name}</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                }
+                                numColumns={3}
+                                keyExtractor={(item, index) => item.id}
+                            /> : null}
                     </View>
                 </ScrollView>
             </View>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        category: state.productReducers.category,
+        isFetching: state.productReducers.isFetching,
+    };
+}
+
+export default connect(mapStateToProps, {getCategory})(Category);

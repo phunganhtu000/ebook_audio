@@ -29,14 +29,18 @@ import ChangeTheme from '../pages/setting/ChangeTheme';
 import Comment from '../pages/video/tabTV/Comment';
 import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
+import ReadPdf from "../screen1/detail/ReadPdf";
 
 const Routes = createStackNavigator({
-    // Home: {
-    //     screen: Home,
-    // },
-    // Detail: {
-    //     screen: Detail,
-    // },
+    Home: {
+        screen: Home,
+    },
+    Detail: {
+        screen: Detail,
+    },
+    ReadPdf: {
+        screen: ReadPdf,
+    },
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {

@@ -28,8 +28,8 @@ export default class Home extends Component {
             data2: [],
             changeTab: false,
             check:false,
-            au:HomeAudio,
-            theme: HomeEbook
+            au:AudioBook,
+            theme: Ebook
         };
     }
 
@@ -69,19 +69,19 @@ export default class Home extends Component {
         }, () => {
             if (inValidateText(this.state.changetheme)) {
                 this.setState({
-                    au:HomeAudio,
-                    theme: HomeEbook
+                    au:AudioBook,
+                    theme: Ebook
 
                 })
             } else if (this.state.changetheme === 0) {
                 this.setState({
-                    au:HomeAudio,
-                    theme: HomeEbook
+                    au:AudioBook,
+                    theme: Ebook
                 })
             } else if (this.state.changetheme === 1) {
                 this.setState({
-                    au:AudioBook,
-                    theme: Ebook
+                    au:HomeAudio,
+                    theme: HomeEbook
                 })
             }
         }, console.log("change_style :" + change_theme))
