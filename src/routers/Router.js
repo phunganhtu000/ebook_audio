@@ -84,11 +84,11 @@ const Routes = createStackNavigator({
         },
     },
     // EpubReader: {
-    //     //     screen: EpubReader,
-    //     //     navigationOptions: {
-    //     //         header: null,
-    //     //     },
-    //     // },
+    //         screen: EpubReader,
+    //         navigationOptions: {
+    //             header: null,
+    //         },
+    //     },
     Setting: {
         screen: Setting,
         navigationOptions: {

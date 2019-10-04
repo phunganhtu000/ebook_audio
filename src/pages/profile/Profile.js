@@ -29,7 +29,7 @@ import {checkLogin} from '../../redux/actions/loginAction';
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.firebase = firebaseConfig.database();
+        // this.firebase = firebaseConfig.database();
         this.state = {
             isModalOpen: false,
             isLoading: false,
