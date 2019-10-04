@@ -31,13 +31,12 @@ import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
 
 const Routes = createStackNavigator({
-    Home:{
-        screen:Home,
+    Home: {
+        screen: Home,
     },
-    Detail:{
-        screen:Detail,
+    Detail: {
+        screen: Detail,
     },
-})
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
@@ -163,5 +162,6 @@ class RoutesApp extends Component {
         );
     }
 }
+
 export default (RoutesApp);
 
