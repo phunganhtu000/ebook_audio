@@ -105,6 +105,7 @@ class Category extends Component {
 
 
     render() {
+        const color = [['#a18cd1', '#fbc2eb'],['#d8e76a', '#eb9454'], ['#b2e874', '#48A9BE'], ['#78BEF0', '#6131A1'], ['#EA0386', '#ff9a9e'], ['#ff9a9e', '#fecfef']];
         const {category, isFetching} = this.props;
         const styles = this.state.styles
         console.log("styles :" + JSON.stringify(styles))
@@ -121,7 +122,7 @@ class Category extends Component {
                         {isFetching == true ?
                             <FlatList
                                 data={category}
-                                renderItem={({item}) =>
+                                renderItem={({item,index}) =>
                                     <TouchableOpacity
                                         onPress={() => {
                                             navigate('AllItem', {item: item})
@@ -129,7 +130,7 @@ class Category extends Component {
                                         style={styles.tou}>
                                         <LinearGradient
                                             start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-                                            colors={['#d8e76a', '#eb9454']}
+                                            colors={color[index % color.length]}
                                             style={styles.opacity}>
                                                 <Text style={styles.name}>{item.category_name}</Text>
                                         </LinearGradient>

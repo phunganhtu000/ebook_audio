@@ -175,57 +175,57 @@ export default class Setting extends Component {
                                 <TextComponent>{Locales.language}</TextComponent>
                             </View>
                             <View>
-                                <Icon name='ios-arrow-down' style={styles.icon}/>
+                                <Icon name='language' type='Entypo' style={styles.icon}/>
                             </View>
                         </TouchableOpacity>
-                        {/*<View style={[styles.information, styles.horizontal]}>*/}
+                        <View style={[styles.information, styles.horizontal]}>
+                            <View>
+                                <TextComponent style={styles.lang}>{Locales.DarkMode}</TextComponent>
+                            </View>
+                            <View style={styles.viewswitch}>
+                                <Switch
+                                    onValueChange={this.toggleSwitch}
+                                    value={this.state.switchValue}/>
+                            </View>
+                        </View>
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={this.toggleModalTheme}*/}
+                        {/*    style={[styles.information, styles.horizontal]}>*/}
                         {/*    <View>*/}
-                        {/*        <TextComponent style={styles.lang}>{Locales.DarkMode}</TextComponent>*/}
+                        {/*        <TextComponent style={styles.lang}>{Locales.Change_Color}</TextComponent>*/}
                         {/*    </View>*/}
-                        {/*    <View style={styles.viewswitch}>*/}
-                        {/*        <Switch*/}
-                        {/*            onValueChange={this.toggleSwitch}*/}
-                        {/*            value={this.state.switchValue}/>*/}
+                        {/*    <View>*/}
+                        {/*        <Icon name='ios-arrow-forward' style={styles.icon}/>*/}
                         {/*    </View>*/}
-                        {/*</View>*/}
-                        <TouchableOpacity
-                            onPress={this.toggleModalTheme}
-                            style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent style={styles.lang}>{Locales.Change_Color}</TextComponent>
-                            </View>
-                            <View>
-                                <Icon name='ios-arrow-forward' style={styles.icon}/>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.push('ChangeTheme')}
-                            style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent style={styles.lang}>{Locales.Change_Theme}</TextComponent>
-                            </View>
-                            <View style={styles.horizontal}>
-                                <TextComponent style={{
-                                    color: colors.textColorSecondary,
-                                    marginRight: 20
-                                }}> Theme {this.state.theme + 1}</TextComponent>
-                                <Icon name='ios-arrow-forward' style={styles.icon}/>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigate('ChangeStyle')}
-                            style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent style={styles.lang}>{Locales.Change_Style}</TextComponent>
-                            </View>
-                            <View style={styles.horizontal}>
-                                <TextComponent style={{
-                                    color: colors.textColorSecondary,
-                                    marginRight: 20
-                                }}>Style {this.state.style + 1}</TextComponent>
-                                <Icon name='ios-arrow-forward' style={styles.icon}/>
-                            </View>
-                        </TouchableOpacity>
+                        {/*</TouchableOpacity>*/}
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={() => this.props.navigation.push('ChangeTheme')}*/}
+                        {/*    style={[styles.information, styles.horizontal]}>*/}
+                        {/*    <View>*/}
+                        {/*        <TextComponent style={styles.lang}>{Locales.Change_Theme}</TextComponent>*/}
+                        {/*    </View>*/}
+                        {/*    <View style={styles.horizontal}>*/}
+                        {/*        <TextComponent style={{*/}
+                        {/*            color: colors.textColorSecondary,*/}
+                        {/*            marginRight: 20*/}
+                        {/*        }}> Theme {this.state.theme + 1}</TextComponent>*/}
+                        {/*        <Icon name='ios-arrow-forward' style={styles.icon}/>*/}
+                        {/*    </View>*/}
+                        {/*</TouchableOpacity>*/}
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={() => navigate('ChangeStyle')}*/}
+                        {/*    style={[styles.information, styles.horizontal]}>*/}
+                        {/*    <View>*/}
+                        {/*        <TextComponent style={styles.lang}>{Locales.Change_Style}</TextComponent>*/}
+                        {/*    </View>*/}
+                        {/*    <View style={styles.horizontal}>*/}
+                        {/*        <TextComponent style={{*/}
+                        {/*            color: colors.textColorSecondary,*/}
+                        {/*            marginRight: 20*/}
+                        {/*        }}>Style {this.state.style + 1}</TextComponent>*/}
+                        {/*        <Icon name='ios-arrow-forward' style={styles.icon}/>*/}
+                        {/*    </View>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
                 </ScrollView>
                 <Modal isVisible={this.state.isModalVisible}>

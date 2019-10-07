@@ -15,7 +15,7 @@ export default class Styles {
             },
             information: {
                 marginTop: 20,
-                paddingBottom: 10,
+                paddingBottom: 20,
                 borderBottomColor: colors.lightGrey,
                 borderBottomWidth: 0.5
             },

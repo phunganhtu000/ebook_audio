@@ -32,15 +32,15 @@ import WebViewComponent from '../pages/webView/WebView';
 import ReadPdf from '../screen1/detail/ReadPdf';
 
 const Routes = createStackNavigator({
-    Home: {
-        screen: Home,
-    },
-    Detail: {
-        screen: Detail,
-    },
-    ReadPdf: {
-        screen: ReadPdf,
-    },
+    // Home: {
+    //     screen: Home,
+    // },
+    // Detail: {
+    //     screen: Detail,
+    // },
+    // ReadPdf: {
+    //     screen: ReadPdf,
+    // },
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {

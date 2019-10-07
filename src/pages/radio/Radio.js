@@ -15,6 +15,7 @@ import Playmusic from '../music/playMusic/Playmusic';
 import Styles from './style/Styles';
 import Styles_Two from './style/style_two';
 import GLOBAL from '../../cores/utils/global'
+import PlayRadio from './PlayRadio';
 
 export default class Radio extends Component {
     constructor(props) {
@@ -248,7 +249,7 @@ export default class Radio extends Component {
                 {/*        navigation={this.props.navigation}/>*/}
                 {/*</View>}*/}
                 {this.state.check == false ? null : <View style={styles.viewplay}>
-                    <Playmusic
+                    <PlayRadio
                         name={this.state.name}
                         music={this.state.radio}
                         avt={this.state.image}

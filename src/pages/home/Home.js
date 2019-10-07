@@ -97,7 +97,6 @@ export default class Home extends Component {
         return (
             <View style={styles.container}>
                 <HeaderComponent
-                    iconLeft='ios-menu'
                     onPressRight={() => navigate('Search')}
                     iconRight='ios-search'
                     title={Locales.Home}/>
