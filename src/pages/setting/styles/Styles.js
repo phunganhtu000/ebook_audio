@@ -8,6 +8,7 @@ export default class Styles {
             container: {
                 flex: 1,
                 backgroundColor: '#fff',
+                paddingHorizontal:10
             },
             body: {
                 marginLeft: 10,

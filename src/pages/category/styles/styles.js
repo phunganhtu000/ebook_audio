@@ -118,17 +118,13 @@ export default class Styles {
             },
             opacity: {
                 width: wp('28%'),
-                paddingBottom: 5,
                 height: wp('28%'),
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
                 alignItems: 'center',
                 borderRadius: 15,
-                backgroundColor: 'black',
             },
             name: {
                 fontSize: 17,
-                position: 'absolute',
-                bottom: 7,
                 color: colors.white,
                 fontWeight: 'bold',
             },

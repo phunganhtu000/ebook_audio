@@ -8,13 +8,13 @@ import AudioBook from './tab/AudioBook';
 import Locales from '../../assets/languages/languages';
 import ListVideo from '../video/ListVideo';
 import Radio from '../radio/Radio';
-import api from '../../api/offline/api';
+import api from '../../api/offline/api'
 import ListMusic from '../music/ListMusic';
 import Playmusic from '../music/playMusic/Playmusic';
 import {
     getDataOfflineMode,
     inValidateText,
-    setHeight,
+    setHeight
 } from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import HomeEbook from './tab/HomeEbook';
 import constants from '../../assets/constants';
@@ -29,9 +29,9 @@ class Home extends Component {
             data1: [],
             data2: [],
             changeTab: false,
-            check: false,
-            au: AudioBook,
-            theme: Ebook,
+            check:false,
+            au:AudioBook,
+            theme: Ebook
         };
     }
 
@@ -39,21 +39,16 @@ class Home extends Component {
         const rtl = await getDataOfflineMode(constants.isRTL);
         this.setState({
             data: api.music,
-            dataR: api.radio,
-            isRTL: rtl,
-
-        });
-        this.props.getDataHome();
+            isRTL: rtl
+        })
     }
-
     async componentWillMount() {
         this.setState({
             data1: api.data1,
             data2: api.data2,
             music: api.music,
-            radio: api.radio,
-        });
-        // this.changeTheme();
+        })
+        this.changeTheme();
         // const isrtl = await getDataOfflineMode(constants.isRTL)
         // if(isrtl ===true){
         //     GLOBAL.isRTL=this;
@@ -64,53 +59,51 @@ class Home extends Component {
 
     changeTabs(value) {
         this.setState({
-            changeTab: value,
-        });
+            changeTab: value
+        })
 
     }
+    async changeTheme() {
+        const change_theme = await getDataOfflineMode(constants.CHANGE_THEME);
 
-    // async changeTheme() {
-    //     const change_theme = await getDataOfflineMode(constants.CHANGE_THEME);
-    //
-    //     this.setState({
-    //         changetheme: change_theme,
-    //     }, () => {
-    //         if (inValidateText(this.state.changetheme)) {
-    //             this.setState({
-    //                 au: AudioBook,
-    //                 theme: Ebook,
-    //
-    //             });
-    //         } else if (this.state.changetheme === 0) {
-    //             this.setState({
-    //                 au: AudioBook,
-    //                 theme: Ebook,
-    //             });
-    //         } else if (this.state.changetheme === 1) {
-    //             this.setState({
-    //                 au: HomeAudio,
-    //                 theme: HomeEbook,
-    //             });
-    //         }
-    //     }, console.log('change_style :' + change_theme));
-    //
-    // }
+        this.setState({
+            changetheme: change_theme
+        }, () => {
+            if (inValidateText(this.state.changetheme)) {
+                this.setState({
+                    au:AudioBook,
+                    theme: Ebook
 
-    render() {
-        const styles = Styles.getSheet(this.state.isRTL);
-        const data_book = this.state.data1;
-        const data_bookAudio = this.state.data2;
-        const navigation = this.props;
-        const {navigate} = this.props.navigation;
-        const music = this.state.music;
-        const radio = this.state.radio;
-        const {getdatahome, isFetching} = this.props;
-        return (
-            <View style={styles.container}>
-                <HeaderComponent
-                    onPressRight={() => navigate('Search')}
-                    iconRight='ios-search'
-                    title={Locales.Home}/>
+                })
+            } else if (this.state.changetheme === 0) {
+                this.setState({
+                    au:AudioBook,
+                    theme: Ebook
+                })
+            } else if (this.state.changetheme === 1) {
+                this.setState({
+                    au:HomeAudio,
+                    theme: HomeEbook
+                })
+            }
+        }, console.log("change_style :" + change_theme))
+
+  }
+
+  render() {
+    const styles = Styles.getSheet(this.state.isRTL);
+    const data_book = this.state.data1;
+    const data_bookAudio = this.state.data2;
+    const navigation = this.props;
+    const {navigate} = this.props.navigation;
+    const music = this.state.music;
+    return (
+      <View style={styles.container}>
+        <HeaderComponent
+          left='true'
+          onPressRight={() => navigate('Search')}
+          iconRight='ios-search'
+          title={Locales.Home}/>
 
                 <View style={{flex: 1}}>
                     <Tabs

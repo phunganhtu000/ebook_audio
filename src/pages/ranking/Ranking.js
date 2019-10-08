@@ -130,6 +130,7 @@ export default class Ranking extends Component {
         return (
             <View style={styles.container}>
                 <HeaderComponent
+                  left='true'
                     iconLeft='ios-menu'
                     iconRight='ios-search'
                     title={Locales.Ranking}/>
