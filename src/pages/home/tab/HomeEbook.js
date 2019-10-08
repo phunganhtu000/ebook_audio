@@ -46,27 +46,29 @@ class HomeEbook extends Component {
             isLoading: true,
         };
     }
+
     setRef = (c) => {
         this.listRef = c;
-    }
+    };
 
     scrollToIndex = (index, animated) => {
-        this.listRef && this.listRef.scrollToIndex({ index, animated })
-    }
+        this.listRef && this.listRef.scrollToIndex({index, animated});
+    };
 
     componentWillMount() {
-        setInterval(function() {
-            const { sliderIndex, maxSlider } = this.state
-            let nextIndex = 0
+        setInterval(function () {
+            const {sliderIndex, maxSlider} = this.state;
+            let nextIndex = 0;
 
             if (sliderIndex < maxSlider) {
-                nextIndex = sliderIndex + 1
+                nextIndex = sliderIndex + 1;
             }
 
-            this.scrollToIndex(nextIndex, true)
-            this.setState({sliderIndex: nextIndex})
-        }.bind(this), 3000)
+            this.scrollToIndex(nextIndex, true);
+            this.setState({sliderIndex: nextIndex});
+        }.bind(this), 3000);
     }
+
     async componentDidMount(): void {
         // this.setState({
         //     data: api.data,
@@ -209,7 +211,7 @@ class HomeEbook extends Component {
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
                                     <TextComponent numberOfLines={2}
-                                        style={[styles.title, {marginTop: 10}]}>{item.book_title}</TextComponent>
+                                                   style={[styles.title, {marginTop: 10}]}>{item.book_title}</TextComponent>
                                     <TextComponent
                                         style={[styles.txtDes]}>{item.author_name}</TextComponent>
                                     <View style={styles.rate}>
@@ -238,7 +240,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
-                                <TouchableOpacity onPress={() => navigate('Detail_Ebook_Two', {item: item})}
+                                <TouchableOpacity onPress={() => navigate('Infor', {item: item})}
                                                   style={styles.topSing}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>

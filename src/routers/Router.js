@@ -157,12 +157,12 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
-    Infor:{
+    Infor: {
         screen: Infor,
         navigationOptions: {
-            // header: null,
+            header: null,
         },
-    }
+    },
 });
 const AppStack = createAppContainer(Routes);
 

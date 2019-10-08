@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TouchableOpacity, View, ScrollView, AsyncStorage} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View, ScrollView, AsyncStorage, Dimensions} from 'react-native';
 import Styles from '../../details/styles/style';
 import TextComponent from '../../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
@@ -11,6 +11,8 @@ import constants from '../../../assets/constants';
 import Locales from '../../../assets/languages/languages';
 import saveDownload from '../../../api/saveDownload/saveData';
 import Constant from '../../../utils/Constant_Api';
+import HTML from 'react-native-render-html';
+import HeaderComponent from '../../headerComponent/HeaderComponent';
 
 export default class Infor extends Component {
     constructor(props) {
@@ -75,6 +77,14 @@ export default class Infor extends Component {
         const image = `${Constant.images}`;
         return (
             <View style={styles.container}>
+                <HeaderComponent
+                    iconRightStyle={{fontSize: 25}}
+                    iconLeft='ios-arrow-back'
+                    typeIconRight='FontAwesome'
+                    title={Locales.Detail_EBook}
+                    iconRight='heart-o'
+                    onPressLeft={() => navigation.goBack()}
+                />
                 <ScrollView>
                     <View style={styles.body}>
                         <View style={styles.viewMagin10}>
@@ -131,18 +141,7 @@ export default class Infor extends Component {
                                 </View>
                             </TouchableOpacity>
                             <View style={[styles.marginTop30]}>
-                                <TextComponent style={styles.text}>
-                                    I failed the first quarter of a class in school , so
-                                    i mad a face report card.
-                                    I did this every quarter that year. I forgot that they mail home the end-year cards,
-                                    and my mom go it beforeIculd intercept...Read more
-                                    I failed the first quarter of a class in school , so i mad a face report card.
-                                    I did this every quarter that year. I forgot that they mail home the end-year cards,
-                                    and my mom go it beforeIculd intercept...Read more
-                                    I failed the first quarter of a class in school , so i mad a face report card.
-                                    I did this every quarter that year. I forgot that they mail home the end-year cards,
-                                    and my mom go it beforeIculd intercept...Read more
-                                </TextComponent>
+                                <HTML html={item.book_description} style={styles.text}/>
                             </View>
                         </View>
 
