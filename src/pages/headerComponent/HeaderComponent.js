@@ -41,7 +41,11 @@ export default class HeaderComponent extends Component {
             {
               this.props.left == 'true' ? <FastImage style={{width: 35, height: 35, borderRadius: 35 / 2}}
                                                      source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
-                                                     resizeMode={FastImage.resizeMode.contain}/>:null
+                                                     resizeMode={FastImage.resizeMode.contain}/> : null
+            }
+            {
+              this.props.left == 'back' ?
+                <Icon name={this.props.iconLeft} type={this.props.typeIconLeft} style={[styles.icon]}/> : null
             }
 
           </TouchableOpacity>
@@ -51,7 +55,7 @@ export default class HeaderComponent extends Component {
           <TouchableOpacity
             style={styles.btn}
             onPress={this.props.onPressRight}>
-            <Icon name={this.props.iconRight} type={this.props.typeIconRight} style={[styles.icon]}/>
+            <Icon name={this.props.iconRight} type={this.props.typeIconRight} style={[styles.icon,this.props.iconRightStyle]}/>
           </TouchableOpacity>
         </View>
       </View>

@@ -146,6 +146,33 @@ function dataCategoryFailure() {
         type: types.GET_DATA_CATEGORY_FAILUSE,
     };
 }
+export const getSubCategory = (id) =>  {
+    const url = `${Constant.url}${Constant.sub_category}${id}`;
+    return (dispatch) => {
+        dispatch(dataSubCategory());
+        axios.get(url).then(function (response) {
+            // console.log('dataJson: ' + JSON.stringify(response.data));
+            return (dispatch(dataSubCategorySuccess(response.data.EBOOK_APP)));
+        }).catch(err => dispatch(dataSubCategoryFailure(err)));
+    };
+}
+function dataSubCategory() {
+    return {
+        type: types.GET_SUB_CATEGORY,
+    };
+}
+function dataSubCategorySuccess(data) {
+    // console.log('dataJson: ' + JSON.stringify(data));
+    return {
+        type: types.GET_DATA_SUB_CATEGORY_SUCCESS,
+        data,
+    };
+}
+function dataSubCategoryFailure() {
+    return {
+        type: types.GET_DATA_SUB_CATEGORY_FAILUSE,
+    };
+}
 
 
 export const getDetail = (id) => {

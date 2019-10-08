@@ -37,7 +37,7 @@ export default class Styles {
                     })
             },
             icon: {
-                fontSize: 30,
+                fontSize: 25,
                 color: '#00003D',
 
             }
@@ -54,7 +54,7 @@ export default class Styles {
                 fontWeight:
                     '400',
                 fontSize:
-                    20,
+                    25,
                 ...
                     ifIphoneX({
                         marginTop: 24

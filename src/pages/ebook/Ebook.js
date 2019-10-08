@@ -43,6 +43,7 @@ export default class Ebook extends Component {
                 <HeaderComponent
                     iconRightStyle={{fontSize: 35}}
                     iconLeft='ios-arrow-back'
+                    left='back'
                     typeIconRight='EvilIcons'
                     title={Locales.EBook}
                     iconRight='share-apple'

@@ -78,8 +78,9 @@ export default class Infor extends Component {
         return (
             <View style={styles.container}>
                 <HeaderComponent
-                    iconRightStyle={{fontSize: 25}}
+                    iconRightStyle={{fontSize: 22}}
                     iconLeft='ios-arrow-back'
+                    left='back'
                     typeIconRight='FontAwesome'
                     title={Locales.Detail_EBook}
                     iconRight='heart-o'

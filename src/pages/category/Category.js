@@ -126,7 +126,7 @@ class Category extends Component {
                 renderItem={({item, index}) =>
                   <TouchableOpacity
                     onPress={() => {
-                      navigate('AllItem', {item: item});
+                      navigate('AllItem', {data: item});
                     }}
                     style={styles.tou}>
                     <LinearGradient
