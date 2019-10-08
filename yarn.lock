@@ -6214,6 +6214,13 @@ react-native-storage@^1.0.1:
     opencollective "^1.0.3"
     opencollective-postinstall "^2.0.2"
 
+react-native-swiper@^1.5.14:
+  version "1.5.14"
+  resolved "https://registry.yarnpkg.com/react-native-swiper/-/react-native-swiper-1.5.14.tgz#1c6f949ca377186300f972bb0f30d24062c899aa"
+  integrity sha512-Kn0fxKooN7Shwu1qJYHB+Y8ssXXnvrIwReHXU5jCdyYNfz2QbBv0Cv3sa2Mqzr+XgzORCFFIokc8uCCUITDrVA==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-tab-navigator@^0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/react-native-tab-navigator/-/react-native-tab-navigator-0.3.4.tgz#54a18f1ad06a09d4a0de81ff00416bc1b760c960"

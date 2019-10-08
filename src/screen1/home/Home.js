@@ -27,7 +27,7 @@ class Home extends Component {
 
     render() {
         const {getdatahome, isFetching} = this.props;
-        // console.log("data: "+ JSON.stringify(getdatahome));
+        console.log('data: ' + JSON.stringify(getdatahome.featured_books));
         console.log('isFetching: ' + isFetching);
         return (
             <View style={{flex: 1}}>

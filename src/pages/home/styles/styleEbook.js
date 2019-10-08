@@ -20,12 +20,13 @@ export default class Styles {
             },
             body: {
                 marginTop: 25,
-                ...marginComponent,
+              //  ...marginComponent,
 
             },
             title: {
                 fontSize: 16,
                 fontWeight: '500',
+                width: setWidth('35%'),
             },
             textMin: {
                 fontSize: 12,
@@ -35,14 +36,16 @@ export default class Styles {
             },
             itemHeader: {
                 ...horizontalView,
+                paddingHorizontal:20
             },
             topSing: {
-                marginTop: 30,
-                marginRight: 20,
+                marginTop: 10,
+                paddingHorizontal:20
+
             },
             imageSinger: {
-                width: setWidth('30%'),
-                height: setWidth('45%'),
+                width: setWidth('35%'),
+                height: setWidth('50%'),
                 borderRadius: 5,
             },
             txtDes: {

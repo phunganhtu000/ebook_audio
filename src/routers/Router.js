@@ -30,6 +30,7 @@ import Comment from '../pages/video/tabTV/Comment';
 import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
 import ReadPdf from '../screen1/detail/ReadPdf';
+import Infor from '../pages/ebook/tabEbook/Infor';
 
 const Routes = createStackNavigator({
     // Home: {
@@ -156,6 +157,12 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
+    Infor:{
+        screen: Infor,
+        navigationOptions: {
+            // header: null,
+        },
+    }
 });
 const AppStack = createAppContainer(Routes);
 
