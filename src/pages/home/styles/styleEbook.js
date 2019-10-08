@@ -6,7 +6,7 @@ import {
     setHeight,
     setWidth,
 } from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
-import {marginComponent,horizontalView,rowView} from '../../../cores/styles/styleView';
+import {marginComponent, horizontalView, rowView} from '../../../cores/styles/styleView';
 
 const {width} = Dimensions.get('window');
 import {shadowComponent} from '../../../cores/viewComponents/shadow/Shadow';
@@ -16,11 +16,11 @@ export default class Styles {
         return StyleSheet.create({
             container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
             body: {
                 marginTop: 25,
-              //  ...marginComponent,
+                //  ...marginComponent,
 
             },
             title: {
@@ -36,15 +36,15 @@ export default class Styles {
             },
             itemHeader: {
                 ...horizontalView,
-                paddingHorizontal:20
+                paddingHorizontal: 20,
             },
             topSing: {
                 marginTop: 10,
-                paddingHorizontal:20
-
+                marginLeft: 20,
+                backgroundColor: '#fff',
             },
             imageSinger: {
-                width: setWidth('35%'),
+                width: setWidth('38%'),
                 height: setWidth('50%'),
                 borderRadius: 5,
             },

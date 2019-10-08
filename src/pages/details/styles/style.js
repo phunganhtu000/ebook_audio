@@ -14,7 +14,7 @@ export default class Styles {
                 flex: 1,
                 backgroundColor: '#fff',
             },
-            body: {},
+            body: {marginTop:10},
             viewMagin10: {
                 marginLeft: 10,
                 marginRight: 10,

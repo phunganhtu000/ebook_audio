@@ -39,9 +39,7 @@ const Routes = createStackNavigator({
     // Detail: {
     //     screen: Detail,
     // },
-    // ReadPdf: {
-    //     screen: ReadPdf,
-    // },
+
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
@@ -162,6 +160,9 @@ const Routes = createStackNavigator({
         navigationOptions: {
             header: null,
         },
+    },
+    ReadPdf: {
+        screen: ReadPdf,
     },
 });
 const AppStack = createAppContainer(Routes);

@@ -29,6 +29,7 @@ import {connect} from 'react-redux';
 import {getDataHome} from '../../../redux/actions/productAction';
 import Constant from '../../../utils/Constant_Api';
 import {Icon} from 'native-base';
+import {Card} from 'react-native-paper';
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = setWidth('45%');
@@ -77,14 +78,6 @@ class HomeEbook extends Component {
         // this.changeStyle();
     }
 
-    renderPage(book_cover_img, index) {
-
-        return (
-            <View key={index}>
-                <FastImage style={{width: BannerWidth, height: BannerHeight}} source={{uri: book_cover_img}}/>
-            </View>
-        );
-    }
 
     _renderItem({item, index}) {
         const image = `${Constant.images}`;
@@ -170,7 +163,7 @@ class HomeEbook extends Component {
         // const column2Data = data.filter((item, i) => i % 2 === 1);
         const {navigate} = this.props.navigation;
         const {getdatahome, isFetching} = this.props;
-        console.log('getdatahome :' + JSON.stringify(getdatahome.latest_books));
+        console.log('getdatahome :' + JSON.stringify(getdatahome));
         return (
             <View style={styles.container}>
 
@@ -183,8 +176,12 @@ class HomeEbook extends Component {
                         keyExtractor={item => item._id}
                         data={getdatahome.latest_books || []}
                         renderItem={({item}) => (
-                            <FastImage style={{width: BannerWidth, height: BannerHeight}}
-                                       source={{uri: `${image}${item.book_cover_img}`}}/>
+                            <TouchableOpacity onPress={() => navigate('Infor', {
+                                data: item,
+                            })}>
+                                <FastImage style={{width: BannerWidth, height: BannerHeight}}
+                                           source={{uri: `${image}${item.book_cover_img}`}}/>
+                            </TouchableOpacity>
                         )}
                         onMomentumScrollEnd={(event) => {
                             let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
@@ -203,21 +200,20 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.featured_books || []}
                             renderItem={({item}) => (
-                                <TouchableOpacity onPress={() => navigate('Infor', {
-                                    item: item,
-                                    //star: this.state.starCount
+                                <Card onPress={() => navigate('Infor', {
+                                    data: item,
                                 })}
-                                                  style={styles.topSing}>
+                                      style={styles.topSing}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
-                                    <TextComponent numberOfLines={2}
-                                                   style={[styles.title, {marginTop: 10}]}>{item.book_title}</TextComponent>
-                                    <TextComponent
-                                        style={[styles.txtDes]}>{item.author_name}</TextComponent>
-                                    <View style={styles.rate}>
-                                        {/*<TextComponent*/}
-                                        {/*    style={[styles.textMin, {marginRight: 5}]}>$42.00</TextComponent>*/}
-                                        <View>
+                                    <View style={{padding: 5}}>
+                                        <View style={{height: setWidth('18%')}}>
+                                            <TextComponent numberOfLines={2}
+                                                           style={[styles.title, {marginTop: 5}]}>{item.book_title}</TextComponent>
+                                            <TextComponent
+                                                style={[styles.txtDes]}>{item.author_name}</TextComponent>
+                                        </View>
+                                        <View style={styles.rate}>
                                             <RatingBar
                                                 disabled={false}
                                                 maxStars={5}
@@ -227,7 +223,7 @@ class HomeEbook extends Component {
                                                 fullStarColor={colors.orange}/>
                                         </View>
                                     </View>
-                                </TouchableOpacity>
+                                </Card>
                             )}/>
                         <View style={[styles.itemHeader, {marginTop: 20}]}>
                             <TextComponent style={[styles.title, {fontSize: 20}]}>{Locales.PopularBook}</TextComponent>
@@ -240,18 +236,18 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
-                                <TouchableOpacity onPress={() => navigate('Infor', {item: item})}
-                                                  style={styles.topSing}>
+                                <Card onPress={() => navigate('Infor', {data: item})}
+                                      style={styles.topSing}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
-                                    <TextComponent
-                                        style={[styles.title, {marginTop: 10}]}>{item.book_title}</TextComponent>
-                                    <TextComponent
-                                        style={[styles.txtDes]}>{item.author_name}</TextComponent>
-                                    <View style={styles.rate}>
-                                        {/*<TextComponent*/}
-                                        {/*    style={[styles.textMin, {marginRight: 5}]}>$42.00</TextComponent>*/}
-                                        <View>
+                                    <View style={{padding: 5}}>
+                                        <View style={{height: setWidth('18%')}}>
+                                            <TextComponent
+                                                style={[styles.title, {marginTop: 5}]}>{item.book_title}</TextComponent>
+                                            <TextComponent
+                                                style={[styles.txtDes]}>{item.author_name}</TextComponent>
+                                        </View>
+                                        <View style={styles.rate}>
                                             <RatingBar
                                                 disabled={false}
                                                 maxStars={5}
@@ -261,7 +257,7 @@ class HomeEbook extends Component {
                                                 fullStarColor={colors.orange}/>
                                         </View>
                                     </View>
-                                </TouchableOpacity>
+                                </Card>
                             )}/>
                     </View>
                 </ScrollView>
