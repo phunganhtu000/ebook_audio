@@ -129,7 +129,7 @@ class AllItem extends Component {
                   onPress={() => navigate('Details', {item: item})}
                   style={styles.item}>
                   <View style={styles.viewId}>
-                    <TextComponent>{item.id}</TextComponent>
+                    <TextComponent></TextComponent>
                   </View>
                   <View style={styles.shadow}>
                     <FastImage style={[styles.imageItem]}

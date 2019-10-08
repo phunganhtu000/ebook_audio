@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+  search:[],
   latest: [],
   author: [],
   sub_category: [],
@@ -103,6 +104,22 @@ export default function(state = initialState, action) {
         detail: action.data,
       };
     case  types.GET_DATA_DETAIL_FAILUSE:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    case types.GET_DATA_SEARCH:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case types.GET_DATA_SEARCH_SUCCESS:
+      return {
+        ...state,
+        isFetching: true,
+        search: action.data,
+      };
+    case  types.GET_DATA_SEARCH_FAILUSE:
       return {
         ...state,
         isFetching: false,

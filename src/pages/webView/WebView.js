@@ -22,7 +22,8 @@ export default class WebViewComponent extends Component {
         return (
             <View style={styles.container}>
                 <HeaderComponent
-                    iconLeft='ios-close'
+                    iconLeft='ios-arrow-back'
+                    left='back'
                     // iconRight='ios-search'
                     title={item}
                     onPressLeft={() => navigation.goBack()}

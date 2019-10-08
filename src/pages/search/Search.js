@@ -18,37 +18,26 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import {colors} from '../../cores/styles/colors';
-import {getDataOfflineMode} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
-import constants from '../../assets/constants';
-
+import Constant from '../../utils/Constant_Api';
 
 export default class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: '',
+            dataSource:[],
             input: false,
-            newSearch: [],
-            dataSource: [],
             check: null,
             address: '',
             color: colors.white,
-            nameStreet: [],
             ModalVisibleStatus: false,
         }
 
     }
 
-    async componentDidMount() {
-        const rtl = await getDataOfflineMode(constants.isRTL);
-        this.setState(
-            {
-                nameStreet: api.banner,
-                dataSource: api.banner,
-                isRTL: rtl
-            }
-        )
-    }
+    // componentWillMount() {
+    //     this.props.getSearch(this.state.search);
+    // }
 
 
     onFocus() {
@@ -71,19 +60,24 @@ export default class Search extends Component {
     };
 
     SearchFilterFunction(text) {
-        const newData = this.state.nameStreet.filter(function (item) {
-            //applying filter for the inserted text in search bar
-            const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
-            const textData = text.toUpperCase();
-            return itemData.indexOf(textData) > -1;
-        });
-
         this.setState({
-            //setting the filtered newData on datasource
-            //After setting the data it will automatically re-render the view
-            dataSource: newData,
             search: text,
-        });
+        },()=>{this.fetchData(this.state.search)});
+    }
+    fetchData(text) {
+        this.setState({ text });
+        const url = `${Constant.url}${Constant.searchApi}${this.state.search}`;
+        console.log('ủrl'+url)
+        fetch(url)
+          .then(response => response.json())
+          .then((responseJson) => {
+              this.setState({
+                  dataSource: responseJson.EBOOK_APP,
+              });
+          })
+          .catch((error) => {
+              console.log(error);
+          });
     }
 
     ListViewItemSeparator = () => {
@@ -99,9 +93,12 @@ export default class Search extends Component {
     };
 
     render() {
+        // const {data}=this.props;
+        console.log('dataLog  '+JSON.stringify(this.state.dataSource))
         const styles = Styles.getSheet(this.state.isRTL)
         const {navigation} = this.props;
         const {navigate} = this.props.navigation;
+        const image = `${Constant.images}`;
         return (
             <KeyboardAvoidingView style={styles.container}  enabled>
                 <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent/>
@@ -135,10 +132,10 @@ export default class Search extends Component {
                                     style={styles.item}>
                                     <View style={styles.shadow}>
                                         <FastImage style={[styles.imageItem]}
-                                                   source={{uri: item.image}}/>
+                                                   source={{uri: `${image}${item.book_cover_img}`}}/>
                                     </View>
                                     <View style={styles.viewText}>
-                                        <TextComponent style={styles.text}>{item.title}</TextComponent>
+                                        <TextComponent style={styles.text}>{item.book_title}</TextComponent>
                                         <View style={styles.horizontal}>
                                             <View style={styles.row}><TextComponent
                                                 style={[styles.textAuthor, {...marginTop10}]}>Published
@@ -158,5 +155,13 @@ export default class Search extends Component {
         );
     }
 }
+// function mapStateToProps(state) {
+//     return {
+//         data: state.productReducers.search,
+//         isFetching: state.productReducers.isFetching,
+//     };
+// }
+//
+// export default connect(mapStateToProps, {getSearch})(Search);
 
 

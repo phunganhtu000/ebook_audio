@@ -95,8 +95,8 @@ export function getLatest() {
     return (dispatch) => {
         dispatch(dataLatest());
         axios.get(url).then(function (response) {
-            // console.log('dataJson: ' + JSON.stringify(response.data));
-            return (dispatch(dataLatestSuccess(response.data.EBOOK_APP)));
+            console.log('dataJsonLatest: ' + JSON.stringify(response.data.EBOOK_APP));
+            return (dispatch(dataLatestSuccess(response.data)));
         }).catch(err => dispatch(dataLatestFailure(err)));
     };
 }
@@ -203,5 +203,35 @@ function dataDetailSuccess(data) {
 function dataDetailFailure() {
     return {
         type: types.GET_DATA_DETAIL_FAILUSE,
+    };
+}
+export const getSearch = (id) => {
+
+    const url = `${Constant.url}${Constant.searchApi}${id}`;
+    console.log('url detail: ' + url);
+    return (dispatch) => {
+        dispatch(dataSearch());
+        axios.get(url).then(function (response) {
+            return (dispatch(dataSearchSuccess(response.data.EBOOK_APP)));
+        }).catch(err => dispatch(dataSearchFailure(err)));
+    };
+};
+
+function dataSearch() {
+    return {
+        type: types.GET_DATA_SEARCH,
+    };
+}
+
+function dataSearchSuccess(data) {
+    return {
+        type: types.GET_DATA_SEARCH_SUCCESS,
+        data,
+    };
+}
+
+function dataSearchFailure() {
+    return {
+        type: types.GET_DATA_SEARCH_FAILUSE,
     };
 }

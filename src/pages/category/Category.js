@@ -20,6 +20,7 @@ import Styles_Two from './styles/style_two';
 import styles_three from './styles/style_three';
 import {connect} from 'react-redux';
 import {getCategory} from '../../redux/actions/productAction';
+import Constant from '../../utils/Constant_Api';
 
 class Category extends Component {
   constructor(props) {
@@ -105,6 +106,7 @@ class Category extends Component {
 
 
   render() {
+    const image = `${Constant.images}`;
     const color = [['#a18cd1', '#fbc2eb'], ['#d8e76a', '#eb9454'], ['#b2e874', '#48A9BE'], ['#78BEF0', '#6131A1'], ['#EA0386', '#ff9a9e'], ['#ff9a9e', '#fecfef']];
     const {category, isFetching} = this.props;
     const styles = this.state.styles;
