@@ -16,7 +16,7 @@ export default class Styles {
         return StyleSheet.create({
             container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
             shadow: {
                 borderRadius: 15,
@@ -34,28 +34,23 @@ export default class Styles {
                 fontWeight: '500'
             },
             body: {
-                ...marginComponent,
+               marginHorizontal:setWidth('4%'),
             },
-            e_book: {},
             type: {
                 color: colors.red,
                 paddingBottom: 5,
                 ...typeText
             },
-            row: {
-                ...rowView
-            },
             textAuthor: {
                 marginTop: 5,
                 ...text13,
-                color: colors.color_text_second,
-                paddingRight: 5
+                color:'gray',
+                height:setWidth('5%')
             },
             text: {
-                // ...marginTop20,
                 ...texts,
-                // color: colors.purple,
-                width: setWidth('60%'),
+                fontWeight: '500',
+                height:setWidth('28%')
 
             },
             texttag: {
@@ -65,27 +60,24 @@ export default class Styles {
             },
             item: {
                 ...rowView,
-                ...marginTop20,
-                width: setWidth('100%'),
+                marginTop:setWidth('4%'),
+                width: setWidth('92%'),
                 flexDirection: isRTL ? 'row-reverse' : 'row',
+                backgroundColor: '#fff',
+                borderRadius: 10,
             },
             imageItem: {
-                width: setWidth('25%'),
-                height: setWidth('25%'),
-                borderRadius: 15,
-                // elevation: 5,
-                ...marginRight10
+                width: setWidth('30%'),
+                height: setWidth('35%'),
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+                marginRight:setWidth('3%')
             },
             viewText: {
-
-                width: setWidth('60%'),
-                // backgroundColor:'red'
+                width: setWidth('57%'),
+                height: setWidth('35%'),
+                marginRight:setWidth('2%')
             },
-            horizontal: {
-                ...horizontalView,
-                width: setWidth('60%'),
-            },
-            book_audio: {},
             viewId: {
                 marginRight: 10
             }

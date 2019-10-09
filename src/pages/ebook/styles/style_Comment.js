@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {colors} from '../../../cores/styles/colors';
+import {setHeight, setWidth} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 
 export default class Styles {
     static getSheet(isRTL) {
@@ -9,7 +10,8 @@ export default class Styles {
             },
             body: {
                 marginTop: 10,
-                marginLeft: "2.5%"
+                marginLeft: "2.5%",
+                height:setHeight('70%')
 
             },
             viewall: {
@@ -56,9 +58,9 @@ export default class Styles {
                 color: colors.red,
             },
             image: {
-                width: 60,
-                height: 60,
-                borderRadius: 50,
+                width: setWidth('15%'),
+                height: setWidth('15%'),
+                borderRadius: setWidth('15%'),
                 borderColor: "#BCC0B6",
                 borderWidth: 0.5
             },

@@ -48,7 +48,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='home' type='AntDesign'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='home' type='AntDesign'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Home'})}>
                             <Home navigation={this.props.navigation}/>
@@ -59,7 +59,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='barschart' type='AntDesign'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='barschart' type='AntDesign'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Ranking'})}>
                             <Ranking navigation={this.props.navigation}/>
@@ -70,7 +70,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='list' type='Entypo'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='list' type='Entypo'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Category'})}>
                             <Category navigation={this.props.navigation}/>
@@ -81,7 +81,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='news' type='Entypo'
                                                     style={{fontSize: 28, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='news' type='Entypo'
-                                                            style={{fontSize: 28, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 28, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'News'})}>
                             <News navigation={this.props.navigation}/>
@@ -92,7 +92,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='ios-contact' type='Ionicons'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='ios-contact' type='Ionicons'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Profile'})}>
                             <Profile navigation={this.props.navigation}/>
@@ -108,7 +108,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='home' type='AntDesign'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='home' type='AntDesign'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Home'})}>
                             <Home navigation={this.props.navigation}/>
@@ -119,7 +119,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='barschart' type='AntDesign'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='barschart' type='AntDesign'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Ranking'})}>
                             <Ranking navigation={this.props.navigation}/>
@@ -130,7 +130,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='list' type='Entypo'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='list' type='Entypo'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Category'})}>
                             <Category navigation={this.props.navigation}/>
@@ -141,7 +141,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='news' type='Entypo'
                                                     style={{fontSize: 28, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='news' type='Entypo'
-                                                            style={{fontSize: 28, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 28, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'News'})}>
                             <News navigation={this.props.navigation}/>
@@ -152,7 +152,7 @@ export default class Menu extends Component<Props> {
                             renderIcon={() => <Icon name='ios-contact' type='Ionicons'
                                                     style={{fontSize: 30, color: colors.textColorSecondary}}/>}
                             renderSelectedIcon={() => <Icon name='ios-contact' type='Ionicons'
-                                                            style={{fontSize: 30, color: '#FB7C70'}}/>}
+                                                            style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'Profile'})}>
                             <Profile navigation={this.props.navigation}/>

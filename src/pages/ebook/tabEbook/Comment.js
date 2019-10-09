@@ -10,14 +10,19 @@ import {
     getDataOfflineMode,
     inValidateText,
     setHeight,
-    setWidth
+    setWidth,
 } from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../../assets/constants';
 import RatingBar from '../../../cores/viewComponents/ratingStar/RatingBar';
+import {connect} from 'react-redux';
+import {getDetail} from '../../../redux/actions/productAction';
+import saveDownload from '../../../api/saveDownload/saveData';
+import Constant from '../../../utils/Constant_Api';
+import ButtonBottom from '../../button/ButtonBottom';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default class Comment extends Component {
+class Comment extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,129 +32,149 @@ export default class Comment extends Component {
                     name: 'Mixigaming',
                     content: 'Vô lý',
                     image: 'https://yt3.ggpht.com/a/AGF-l799RR3CxLJyrEVhm8cplh4DLoB58UC3qfKqBQ=s900-mo-c-c0xffffffff-rj-k-no',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 2,
                     name: 'Thầy giáo Ba',
                     content: 'Tính tiền cho anh Ba',
                     image: 'https://yt3.ggpht.com/a/AGF-l799RR3CxLJyrEVhm8cplh4DLoB58UC3qfKqBQ=s900-mo-c-c0xffffffff-rj-k-no',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
                 {
                     id: 3,
                     name: 'PewPew',
                     content: 'Anh không muốn ra Hà Nội nữa',
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
+                    time: '1:30',
                 },
             ],
 
         };
     }
 
+    componentWillMount() {
+        const data = this.props.navigation.state.params.data;
+        this.props.getDetail(data.id);
+    }
+
+    saveDownloadData() {
+        const item = this.props.navigation.state.params.item;
+        saveDownload(item);
+    }
+
     async componentDidMount() {
         const rtl = await getDataOfflineMode(constants.isRTL);
         this.setState({
-            isRTL: rtl
-        })
+            isRTL: rtl,
+        });
     }
 
+    renderItem = ({item}) => {
+        const styles = Styles.getSheet(this.state.isRTL);
+        const image = `${Constant.images}`;
+        // console.log("image: "+ JSON.stringify(image))
+        const {navigate} = this.props.navigation;
+        return (
+            <View style={styles.viewall}>
+                <FastImage
+                    source={{uri: 'https://yt3.ggpht.com/a/AGF-l799RR3CxLJyrEVhm8cplh4DLoB58UC3qfKqBQ=s900-mo-c-c0xffffffff-rj-k-no'}}
+                    style={styles.image}/>
+                <View style={styles.viewpepo}>
+                    <View style={styles.horizontal}>
+                        <TextComponent style={styles.txtName}>{item.user_name}</TextComponent>
+                        <TextComponent style={styles.txtcontent}>{item.comment_text}</TextComponent>
+                    </View>
+                    {/*<View style={{width: '20%'}}>*/}
+                    {/*</View>*/}
+
+                    <TextComponent style={{
+                        color: colors.color_text_second,
+                        fontSize: 13,
+                    }}>{item.dt_rate}</TextComponent>
+                </View>
+            </View>
+        );
+    };
+
     render() {
-        const styles = Styles.getSheet(this.state.isRTL)
+        const styles = Styles.getSheet(this.state.isRTL);
+        const {data} = this.props;
+        console.log('dataaaa: ' + JSON.stringify(data[0].user_comments));
         return (
             <View style={styles.container}>
                 <View style={styles.body}>
-                    <FlatList
-                        data={this.state.comment}
-                        renderItem={({item}) =>
-                            <View style={styles.viewall}>
-                                <FastImage source={{uri: item.image}} style={styles.image}/>
-                                <View style={styles.viewpepo}>
-                                    <View style={styles.horizontal}>
-                                        <TextComponent style={styles.txtName}>{item.name}</TextComponent>
-                                        <TextComponent style={styles.txtcontent}>{item.content}</TextComponent>
-                                    </View>
-                                    {/*<View style={{width: '20%'}}>*/}
-                                    {/*</View>*/}
-
-                                    <TextComponent style={{
-                                        color: colors.color_text_second,
-                                        fontSize: 13
-                                    }}>{item.time}</TextComponent>
-                                </View>
-                            </View>}
-                    />
+                    <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
                 </View>
                 <View style={styles.viewallinput}>
                     <View style={styles.viewinput}>
@@ -166,5 +191,13 @@ export default class Comment extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        data: state.productReducers.detail,
+    };
+}
+
+export default connect(mapStateToProps, {getDetail})(Comment);
 
 

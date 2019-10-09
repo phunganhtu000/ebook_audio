@@ -152,7 +152,7 @@ class Infor extends Component {
         return (
             <View>
                 <ButtonBottom
-                    onPressReadNow={() => navigate('ReadPdf', {data: item})}
+                    onPressReadNow={() => navigate('ReadPdf', {data: item.book_file_url})}
                     download={() => this.saveDownloadData()}
                 />
             </View>
@@ -169,15 +169,15 @@ class Infor extends Component {
         const image = `${Constant.images}`;
         return (
             <View style={styles.container}>
-                <HeaderComponent
-                    iconRightStyle={{fontSize: 22}}
-                    iconLeft='ios-arrow-back'
-                    left='back'
-                    typeIconRight='FontAwesome'
-                    title={Locales.Detail_EBook}
-                    iconRight='heart-o'
-                    onPressLeft={() => navigation.goBack()}
-                />
+                {/*<HeaderComponent*/}
+                {/*    iconRightStyle={{fontSize: 22}}*/}
+                {/*    iconLeft='ios-arrow-back'*/}
+                {/*    left='back'*/}
+                {/*    typeIconRight='FontAwesome'*/}
+                {/*    title={Locales.Detail_EBook}*/}
+                {/*    iconRight='heart-o'*/}
+                {/*    onPressLeft={() => navigation.goBack()}*/}
+                {/*/>*/}
                 <ScrollView>
                     <View style={styles.body}>
                         <FlatList data={data} renderItem={this.renderItem}/>

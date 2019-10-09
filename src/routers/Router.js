@@ -31,6 +31,7 @@ import PlayRadio from '../pages/radio/Radio';
 import WebViewComponent from '../pages/webView/WebView';
 import ReadPdf from '../screen1/detail/ReadPdf';
 import Infor from '../pages/ebook/tabEbook/Infor';
+import Ebook from '../pages/ebook/Ebook';
 
 const Routes = createStackNavigator({
     // Home: {
@@ -85,6 +86,12 @@ const Routes = createStackNavigator({
     },
     Details: {
         screen: Details,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Ebook: {
+        screen: Ebook,
         navigationOptions: {
             header: null,
         },

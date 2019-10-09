@@ -47,62 +47,62 @@ class Category extends Component {
 
   componentDidMount() {
     this.props.getCategory();
-    this.changeStyle();
+    // this.changeStyle();
   }
 
-  async changeStyle() {
-    const rtl = await getDataOfflineMode(constants.isRTL);
-    this.setState({
-      isRTL: rtl,
-    });
-    const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
-    // switch (change_style) {
-    //     case constants.STYLE_BORDER:
-    //         this.setState(
-    //             {styles:styles})
-    //     case constants.STYLE_BOX_SHADOW:
-    //         this.setState(
-    //             {styles:styles_three})
-    //     case constants.STYLE_NON_BORDER:
-    //         this.setState(
-    //             {styles:styles_two})
-    //     case constants.STYLE_NON_LINED:
-    //         this.setState(
-    //             {styles:styles_four})
-    // }
-
-    this.setState({
-      changeStyle: change_style,
-    }, () => {
-      if (inValidateText(change_style)) {
-        this.setState({
-          styles: Styles.getSheet(this.state.isRTL),
-        });
-
-
-      } else if (this.state.changeStyle === 0) {
-        this.setState({
-          styles: Styles.getSheet(this.state.isRTL),
-        });
-      } else if (this.state.changeStyle === 1) {
-        this.setState({
-          styles: Styles_Two.getSheet(this.state.isRTL),
-        });
-      } else if (this.state.changeStyle === 2) {
-        this.setState({
-          styles: styles_three.getSheet(this.state.isRTL),
-        });
-      } else if (this.state.changeStyle === 3) {
-        this.setState({
-          styles: Styles.getSheet(this.state.isRTL),
-        });
-      }
-
-    }, console.log('change_style :' + change_style));
-    this.setState({
-      // styles: getStyleType()
-    });
-  }
+  // async changeStyle() {
+  //   const rtl = await getDataOfflineMode(constants.isRTL);
+  //   this.setState({
+  //     isRTL: rtl,
+  //   });
+  //   const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
+  //   // switch (change_style) {
+  //   //     case constants.STYLE_BORDER:
+  //   //         this.setState(
+  //   //             {styles:styles})
+  //   //     case constants.STYLE_BOX_SHADOW:
+  //   //         this.setState(
+  //   //             {styles:styles_three})
+  //   //     case constants.STYLE_NON_BORDER:
+  //   //         this.setState(
+  //   //             {styles:styles_two})
+  //   //     case constants.STYLE_NON_LINED:
+  //   //         this.setState(
+  //   //             {styles:styles_four})
+  //   // }
+  //
+  //   this.setState({
+  //     changeStyle: change_style,
+  //   }, () => {
+  //     if (inValidateText(change_style)) {
+  //       this.setState({
+  //         styles: Styles.getSheet(this.state.isRTL),
+  //       });
+  //
+  //
+  //     } else if (this.state.changeStyle === 0) {
+  //       this.setState({
+  //         styles: Styles.getSheet(this.state.isRTL),
+  //       });
+  //     } else if (this.state.changeStyle === 1) {
+  //       this.setState({
+  //         styles: Styles_Two.getSheet(this.state.isRTL),
+  //       });
+  //     } else if (this.state.changeStyle === 2) {
+  //       this.setState({
+  //         styles: styles_three.getSheet(this.state.isRTL),
+  //       });
+  //     } else if (this.state.changeStyle === 3) {
+  //       this.setState({
+  //         styles: Styles.getSheet(this.state.isRTL),
+  //       });
+  //     }
+  //
+  //   }, console.log('change_style :' + change_style));
+  //   this.setState({
+  //     // styles: getStyleType()
+  //   });
+  // }
 
 
   render() {
@@ -139,7 +139,7 @@ class Category extends Component {
                     </LinearGradient>
                   </TouchableOpacity>
                 }
-                numColumns={3}
+                numColumns={2}
                 keyExtractor={(item, index) => item.id}
               /> : null}
           </View>

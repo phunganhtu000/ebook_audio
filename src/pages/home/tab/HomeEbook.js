@@ -41,7 +41,7 @@ class HomeEbook extends Component {
         this.state = {
             // data: []
             sliderIndex: 0,
-            maxSlider: 2,
+            maxSlider: 3,
             starCount: 4.5,
             styles: Styles.getSheet(false),
             isLoading: true,
@@ -67,7 +67,7 @@ class HomeEbook extends Component {
 
             this.scrollToIndex(nextIndex, true);
             this.setState({sliderIndex: nextIndex});
-        }.bind(this), 3000);
+        }.bind(this), 4000);
     }
 
     async componentDidMount(): void {
@@ -176,7 +176,7 @@ class HomeEbook extends Component {
                         keyExtractor={item => item._id}
                         data={getdatahome.latest_books || []}
                         renderItem={({item}) => (
-                            <TouchableOpacity onPress={() => navigate('Infor', {
+                            <TouchableOpacity onPress={() => navigate('Details', {
                                 data: item,
                             })}>
                                 <FastImage style={{width: BannerWidth, height: BannerHeight}}
@@ -200,7 +200,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.featured_books || []}
                             renderItem={({item}) => (
-                                <Card onPress={() => navigate('Infor', {
+                                <Card onPress={() => navigate('Details', {
                                     data: item,
                                 })}
                                       style={styles.topSing}>
@@ -236,7 +236,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
-                                <Card onPress={() => navigate('Infor', {data: item})}
+                                <Card onPress={() => navigate('Ebook', {data: item})}
                                       style={styles.topSing}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
