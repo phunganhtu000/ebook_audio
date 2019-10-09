@@ -111,7 +111,7 @@ export default class Styles {
                 color: '#fff',
                 fontSize: 30,
                 fontWeight: 'bold'
-            }
+            },
         });
     }
 }

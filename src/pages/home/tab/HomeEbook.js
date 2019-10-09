@@ -41,7 +41,7 @@ class HomeEbook extends Component {
         this.state = {
             // data: []
             sliderIndex: 0,
-            maxSlider: 3,
+            maxSlider: 2,
             starCount: 4.5,
             styles: Styles.getSheet(false),
             isLoading: true,
@@ -67,7 +67,7 @@ class HomeEbook extends Component {
 
             this.scrollToIndex(nextIndex, true);
             this.setState({sliderIndex: nextIndex});
-        }.bind(this), 4000);
+        }.bind(this), 3000);
     }
 
     async componentDidMount(): void {
@@ -168,26 +168,28 @@ class HomeEbook extends Component {
             <View style={styles.container}>
 
                 <ScrollView>
-                    <FlatList
-                        ref={this.setRef}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        pagingEnabled
-                        keyExtractor={item => item._id}
-                        data={getdatahome.latest_books || []}
-                        renderItem={({item}) => (
-                            <TouchableOpacity onPress={() => navigate('Details', {
-                                data: item,
-                            })}>
-                                <FastImage style={{width: BannerWidth, height: BannerHeight}}
-                                           source={{uri: `${image}${item.book_cover_img}`}}/>
-                            </TouchableOpacity>
-                        )}
-                        onMomentumScrollEnd={(event) => {
-                            let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
-                            this.setState({sliderIndex});
-                        }}
-                    />
+                    <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                        <FlatList
+                            ref={this.setRef}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            pagingEnabled
+                            keyExtractor={item => item.id}
+                            data={getdatahome.latest_books || []}
+                            renderItem={({item}) => (
+                                <TouchableOpacity onPress={() => navigate('Details', {
+                                    data: item,
+                                })}>
+                                    <FastImage style={{width: BannerWidth, height: BannerHeight}}
+                                               source={{uri: `${image}${item.book_cover_img}`}}/>
+                                </TouchableOpacity>
+                            )}
+                            onMomentumScrollEnd={(event) => {
+                                let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
+                                this.setState({sliderIndex});
+                            }}
+                        />
+                    </ScrollView>
                     <View style={styles.body}>
                         <View style={styles.itemHeader}>
                             <TextComponent style={[styles.title, {fontSize: 20}]}>{Locales.News}</TextComponent>
