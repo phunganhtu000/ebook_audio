@@ -174,7 +174,7 @@ class Ranking extends Component {
                                         onPress={() => navigate('Details', {data: item})}
                                         style={styles.item}>
                                         <View style={styles.viewId}>
-                                            <TextComponent>{index + 1}</TextComponent>
+                                            <TextComponent style={{color: ThemeConstants[theme].textColor}}>{index + 1}</TextComponent>
                                         </View>
                                         <View style={styles.shadow}>
                                             <FastImage style={[styles.imageItem]}
