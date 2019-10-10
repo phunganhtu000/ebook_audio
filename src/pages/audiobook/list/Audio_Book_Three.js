@@ -24,7 +24,7 @@ import {getDetail} from '../../../redux/actions/productAction';
 import Constant from '../../../utils/Constant_Api';
 import {medium} from '../../../cores/styles/styleText';
 
-export default class AudioBookThree extends Component {
+class AudioBookThree extends Component {
   constructor(props) {
     super(props);
 
@@ -132,8 +132,6 @@ export default class AudioBookThree extends Component {
     // hours + ':' +
 
   }
-
-
   // audio(item) {
   //     this.setState({
   //         audio: item.title,
@@ -159,7 +157,9 @@ export default class AudioBookThree extends Component {
   //
   //
   // }
-
+  reloadData(id){
+    this.props.getDetail(id);
+  }
   render() {
     const {navigate} = this.props.navigation;
     const {navigation} = this.props;
@@ -246,7 +246,7 @@ export default class AudioBookThree extends Component {
                         data={item.related_books}
                         renderItem={({item}) => (
                           <TouchableOpacity
-                            onPress={() => navigate('Tab_AudioBook', {data: item})}
+                            onPress={() =>this.reloadData(item.id)}
                             style={styles.item}>
                             <View style={styles.viewId}>
                               <TextComponent></TextComponent>
@@ -287,4 +287,10 @@ export default class AudioBookThree extends Component {
 }
 
 
-
+function mapStateToProps(state) {
+  return {
+    data: state.productReducers.detail,
+    loading: state.productReducers.isFetching,
+  };
+}
+export default connect(mapStateToProps, {getDetail})(AudioBookThree);

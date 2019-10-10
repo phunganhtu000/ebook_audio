@@ -10,6 +10,8 @@ import Locales from '../../../assets/languages/languages';
 import {getDataOfflineMode} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../../assets/constants';
 import Constant from '../../../utils/Constant_Api';
+import RatingBar from '../../../cores/viewComponents/ratingStar/RatingBar';
+import HTML from 'react-native-render-html';
 
 export default class AudioBook extends Component {
 
@@ -62,23 +64,22 @@ export default class AudioBook extends Component {
                         </View>
                         <View style={[styles.marginTop30, styles.viewMagin10]}>
                             <View style={styles.row}>
-                                <TextComponent style={styles.textReview}>4.7</TextComponent>
+                                <TextComponent style={styles.textReview}>{this.props.data[0].rate_avg}</TextComponent>
                                 <View style={[styles.row, {marginLeft: 10, paddingRight: 5}]}>
-                                    <Icon name='star' type='AntDesign' style={{fontSize: 20, color: colors.orange}}/>
-                                    <Icon name='star' type='AntDesign' style={{fontSize: 20, color: colors.orange}}/>
-                                    <Icon name='star' type='AntDesign' style={{fontSize: 20, color: colors.orange}}/>
-                                    <Icon name='star' type='AntDesign' style={{fontSize: 20, color: colors.orange}}/>
-                                    <Icon name='star' type='AntDesign' style={{fontSize: 20, color: colors.orange}}/>
+                                    <RatingBar
+                                      disabled={false}
+                                      maxStars={5}
+                                      // selectedStar={(rating)=>this.onStarRatingPress(rating)}
+                                      rating={this.props.data[0].rate_avg}
+                                      starSize={25}
+                                      fullStarColor={colors.orange}/>
                                 </View>
                             </View>
                             <View style={styles.marginTop10}>
                                 <TextComponent style={styles.textTime}>982 Rating on Google Play</TextComponent>
                             </View>
                             <View style={[styles.marginTop30]}>
-                                <TextComponent style={styles.text}>I failed the first quarter of a class in school , so
-                                    i mad a face report card. I did this every quarter that year. I forgot that they
-                                    mail home the end-year cards, and my mom go it beforeIculd intercept...Read
-                                    more</TextComponent>
+                                <HTML html={this.props.data[0].book_description} style={styles.text}/>
                             </View>
                         </View>
                     </View>

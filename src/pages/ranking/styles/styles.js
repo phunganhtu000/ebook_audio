@@ -76,7 +76,7 @@ export default class Styles {
                 ...typeText
             },
             row: {
-                ...rowView
+                // ...rowView
             },
             textAuthor: {
                 ...marginTop20,

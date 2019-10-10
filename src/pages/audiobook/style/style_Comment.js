@@ -8,17 +8,18 @@ export const styles = StyleSheet.create({
     },
     body: {
         marginTop: 10,
-        marginLeft: "2.5%"
+        marginLeft: "2.5%",
+        height:'100%'
 
     },
     viewallinput:{
         width: "95%",
         height: 60,
         borderRadius: 15,
-        marginTop: "2.5%",
-        marginLeft: "2.5%",
+        position:'absolute',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        bottom:5
     },
     viewinput: {
         width: "95%",
@@ -65,4 +66,5 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     }
+
 })

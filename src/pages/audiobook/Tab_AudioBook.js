@@ -36,7 +36,7 @@ class Tab_AudioBook extends Component {
                activeTabStyle={{backgroundColor: '#fff'}}
                textStyle={{color: '#C5C4C4'}}
                activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.NowPlaying}>
-            <AudioBookThree data={data} navigation={navigations}/>
+            <AudioBookThree data={data} navigation={navigations} />
           </Tab>
           <Tab tabStyle={{backgroundColor: '#fff'}}
                activeTabStyle={{backgroundColor: '#fff'}}
@@ -49,7 +49,7 @@ class Tab_AudioBook extends Component {
                activeTabStyle={{backgroundColor: '#fff'}}
                textStyle={{color: '#C5C4C4'}}
                activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Comment}>
-            <Comment navigation={navigations}/>
+            <Comment data={data} ww navigation={navigations}/>
           </Tab>
         </Tabs>
       </View>

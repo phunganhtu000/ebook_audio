@@ -116,6 +116,7 @@ class Category extends Component {
       <View style={styles.container}>
         <HeaderComponent
           left='true'
+          onPressRight={() => navigate('Search')}
           iconLeft='ios-menu'
           iconRight='ios-search'
           title={Locales.Category}/>
