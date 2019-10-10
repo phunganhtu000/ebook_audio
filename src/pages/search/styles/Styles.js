@@ -76,7 +76,8 @@ export default class styles {
             },
             item: {
                 ...rowView,
-                ...marginTop20,
+                paddingHorizontal: setWidth('3%'),
+                marginTop:setWidth('3%'),
                 width: wp('95%'),
                 flexDirection: isRTL ? 'row-reverse' : 'row',
             },

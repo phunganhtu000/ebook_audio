@@ -141,7 +141,7 @@ class Search extends Component {
                             renderItem={({item}) => (
                                 // Single Comes here which will be repeatative for the FlatListItems
                                 <TouchableOpacity
-                                    onPress={() => navigate('Details', {item: item})}
+                                    onPress={() => navigate('Details', {data: item})}
                                     style={styles.item}>
                                     <View style={styles.shadow}>
                                         <FastImage style={[styles.imageItem]}

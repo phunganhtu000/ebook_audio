@@ -26,6 +26,8 @@ import HeaderComponent from '../../headerComponent/HeaderComponent';
 import RatingBar from '../../../cores/viewComponents/ratingStar/RatingBar';
 import {connect} from 'react-redux';
 import {getDetail} from '../../../redux/actions/productAction';
+import {darkMode} from '../../../redux/actions/settingAction';
+import {ThemeConstants} from '../../../cores/theme/Theme';
 
 class Infor extends Component {
     constructor(props) {
@@ -91,12 +93,15 @@ class Infor extends Component {
         const image = `${Constant.images}`;
         // console.log("image: "+ JSON.stringify(image))
         const {navigate} = this.props.navigation;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
             <View>
                 <ScrollView>
                     <View style={styles.viewMagin10}>
                         {/*<TextComponent style={styles.type}>{Locales.History}</TextComponent>*/}
-                        <TextComponent style={styles.title}>{item.book_title}</TextComponent>
+                        <TextComponent
+                            style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{item.book_title}</TextComponent>
                         <View style={[styles.time, styles.horizontal]}>
                             <TextComponent style={styles.textTime}>{item.author_name}</TextComponent>
                             <TextComponent style={styles.textTime}>23 Mar, 2019</TextComponent>
@@ -111,7 +116,8 @@ class Infor extends Component {
                     </View>
                     <View style={[styles.marginTop30, styles.viewMagin10]}>
                         <View style={styles.row}>
-                            <TextComponent style={styles.textReview}>{item.rate_avg}</TextComponent>
+                            <TextComponent
+                                style={[styles.textReview, {color: ThemeConstants[theme].textColor}]}>{item.rate_avg}</TextComponent>
                             <View style={[styles.row, {marginLeft: 10, paddingRight: 5}]}>
                                 <RatingBar
                                     disabled={false}
@@ -123,20 +129,23 @@ class Infor extends Component {
                             </View>
                         </View>
                         <TouchableOpacity style={[styles.horizontal, styles.time, {
-                            backgroundColor: colors.lightGray,
+                            backgroundColor: ThemeConstants[theme].backgroundCard,
                             borderRadius: 5,
                             paddingHorizontal: 5,
                         }]}>
                             <TextComponent style={[styles.type, {fontSize: 22, paddingTop: 10}]}>Chapter
                                 list</TextComponent>
                             <View style={styles.horizontal}>
-                                <TextComponent style={styles.txtChapname}>Chap 35: Kia Sengoria</TextComponent>
+                                <TextComponent style={[styles.txtChapname, {color: ThemeConstants[theme].textColor}]}>Chap
+                                    35: Kia Sengoria</TextComponent>
                                 <Icon name='right' type='AntDesign'
-                                      style={styles.iconright}/>
+                                      style={[styles.iconright, {color: ThemeConstants[theme].textColor}]}/>
                             </View>
                         </TouchableOpacity>
                         <View style={[styles.marginTop30]}>
-                            <HTML html={item.book_description} style={styles.text}/>
+                            <HTML html={item.book_description}
+                                  baseFontStyle={{color: ThemeConstants[theme].textColor}}
+                                  style={[styles.text]}/>
                         </View>
                     </View>
                 </ScrollView>
@@ -149,6 +158,8 @@ class Infor extends Component {
         const image = `${Constant.images}`;
         // console.log("image: "+ JSON.stringify(image))
         const {navigate} = this.props.navigation;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
             <View>
                 <ButtonBottom
@@ -167,8 +178,10 @@ class Infor extends Component {
         const {data} = this.props;
         console.log('data ebook' + JSON.stringify(data));
         const image = `${Constant.images}`;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 {/*<HeaderComponent*/}
                 {/*    iconRightStyle={{fontSize: 22}}*/}
                 {/*    iconLeft='ios-arrow-back'*/}
@@ -194,8 +207,9 @@ class Infor extends Component {
 function mapStateToProps(state) {
     return {
         data: state.productReducers.detail,
+        isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {getDetail})(Infor);
+export default connect(mapStateToProps, {getDetail, darkMode})(Infor);
 

@@ -19,15 +19,15 @@ import {getDetail} from '../../../redux/actions/productAction';
 import saveDownload from '../../../api/saveDownload/saveData';
 import Constant from '../../../utils/Constant_Api';
 import ButtonBottom from '../../button/ButtonBottom';
+import {darkMode} from '../../../redux/actions/settingAction';
+import {ThemeConstants} from '../../../cores/theme/Theme';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class Comment extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
     }
 
     componentWillMount() {
@@ -52,6 +52,8 @@ class Comment extends Component {
         const image = `${Constant.images}`;
         // console.log("image: "+ JSON.stringify(image))
         const {navigate} = this.props.navigation;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
             <View style={styles.viewall}>
                 <FastImage
@@ -59,7 +61,8 @@ class Comment extends Component {
                     style={styles.image}/>
                 <View style={styles.viewpepo}>
                     <View style={styles.horizontal}>
-                        <TextComponent style={styles.txtName}>{item.user_name}</TextComponent>
+                        <TextComponent
+                            style={[styles.txtName, {color: ThemeConstants[theme].textColor}]}>{item.user_name}</TextComponent>
                         <TextComponent style={styles.txtcontent}>{item.comment_text}</TextComponent>
                     </View>
                     {/*<View style={{width: '20%'}}>*/}
@@ -78,21 +81,22 @@ class Comment extends Component {
         const styles = Styles.getSheet(this.state.isRTL);
         const {data} = this.props;
         console.log('dataaaa: ' + JSON.stringify(data[0].user_comments));
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <View style={styles.body}>
                     <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
                 </View>
-                <View style={styles.viewallinput}>
-                    <View style={styles.viewinput}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Comment..."
-                        />
-                        <TouchableOpacity style={styles.toucoment}>
-                            <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
-                        </TouchableOpacity>
-                    </View>
+                <View style={[styles.viewallinput,{backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                    <TextInput
+                        style={[styles.input,{color:ThemeConstants[theme].textColor}]}
+                        placeholderTextColor={ThemeConstants[theme].textColor}
+                        placeholder="Comment..."
+                    />
+                    <TouchableOpacity style={styles.toucoment}>
+                        <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -102,9 +106,10 @@ class Comment extends Component {
 function mapStateToProps(state) {
     return {
         data: state.productReducers.detail,
+        isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {getDetail})(Comment);
+export default connect(mapStateToProps, {getDetail, darkMode})(Comment);
 
 

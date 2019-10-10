@@ -11,7 +11,7 @@ export default class Styles {
             body: {
                 marginTop: 10,
                 marginLeft: "2.5%",
-                height:setHeight('70%')
+                height:setHeight('80%')
 
             },
             viewall: {
@@ -29,30 +29,22 @@ export default class Styles {
                 alignItems: 'center'
             },
             viewallinput: {
-                width: "95%",
-                height: 60,
+                width: setWidth('94%'),
+                height: setWidth('12%'),
+                paddingHorizontal: setWidth('3%'),
+                marginHorizontal: setWidth('3%'),
                 borderRadius: 15,
-                marginTop: "2.5%",
-                marginLeft: "2.5%",
-                justifyContent: 'center',
-                alignItems: 'center'
-            },
-            viewinput: {
-                width: "95%",
-                backgroundColor: colors.lightGray,
-                borderRadius: 15,
-                justifyContent: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
             },
             input: {
-                width: "90%",
-                marginLeft: 10,
-                marginRight: 10,
-                fontSize: 15
+                fontSize: 15,
+                width: setWidth('81%'),
             },
             toucoment: {
-                position: 'absolute',
-                right: 0,
-                width: "8%"
+                width: setWidth('7%'),
+                // backgroundColor: 'red'
             },
             iconcomment: {
                 color: colors.red,
