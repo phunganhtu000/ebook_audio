@@ -175,9 +175,9 @@ class HomeEbook extends Component {
                             showsHorizontalScrollIndicator={false}
                             pagingEnabled
                             keyExtractor={item => item.id}
-                            data={getdatahome.latest_books || []}
+                            data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
-                                <TouchableOpacity onPress={() => navigate('Details', {
+                                <TouchableOpacity onPress={() => navigate('Ebook', {
                                     data: item,
                                 })}>
                                     <FastImage style={{width: BannerWidth, height: BannerHeight}}
@@ -202,7 +202,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.featured_books || []}
                             renderItem={({item}) => (
-                                <Card onPress={() => navigate('Details', {
+                                <Card onPress={() => navigate('Ebook', {
                                     data: item,
                                 })}
                                       style={styles.topSing}>

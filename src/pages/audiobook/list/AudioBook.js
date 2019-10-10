@@ -9,6 +9,7 @@ import {colors} from '../../../cores/styles/colors';
 import Locales from '../../../assets/languages/languages';
 import {getDataOfflineMode} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../../assets/constants';
+import Constant from '../../../utils/Constant_Api';
 
 export default class AudioBook extends Component {
 
@@ -27,24 +28,24 @@ export default class AudioBook extends Component {
     }
 
     render() {
+        const image = `${Constant.images}`;
         const styles = Styles.getSheet(this.state.isRTL)
         return (
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.body}>
                         <View style={styles.viewMagin10}>
-                            <TextComponent style={styles.type}>{Locales.History}</TextComponent>
-                            <TextComponent style={styles.title}>Always forgive your enemies, nothing
-                                annoys.</TextComponent>
+                            <TextComponent style={styles.type}>Thông tin chi tiết</TextComponent>
+                            <TextComponent style={styles.title}>{this.props.data[0].book_title}</TextComponent>
                             <View style={[styles.time, styles.horizontal]}>
                                 <TextComponent style={styles.textTime}>Published from istudio</TextComponent>
-                                <TextComponent style={styles.textTime}>23 Mar, 2019</TextComponent>
+                                <TextComponent style={styles.textTime}>{this.props.data[0].author_name}</TextComponent>
                             </View>
                         </View>
                         <View style={styles.viewDetail}>
                             <View style={styles.borderImage}>
                                 <FastImage style={styles.image}
-                                           source={{uri: 'https://gotrangtri.vn/wp-content/uploads/2018/10/Tranh-nghe-thuat-dep-treo-tuong-phong-khach-GHS-6432-ava-400x600.jpg'}}/>
+                                           source={{uri: `${image}${this.props.data[0].book_cover_img}`}}/>
 
                                 <View style={styles.viewPlay}>
                                     <View style={styles.btnInfo}>

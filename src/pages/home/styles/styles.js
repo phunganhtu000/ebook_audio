@@ -10,6 +10,7 @@ import {marginComponent} from '../../../cores/styles/styleView';
 
 const {width} = Dimensions.get('window');
 import {shadowComponent} from '../../../cores/viewComponents/shadow/Shadow';
+import {medium} from '../../../cores/styles/styleText';
 
 export default class Styles {
     static getSheet(isRTL) {
@@ -95,7 +96,8 @@ export default class Styles {
                 position: 'absolute',
                 top: 10,
                 right: 10,
-                backgroundColor: colors.transparentBlack,
+                width:'90%',
+                backgroundColor: colors.navbarBackgroundColor,
                 paddingLeft: 4,
                 paddingRight: 4,
                 paddingTop: 2,
@@ -104,6 +106,7 @@ export default class Styles {
             },
             textTime: {
                 color: colors.white,
+                ...medium
             },
             btnPlay: {
                 position: 'absolute',

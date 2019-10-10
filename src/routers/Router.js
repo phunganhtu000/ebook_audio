@@ -32,6 +32,10 @@ import WebViewComponent from '../pages/webView/WebView';
 import ReadPdf from '../screen1/detail/ReadPdf';
 import Infor from '../pages/ebook/tabEbook/Infor';
 import Ebook from '../pages/ebook/Ebook';
+import Login from '../pages/login/Login';
+import SignUp from '../pages/signup/SignUp';
+import Audio_Book_Three from '../pages/audiobook/list/Audio_Book_Three';
+import Tab_AudioBook from '../pages/audiobook/Tab_AudioBook';
 
 const Routes = createStackNavigator({
     // Home: {
@@ -41,6 +45,12 @@ const Routes = createStackNavigator({
     //     screen: Detail,
     // },
 
+    Menu: {
+        screen: Menu,
+        navigationOptions: {
+            header: null,
+        },
+    },
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
@@ -48,12 +58,6 @@ const Routes = createStackNavigator({
         },
     },
 
-    Menu: {
-        screen: Menu,
-        navigationOptions: {
-            header: null,
-        },
-    },
     Comment: {
         screen: Comment,
         navigationOptions: {
@@ -92,6 +96,12 @@ const Routes = createStackNavigator({
     },
     Ebook: {
         screen: Ebook,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Tab_AudioBook: {
+        screen: Tab_AudioBook,
         navigationOptions: {
             header: null,
         },
@@ -164,6 +174,24 @@ const Routes = createStackNavigator({
     },
     Infor: {
         screen: Infor,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    SignUp: {
+        screen: SignUp,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Audio_Book_Three: {
+        screen: Audio_Book_Three,
         navigationOptions: {
             header: null,
         },

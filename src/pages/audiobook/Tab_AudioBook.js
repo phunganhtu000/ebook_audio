@@ -6,11 +6,20 @@ import HeaderComponent from '../headerComponent/HeaderComponent';
 import Locales from '../../assets/languages/languages';
 import AudioBook from './list/AudioBook';
 import Comment from './list/Comment';
+import {connect} from 'react-redux';
+import {getDetail} from '../../redux/actions/productAction';
 
-export default class Tab_AudioBook extends Component {
+class Tab_AudioBook extends Component {
+
+  componentWillMount() {
+    const data = this.props.navigation.state.params.data;
+    this.props.getDetail(data.id);
+  }
+
   render() {
     const navigations = this.props.navigation;
     const {navigation} = this.props;
+    const {data, loading} = this.props;
     return (
       <View style={styles.container}>
         <HeaderComponent
@@ -27,14 +36,14 @@ export default class Tab_AudioBook extends Component {
                activeTabStyle={{backgroundColor: '#fff'}}
                textStyle={{color: '#C5C4C4'}}
                activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.NowPlaying}>
-            <AudioBookThree navigation={navigations}/>
+            <AudioBookThree data={data} navigation={navigations}/>
           </Tab>
           <Tab tabStyle={{backgroundColor: '#fff'}}
                activeTabStyle={{backgroundColor: '#fff'}}
                textStyle={{color: '#C5C4C4'}}
                activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}}
                heading={Locales.Info}>
-            <AudioBook navigation={navigations}/>
+            <AudioBook data={data}  navigation={navigations}/>
           </Tab>
           <Tab tabStyle={{backgroundColor: '#fff'}}
                activeTabStyle={{backgroundColor: '#fff'}}
@@ -42,8 +51,6 @@ export default class Tab_AudioBook extends Component {
                activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Comment}>
             <Comment navigation={navigations}/>
           </Tab>
-
-
         </Tabs>
       </View>
     );
@@ -51,7 +58,15 @@ export default class Tab_AudioBook extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     flex: 1,
   },
 });
+function mapStateToProps(state) {
+  return {
+    data: state.productReducers.detail,
+    loading: state.productReducers.isFetching,
+  };
+}
+export default connect(mapStateToProps, {getDetail})(Tab_AudioBook);
+
