@@ -50,7 +50,7 @@ export default class Styles {
             text: {
                 ...texts,
                 fontWeight: '500',
-                height:setWidth('28%')
+                height:setWidth('26%')
 
             },
             texttag: {
@@ -76,7 +76,10 @@ export default class Styles {
             viewText: {
                 width: setWidth('57%'),
                 height: setWidth('35%'),
-                marginRight:setWidth('2%')
+                marginRight:setWidth('2%'),
+                // paddingVertical:setWidth('1%')
+                // backgroundColor:'red',
+                paddingVertical:setWidth('1%'),
             },
             viewId: {
                 marginRight: 10

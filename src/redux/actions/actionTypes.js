@@ -23,6 +23,8 @@ export const GET_DATA_SEARCH = 'GET_DATA_SEARCH';
 export const GET_DATA_SEARCH_SUCCESS = 'GET_DATA_SEARCH_SUCCESS';
 export const GET_DATA_SEARCH_FAILUSE = 'GET_DATA_SEARCH_FAILUSE';
 
-
+export const GET_LANGUAGE = 'GET_LANGUAGE';
+export const LANGUAGE = 'LANGUAGE';
+export const SWITCH = 'SWITCH';
 
 

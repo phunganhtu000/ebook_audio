@@ -23,7 +23,7 @@ export default class styles {
                 width: setWidth('93%')
             },
             filter: {
-                width: setWidth('19%'),
+                width: setWidth('13%'),
                 alignItems: 'center',
                 justifyContent: 'center',
             },
@@ -47,13 +47,16 @@ export default class styles {
                 borderRadius: 10,
             },
             accBar: {
-                width: setWidth('93%'),
-                marginTop: 15,
-                backgroundColor: colors.white,
-                // flexDirection: 'row',
+                width: setWidth('94%'),
+                marginTop: setWidth('10%'),
+                paddingHorizontal: setWidth('3%'),
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 flexDirection: isRTL ? 'row-reverse' : 'row',
+            },
+            input: {
+                width: setWidth('71%'),
+                paddingHorizontal: setWidth('3%')
             },
             txtBar: {
                 marginTop: 15,
@@ -78,8 +81,8 @@ export default class styles {
                 flexDirection: isRTL ? 'row-reverse' : 'row',
             },
             imageItem: {
-                width: wp('15%'),
-                height: wp('15%'),
+                width: wp('18%'),
+                height: wp('18%'),
                 borderRadius: 15,
                 elevation: 5,
                 ...marginRight10

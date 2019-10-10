@@ -1,24 +1,28 @@
 import React, {Component} from 'react';
 import {View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView, StatusBar, Switch} from 'react-native';
-import {Icon} from "native-base";
-import Modal from "react-native-modal";
+import {Icon} from 'native-base';
+import Modal from 'react-native-modal';
 import Styles from './styles/Styles';
 import {StackActions, NavigationActions} from 'react-navigation';
 import {
     getDataOfflineMode,
-    saveDataOfflineMode
+    saveDataOfflineMode,
 } from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import Locales from '../../assets/languages/languages';
 import {colors} from '../../cores/styles/colors';
+import {selectLanguage, darkMode} from '../../redux/actions/settingAction';
+
 const resetAction = StackActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({routeName: 'Menu'})],
 });
+import {connect} from 'react-redux';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
-export default class Setting extends Component {
+class Setting extends Component {
 
     constructor(props) {
         super(props);
@@ -42,8 +46,9 @@ export default class Setting extends Component {
             isModalTheme: false,
             shouldRender: false,
             shouldRender1: false,
-            backgroundColor: colors.purple
+            backgroundColor: colors.purple,
         };
+        this._handleSwitch = this._handleSwitch.bind(this);
         const lang = [
             {shortform: 'en', longform: 'English'},
             {shortform: 'vn', longform: 'Việt Nam'},
@@ -54,10 +59,10 @@ export default class Setting extends Component {
     }
 
     async componentDidMount(): void {
-        const rtl = await getDataOfflineMode(constants.isRTL)
+        const rtl = await getDataOfflineMode(constants.isRTL);
         this.setState({
-            isRTL: rtl
-        })
+            isRTL: rtl,
+        });
         const isChangeTheme = await getDataOfflineMode(constants.CHANGE_THEME);
         const style = await getDataOfflineMode(constants.CHANGE_STYLE);
         this.setState({
@@ -68,7 +73,7 @@ export default class Setting extends Component {
         const dataLanguage = await getDataOfflineMode(constants.LANGUAGE);
         this.setState({
             getLanguage: dataLanguage,
-        })
+        });
         Locales.setLanguage(this.state.getLanguage);
         // await this.getProfile();
         // const isDarkMode = await getDataOfflineMode(constants.DARK_MODE);
@@ -92,22 +97,12 @@ export default class Setting extends Component {
 
     }
 
-    toggleSwitch = (value) => {
-        this.setState({switchValue: value}, () => {
-        });
-        if (value === false) {
-            saveDataOfflineMode(constants.DARK_MODE, false)
-            const backgroundColor = colors.purple;
-            StatusBar.setBarStyle('dark-content');
-            // saveDataOfflineMode(constants.CHANGE_COLOR,backgroundColor)
-        } else {
-            saveDataOfflineMode(constants.DARK_MODE, true)
-            const backgroundColor = colors.white;
-            StatusBar.setBarStyle('light-content');
-            // saveDataOfflineMode(constants.CHANGE_COLOR,backgroundColor)
-        }
-        console.log('switchValue:' + this.state.switchValue)
+    _handleSwitch(value) {
+        console.log(value);
+        this.props.darkMode(value);
+
     }
+
     toggleModal = () => {
         this.setState({isModalVisible: !this.state.isModalVisible});
     };
@@ -120,11 +115,11 @@ export default class Setting extends Component {
         Locales.setLanguage(value);
 
         if (value === 'ar') {
-            saveDataOfflineMode(constants.isRTL, true)
+            saveDataOfflineMode(constants.isRTL, true);
         } else {
             saveDataOfflineMode(constants.isRTL, false);
         }
-        saveDataOfflineMode(constants.LANGUAGE, value)
+        saveDataOfflineMode(constants.LANGUAGE, value);
         // this.props.navigation.dispatch(resetAction);
         this.setState({isModalVisible: !this.state.isModalVisible});
     }
@@ -132,34 +127,36 @@ export default class Setting extends Component {
 
     changeBlue() {
         this.setState({
-            backgroundColor: colors.iOSBlue
+            backgroundColor: colors.iOSBlue,
         }, () => {
-            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor)
-        })
+            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor);
+        });
     }
 
     changeRed() {
         this.setState({
-            backgroundColor: colors.red
+            backgroundColor: colors.red,
         }, () => {
-            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor)
-        })
+            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor);
+        });
     }
 
     changePurple() {
         this.setState({
-            backgroundColor: colors.purple
+            backgroundColor: colors.purple,
         }, () => {
-            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor)
-        })
+            saveDataOfflineMode(constants.CHANGE_COLOR, this.state.backgroundColor);
+        });
     }
 
     render() {
-        const styles = Styles.getSheet(this.state.isRTL)
+        const styles = Styles.getSheet(this.state.isRTL);
         const {navigate} = this.props.navigation;
         const {navigation} = this.props;
+        const {switchState} = this.props;
+        const theme = switchState ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor}]}>
                 <HeaderComponent
                     iconLeft='ios-arrow-back'
                     onPressLeft={() => this.props.navigation.dispatch(resetAction)}
@@ -169,23 +166,20 @@ export default class Setting extends Component {
                         <TouchableOpacity
                             onPress={this.toggleModal}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent
-                                    style={styles.lang}>{Locales.Selectyourlanguage}</TextComponent>
-                                <TextComponent>{Locales.language}</TextComponent>
-                            </View>
-                            <View>
-                                <Icon name='language' type='Entypo' style={styles.icon}/>
-                            </View>
+                            <TextComponent
+                                style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Selectyourlanguage}</TextComponent>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {color: ThemeConstants[theme].textColor}]}/>
                         </TouchableOpacity>
                         <View style={[styles.information, styles.horizontal]}>
                             <View>
-                                <TextComponent style={styles.lang}>{Locales.DarkMode}</TextComponent>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.DarkMode}</TextComponent>
                             </View>
                             <View style={styles.viewswitch}>
                                 <Switch
-                                    onValueChange={this.toggleSwitch}
-                                    value={this.state.switchValue}/>
+                                    onValueChange={this._handleSwitch}
+                                    value={switchState}/>
                             </View>
                         </View>
                         {/*<TouchableOpacity*/}
@@ -228,84 +222,93 @@ export default class Setting extends Component {
                         {/*</TouchableOpacity>*/}
                     </View>
                 </ScrollView>
-                <Modal isVisible={this.state.isModalVisible}>
-                    <TouchableOpacity
-                        onPress={this.toggleModal}
-                        style={styles.modal}>
-                        <View style={styles.itemModal}>
-                            <TextComponent
-                                style={styles.tittleModal}>{Locales.Selectyourlanguage}</TextComponent>
-                            <ScrollView style={{width: '100%'}}>
-                                {global.lang.map((item, key) => (
-                                    <View key={key} style={styles.elementContainer}>
-                                        <TextComponent
-                                            key={key}
-                                            ref={item.shortform}
-                                            onPress={() => this.settext(item.shortform)}
-                                            style={styles.text}>
-                                            {item.longform}
-                                        </TextComponent>
-                                        <View key={key} style={styles.saparator}/></View>
-                                ))}
-                            </ScrollView>
-                            <TouchableOpacity style={styles.viewButtonModal} onPress={this.toggleModal}>
-                                <Text style={styles.btnCancel}>{Locales.Cancel}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </TouchableOpacity>
-                </Modal>
-                <Modal isVisible={this.state.isModalTheme}>
-                    <TouchableOpacity
-                        onPress={this.toggleModalTheme}
-                        style={styles.modal}>
-                        <View style={styles.itemModal}>
-                            <TextComponent style={styles.tittleModal}>{Locales.Change_Color}</TextComponent>
-                            <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>
-                                <TouchableOpacity
-                                    onPress={() => this.changeBlue()}
-                                    style={{
-                                        width: 60,
-                                        height: 60,
-                                        borderRadius: 5,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: colors.blue,
-                                        marginRight: 10
-                                    }}>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => this.changeRed()}
-                                    style={{
-                                        width: 60,
-                                        height: 60,
-                                        borderRadius: 5,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: colors.red,
-                                        marginRight: 10
-                                    }}>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => this.changePurple()}
-                                    style={{
-                                        width: 60,
-                                        height: 60,
-                                        borderRadius: 5,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: colors.purple,
-                                        marginRight: 10
-                                    }}>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity style={styles.viewButtonModal} onPress={this.toggleModalTheme}>
-                                <TextComponent style={styles.btnCancel}>{Locales.Cancel}</TextComponent>
-                            </TouchableOpacity>
-                        </View>
-                    </TouchableOpacity>
-                </Modal>
+                {/*<Modal isVisible={this.state.isModalVisible}>*/}
+                {/*    <TouchableOpacity*/}
+                {/*        onPress={this.toggleModal}*/}
+                {/*        style={styles.modal}>*/}
+                {/*        <View style={styles.itemModal}>*/}
+                {/*            <TextComponent*/}
+                {/*                style={styles.tittleModal}>{Locales.Selectyourlanguage}</TextComponent>*/}
+                {/*            <ScrollView style={{width: '100%'}}>*/}
+                {/*                {global.lang.map((item, key) => (*/}
+                {/*                    <View key={key} style={styles.elementContainer}>*/}
+                {/*                        <TextComponent*/}
+                {/*                            key={key}*/}
+                {/*                            ref={item.shortform}*/}
+                {/*                            onPress={() => this.settext(item.shortform)}*/}
+                {/*                            style={styles.text}>*/}
+                {/*                            {item.longform}*/}
+                {/*                        </TextComponent>*/}
+                {/*                        <View key={key} style={styles.saparator}/></View>*/}
+                {/*                ))}*/}
+                {/*            </ScrollView>*/}
+                {/*            <TouchableOpacity style={styles.viewButtonModal} onPress={this.toggleModal}>*/}
+                {/*                <Text style={styles.btnCancel}>{Locales.Cancel}</Text>*/}
+                {/*            </TouchableOpacity>*/}
+                {/*        </View>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</Modal>*/}
+                {/*<Modal isVisible={this.state.isModalTheme}>*/}
+                {/*    <TouchableOpacity*/}
+                {/*        onPress={this.toggleModalTheme}*/}
+                {/*        style={styles.modal}>*/}
+                {/*        <View style={styles.itemModal}>*/}
+                {/*            <TextComponent style={styles.tittleModal}>{Locales.Change_Color}</TextComponent>*/}
+                {/*            <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20}}>*/}
+                {/*                <TouchableOpacity*/}
+                {/*                    onPress={() => this.changeBlue()}*/}
+                {/*                    style={{*/}
+                {/*                        width: 60,*/}
+                {/*                        height: 60,*/}
+                {/*                        borderRadius: 5,*/}
+                {/*                        alignItems: 'center',*/}
+                {/*                        justifyContent: 'center',*/}
+                {/*                        backgroundColor: colors.blue,*/}
+                {/*                        marginRight: 10*/}
+                {/*                    }}>*/}
+                {/*                </TouchableOpacity>*/}
+                {/*                <TouchableOpacity*/}
+                {/*                    onPress={() => this.changeRed()}*/}
+                {/*                    style={{*/}
+                {/*                        width: 60,*/}
+                {/*                        height: 60,*/}
+                {/*                        borderRadius: 5,*/}
+                {/*                        alignItems: 'center',*/}
+                {/*                        justifyContent: 'center',*/}
+                {/*                        backgroundColor: colors.red,*/}
+                {/*                        marginRight: 10*/}
+                {/*                    }}>*/}
+                {/*                </TouchableOpacity>*/}
+                {/*                <TouchableOpacity*/}
+                {/*                    onPress={() => this.changePurple()}*/}
+                {/*                    style={{*/}
+                {/*                        width: 60,*/}
+                {/*                        height: 60,*/}
+                {/*                        borderRadius: 5,*/}
+                {/*                        alignItems: 'center',*/}
+                {/*                        justifyContent: 'center',*/}
+                {/*                        backgroundColor: colors.purple,*/}
+                {/*                        marginRight: 10*/}
+                {/*                    }}>*/}
+                {/*                </TouchableOpacity>*/}
+                {/*            </View>*/}
+                {/*            <TouchableOpacity style={styles.viewButtonModal} onPress={this.toggleModalTheme}>*/}
+                {/*                <TextComponent style={styles.btnCancel}>{Locales.Cancel}</TextComponent>*/}
+                {/*            </TouchableOpacity>*/}
+                {/*        </View>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</Modal>*/}
             </View>
         );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        language: state.settingReducers,
+        login: state.loginReducer.login,
+        switchState: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {selectLanguage, darkMode})(Setting);

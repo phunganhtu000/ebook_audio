@@ -30,6 +30,8 @@ import {getDataHome} from '../../../redux/actions/productAction';
 import Constant from '../../../utils/Constant_Api';
 import {Icon} from 'native-base';
 import {Card} from 'react-native-paper';
+import {darkMode} from '../../../redux/actions/settingAction';
+import {ThemeConstants} from '../../../cores/theme/Theme';
 
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = setWidth('45%');
@@ -164,8 +166,10 @@ class HomeEbook extends Component {
         const {navigate} = this.props.navigation;
         const {getdatahome, isFetching} = this.props;
         console.log('getdatahome :' + JSON.stringify(getdatahome));
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
 
                 <ScrollView>
                     <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -192,7 +196,7 @@ class HomeEbook extends Component {
                     </ScrollView>
                     <View style={styles.body}>
                         <View style={styles.itemHeader}>
-                            <TextComponent style={[styles.title, {fontSize: 20}]}>{Locales.News}</TextComponent>
+                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.News}</TextComponent>
                             <TextComponent onPress={() => navigate('ListItem', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
@@ -205,13 +209,16 @@ class HomeEbook extends Component {
                                 <Card onPress={() => navigate('Ebook', {
                                     data: item,
                                 })}
-                                      style={styles.topSing}>
+                                      style={[styles.topSing, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
                                     <View style={{padding: 5}}>
                                         <View style={{height: setWidth('18%')}}>
                                             <TextComponent numberOfLines={2}
-                                                           style={[styles.title, {marginTop: 5}]}>{item.book_title}</TextComponent>
+                                                           style={[styles.title, {
+                                                               color: ThemeConstants[theme].textColor,
+                                                               marginTop: 5,
+                                                           }]}>{item.book_title}</TextComponent>
                                             <TextComponent
                                                 style={[styles.txtDes]}>{item.author_name}</TextComponent>
                                         </View>
@@ -228,7 +235,7 @@ class HomeEbook extends Component {
                                 </Card>
                             )}/>
                         <View style={[styles.itemHeader, {marginTop: 20}]}>
-                            <TextComponent style={[styles.title, {fontSize: 20}]}>{Locales.PopularBook}</TextComponent>
+                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.PopularBook}</TextComponent>
                             <TextComponent onPress={() => navigate('ListItem', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
@@ -239,13 +246,16 @@ class HomeEbook extends Component {
                             data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
                                 <Card onPress={() => navigate('Ebook', {data: item})}
-                                      style={styles.topSing}>
+                                      style={[styles.topSing, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
                                     <View style={{padding: 5}}>
                                         <View style={{height: setWidth('18%')}}>
                                             <TextComponent
-                                                style={[styles.title, {marginTop: 5}]}>{item.book_title}</TextComponent>
+                                                style={[styles.title, {
+                                                    color: ThemeConstants[theme].textColor,
+                                                    marginTop: 5,
+                                                }]}>{item.book_title}</TextComponent>
                                             <TextComponent
                                                 style={[styles.txtDes]}>{item.author_name}</TextComponent>
                                         </View>
@@ -272,7 +282,8 @@ function mapStateToProps(state) {
     return {
         getdatahome: state.productReducers.gethome,
         isFetching: state.productReducers.isFetching,
+        isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {getDataHome})(HomeEbook);
+export default connect(mapStateToProps, {getDataHome, darkMode})(HomeEbook);

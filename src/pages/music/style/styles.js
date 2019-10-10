@@ -4,7 +4,7 @@ import {colors} from '../../../cores/styles/colors';
 import {
     getDataOfflineMode,
     setHeight,
-    setWidth
+    setWidth,
 } from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import {
     horizontalView, marginComponent,
@@ -12,35 +12,34 @@ import {
     marginLeft10, marginLeft20, marginRight10, marginRight20,
     marginRight5,
     paddingBottom5,
-    rowView
+    rowView,
 } from '../../../cores/styles/styleView';
-import {ifIphoneX} from "react-native-iphone-x-helper";
+import {ifIphoneX} from 'react-native-iphone-x-helper';
 
 const {width} = Dimensions.get('window');
 export default class Styles {
     static getSheet(isRTL) {
         return StyleSheet.create({
-            listItemContainer: {
+            container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
+            // F3F6F5
             viewToday: {
                 // ...marginComponent
 
             },
-            container: {
-                flex: 1,
-                backgroundColor: '#EBEBEB'
-            },
+
             viewItem: {
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
+                marginTop:10
             },
             itemHeader: {
                 ...marginhorizontal20,
                 // ...horizontalView
                 flexDirection: isRTL ? 'row-reverse' : 'row',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
             },
             imgTop: {
                 width: 30,
@@ -60,7 +59,7 @@ export default class Styles {
                 borderRadius: 15,
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',
-                transform: [{scaleX: isRTL ? -1 : 1}] //doi chieu hinh anh
+                transform: [{scaleX: isRTL ? -1 : 1}], //doi chieu hinh anh
             },
             viewBottom: {
                 // ...marginLeft20,
@@ -68,19 +67,19 @@ export default class Styles {
                 marginRight: isRTL ? 20 : 0,
                 width: setWidth('35%'),
                 marginTop: 5,
-                marginBottom: 10
+                marginBottom: 10,
             },
             scrollView: {
                 flexDirection: isRTL ? 'row-reverse' : 'row',
             },
             rowView: {
                 flexDirection: isRTL ? 'row-reverse' : 'row',
-                alignItems: 'center'
+                alignItems: 'center',
             },
             title: {
                 fontSize: 16,
                 fontWeight: '500',
-                marginBottom: 5
+                marginBottom: 5,
             },
             titleItem: {
                 fontSize: 15,
@@ -96,7 +95,7 @@ export default class Styles {
             icon: {
                 fontSize: 15,
                 color: colors.mediumGray,
-                ...marginRight5
+                ...marginRight5,
             },
             viewSing: {
                 width: setWidth('19%'),
@@ -125,17 +124,17 @@ export default class Styles {
                 marginRight: 10,
                 borderRadius: 15,
                 // elevation: 5,
-                ...marginRight10
+                ...marginRight10,
             },
             viewMaxHorizontal: {
                 // ...marginLeft20,
                 // marginLeft: isRTL ? 0 : 20,
                 // marginRight:isRTL?20:0,
-                marginBottom: 10
+                marginBottom: 10,
             },
             flatList: {
                 marginTop: 20,
-                flex: 1
+                flex: 1,
             },
             view: {
                 width: width - 40,
@@ -148,9 +147,9 @@ export default class Styles {
 
                 ...
                     ifIphoneX({
-                        height: setHeight('7%')
+                        height: setHeight('7%'),
                     }, {
-                        height: setHeight('8%')
+                        height: setHeight('8%'),
                     }),
 
             },
@@ -167,9 +166,10 @@ export default class Styles {
             },
 
             viewbody2: {
-              //  flexDirection: 'row',
+                //  flexDirection: 'row',
                 flexDirection: isRTL ? 'row-reverse' : 'row',
-                marginBottom: 20, ...marginLeft10,}
+                marginBottom: 20, ...marginLeft10,
+            },
         });
     }
 }

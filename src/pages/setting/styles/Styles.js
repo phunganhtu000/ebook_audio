@@ -8,11 +8,12 @@ export default class Styles {
             container: {
                 flex: 1,
                 backgroundColor: '#fff',
-                paddingHorizontal:10
+
             },
             body: {
                 marginLeft: 10,
-                marginRight: 10
+                marginRight: 10,
+                paddingHorizontal:10
             },
             information: {
                 marginTop: 20,
@@ -46,7 +47,7 @@ export default class Styles {
                 marginBottom: 5
             },
             icon: {
-                fontSize: 25,
+                fontSize: setWidth('5%'),
                 // color: '$textColor'
                 transform: [{scaleX: isRTL ? -1 : 1}],
                 marginLeft: isRTL ? 0 : 10,
@@ -55,13 +56,14 @@ export default class Styles {
             modal: {
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                // backgroundColor:'red'
             },
             itemModal: {
                 padding: 10,
                 width: setWidth('90%'),
                 // height: setHeight('40%'),
-                backgroundColor: '#fff',
+                backgroundColor: 'silver',
                 borderRadius: 10
             },
             saparator: {

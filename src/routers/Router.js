@@ -3,7 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Home from '../screen1/home/Home';
 import Detail from '../screen1/detail/Detail';
 
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StatusBar} from 'react-native';
 import {
     createAppContainer,
     createBottomTabNavigator,
@@ -36,7 +36,10 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/signup/SignUp';
 import Audio_Book_Three from '../pages/audiobook/list/Audio_Book_Three';
 import Tab_AudioBook from '../pages/audiobook/Tab_AudioBook';
+import {getLanguage, darkMode} from '../redux/actions/settingAction';
+import {connect} from 'react-redux';
 
+const ThemeContext = React.createContext(null);
 const Routes = createStackNavigator({
     // Home: {
     //     screen: Home,
@@ -203,12 +206,33 @@ const Routes = createStackNavigator({
 const AppStack = createAppContainer(Routes);
 
 class RoutesApp extends Component {
+    componentDidMount() {
+        this.props.darkMode();
+        this.props.getLanguage();
+    }
+
+
     render() {
+        const {isDarkTheme} = this.props;
+        console.log('dart: ' + isDarkTheme);
+        const themes = isDarkTheme ? 'dark' : 'light';
         return (
-            <AppStack/>
+            <ThemeContext.Provider
+                value={{theme: themes}}>
+                <StatusBar
+                    barStyle={themes === 'light' ? 'default' : 'light-content'}/>
+                <AppStack screenProps={{theme: themes}}/>
+            </ThemeContext.Provider>
         );
     }
+
 }
 
-export default (RoutesApp);
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {darkMode, getLanguage})(RoutesApp);
 

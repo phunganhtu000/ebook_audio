@@ -11,8 +11,12 @@ import News from '../news/News';
 import Category from '../category/Category';
 import {getDataOfflineMode} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
+import {connect} from 'react-redux';
+import {getSubCategory} from '../../redux/actions/productAction';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
-export default class Menu extends Component<Props> {
+class Menu extends Component<Props> {
     constructor(props) {
         super(props);
 
@@ -25,17 +29,19 @@ export default class Menu extends Component<Props> {
     async componentDidMount(): void {
         const rtl = await getDataOfflineMode(constants.isRTL);
         this.setState({
-            isRTL: rtl
-        })
-        const backgroundColor = await getDataOfflineMode(constants.CHANGE_COLOR)
+            isRTL: rtl,
+        });
+        const backgroundColor = await getDataOfflineMode(constants.CHANGE_COLOR);
         this.setState({
-            bg: backgroundColor
-        })
+            bg: backgroundColor,
+        });
     }
 
     render() {
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.saf}>
+            <View style={[styles.saf, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                 {/*<StatusBar backgroundColor={colors.twitter} barStyle="dark-content"/>*/}
 
                 {this.state.isRTL ?
@@ -46,7 +52,7 @@ export default class Menu extends Component<Props> {
                             selected={this.state.selectedTab === 'Home'}
                             // title={strings.Profile}
                             renderIcon={() => <Icon name='home' type='AntDesign'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='home' type='AntDesign'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -57,7 +63,7 @@ export default class Menu extends Component<Props> {
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Ranking'}
                             renderIcon={() => <Icon name='barschart' type='AntDesign'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='barschart' type='AntDesign'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -68,7 +74,7 @@ export default class Menu extends Component<Props> {
                             selected={this.state.selectedTab === 'Category'}
                             // title={strings.MyBook}
                             renderIcon={() => <Icon name='list' type='Entypo'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='list' type='Entypo'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -78,9 +84,9 @@ export default class Menu extends Component<Props> {
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'News'}
                             // title={strings.MyBook}
-                            renderIcon={() => <Icon name='news' type='Entypo'
-                                                    style={{fontSize: 28, color: colors.textColorSecondary}}/>}
-                            renderSelectedIcon={() => <Icon name='news' type='Entypo'
+                            renderIcon={() => <Icon name='newspaper-o' type='FontAwesome'
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
+                            renderSelectedIcon={() => <Icon name='newspaper-o' type='FontAwesome'
                                                             style={{fontSize: 28, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'News'})}>
@@ -90,7 +96,7 @@ export default class Menu extends Component<Props> {
                             selected={this.state.selectedTab === 'Profile'}
                             // title={strings.Homes}
                             renderIcon={() => <Icon name='ios-contact' type='Ionicons'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='ios-contact' type='Ionicons'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -100,13 +106,13 @@ export default class Menu extends Component<Props> {
                     </TabNavigator>
                     :
                     <TabNavigator
-                        tabBarStyle={styles.menu}>
+                        tabBarStyle={[styles.menu, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
 
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Home'}
                             // title={strings.Profile}
                             renderIcon={() => <Icon name='home' type='AntDesign'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='home' type='AntDesign'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -117,7 +123,7 @@ export default class Menu extends Component<Props> {
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'Ranking'}
                             renderIcon={() => <Icon name='barschart' type='AntDesign'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='barschart' type='AntDesign'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -128,7 +134,7 @@ export default class Menu extends Component<Props> {
                             selected={this.state.selectedTab === 'Category'}
                             // title={strings.MyBook}
                             renderIcon={() => <Icon name='list' type='Entypo'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='list' type='Entypo'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -138,9 +144,9 @@ export default class Menu extends Component<Props> {
                         <TabNavigator.Item
                             selected={this.state.selectedTab === 'News'}
                             // title={strings.MyBook}
-                            renderIcon={() => <Icon name='news' type='Entypo'
-                                                    style={{fontSize: 28, color: colors.textColorSecondary}}/>}
-                            renderSelectedIcon={() => <Icon name='news' type='Entypo'
+                            renderIcon={() => <Icon name='newspaper-o' type='FontAwesome'
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
+                            renderSelectedIcon={() => <Icon name='newspaper-o' type='FontAwesome'
                                                             style={{fontSize: 28, color: '#D0021B'}}/>}
                             // badgeText="1"
                             onPress={() => this.setState({selectedTab: 'News'})}>
@@ -150,7 +156,7 @@ export default class Menu extends Component<Props> {
                             selected={this.state.selectedTab === 'Profile'}
                             // title={strings.Homes}
                             renderIcon={() => <Icon name='ios-contact' type='Ionicons'
-                                                    style={{fontSize: 30, color: colors.textColorSecondary}}/>}
+                                                    style={{fontSize: 30, color: 'silver'}}/>}
                             renderSelectedIcon={() => <Icon name='ios-contact' type='Ionicons'
                                                             style={{fontSize: 30, color: '#D0021B'}}/>}
                             // badgeText="1"
@@ -165,6 +171,14 @@ export default class Menu extends Component<Props> {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {getSubCategory, darkMode})(Menu);
 const styles = StyleSheet.create({
     saf: {
         flex: 1,
@@ -180,8 +194,8 @@ const styles = StyleSheet.create({
         ...ifIphoneX({
             height: 20,
         }, {
-            marginBottom: 0
-        })
+            marginBottom: 0,
+        }),
     },
     container: {
         flex: 1,
@@ -203,7 +217,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: 30,
-        color: colors.iOSBlue
+        color: colors.iOSBlue,
     },
     viewIcon: {
         width: 45,
@@ -213,5 +227,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         // fontFamily: 'Gill Sans',
-    }
+    },
 });

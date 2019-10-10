@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList} from 'react-native';
-import FastImage from "react-native-fast-image";
+import FastImage from 'react-native-fast-image';
 import api from '../../api/offline/api';
 import {getDataOfflineMode, inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import Styles from './style/styles';
 import Styles_Two from './style/style_two';
 import styles_three from './style/style_three';
+import {connect} from 'react-redux';
+import {getSubCategory} from '../../redux/actions/productAction';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
-
-export default class ListVideo extends Component {
+class ListVideo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,63 +26,65 @@ export default class ListVideo extends Component {
     componentDidMount() {
         this.setState({
             data: api.data3,
-        })
-        this.changeStyle();
+        });
+        // this.changeStyle();
     }
 
     changeTabs(value) {
         this.setState({
-            changeTab: value
-        })
+            changeTab: value,
+        });
 
     }
 
-    async changeStyle() {
-        const rtl = await getDataOfflineMode(constants.isRTL)
-        this.setState({
-            isRTL: rtl
-        })
-        const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
-
-        this.setState({
-            changeStyle: change_style
-        }, () => {
-            if (inValidateText(change_style)) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-
-
-            } else if (this.state.changeStyle === 0) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 1) {
-                this.setState({
-                    styles: Styles_Two.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 2) {
-                this.setState({
-                    styles: styles_three.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 3) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-            }
-
-        }, console.log("change_style :" + change_style))
-        this.setState({
-            // styles: getStyleType()
-        })
-    }
+    // async changeStyle() {
+    //     const rtl = await getDataOfflineMode(constants.isRTL)
+    //     this.setState({
+    //         isRTL: rtl
+    //     })
+    //     const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
+    //
+    //     this.setState({
+    //         changeStyle: change_style
+    //     }, () => {
+    //         if (inValidateText(change_style)) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //
+    //
+    //         } else if (this.state.changeStyle === 0) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 1) {
+    //             this.setState({
+    //                 styles: Styles_Two.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 2) {
+    //             this.setState({
+    //                 styles: styles_three.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 3) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //         }
+    //
+    //     }, console.log("change_style :" + change_style))
+    //     this.setState({
+    //         // styles: getStyleType()
+    //     })
+    // }
 
     render() {
         const {navigate} = this.props.navigation;
-        const styles = this.state.styles
-        console.log("styles :" + JSON.stringify(styles))
+        const styles = this.state.styles;
+        console.log('styles :' + JSON.stringify(styles));
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={[styles.containerList]}>
+            <View style={[styles.containerList, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <View style={[styles.body]}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
@@ -87,7 +92,7 @@ export default class ListVideo extends Component {
                         renderItem={({item}) => (
                             <TouchableOpacity
                                 onPress={() => navigate('VideoPlayerTV', {item: item, data: this.state.data})}
-                                style={styles.touchall}>
+                                style={[styles.touchall, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                                 <FastImage style={styles.imageview} source={{uri: item.image}}
                                            resizeMode={FastImage.resizeMode.contain}/>
                             </TouchableOpacity>
@@ -99,4 +104,11 @@ export default class ListVideo extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {getSubCategory, darkMode})(ListVideo);
 

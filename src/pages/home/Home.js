@@ -21,6 +21,8 @@ import constants from '../../assets/constants';
 import HomeAudio from './tab/HomeAudio';
 import {connect} from 'react-redux';
 import {getDataHome} from '../../redux/actions/productAction';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
 class Home extends Component {
     constructor(props) {
@@ -101,6 +103,8 @@ class Home extends Component {
         const {navigate} = this.props.navigation;
         const music = this.state.music;
         const radio = this.state.radio;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
             <View style={styles.container}>
                 <HeaderComponent
@@ -113,37 +117,38 @@ class Home extends Component {
                     <Tabs
                         locked={true}
                         tabBarUnderlineStyle={{backgroundColor: '#D0021B', height: 1}}
-                        renderTabBar={() => <ScrollableTab style={{backgroundColor: 'white', borderBottomWidth: 0}}/>}>
-                        <Tab tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                        renderTabBar={() => <ScrollableTab
+                            style={{backgroundColor: ThemeConstants[theme].backgroundCard, borderBottomWidth: 0}}/>}>
+                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
+                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.EBook}>
                             <HomeEbook
                                 // data={getdatahome}
                                 navigation={this.props.navigation}/>
                         </Tab>
-                        <Tab tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
+                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.AudioBook}>
                             <AudioBook
                                 data={data_bookAudio}
                                 navigation={this.props.navigation}/>
                         </Tab>
-                        <Tab tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
+                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.TVshow}>
                             <ListVideo navigation={this.props.navigation}/>
                         </Tab>
-                        <Tab tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
+                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Radio}>
                             <Radio data={radio} navigation={this.props.navigation}/>
                         </Tab>
-                        <Tab tabStyle={{backgroundColor: 'white'}}
-                             activeTabStyle={{backgroundColor: 'white'}}
+                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
+                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Music}>
                             <ListMusic
@@ -161,7 +166,8 @@ function mapStateToProps(state) {
     return {
         getdatahome: state.productReducers.gethome,
         isFetching: state.productReducers.isFetching,
+        isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {getDataHome})(Home);
+export default connect(mapStateToProps, {getDataHome, darkMode})(Home);

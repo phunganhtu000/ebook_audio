@@ -10,6 +10,7 @@ export default class Styles {
                 borderBottomWidth: 0.3,
                 borderBottomColor: 'silver',
                 justifyContent: 'center',
+                // paddingBottom: setWidth('2%'),
 
             },
             body: {
@@ -31,12 +32,6 @@ export default class Styles {
                 alignItems: 'center',
                 justifyContent: 'center',
                 transform: [{scaleX: isRTL ? -1 : 1}],
-                ...
-                    ifIphoneX({
-                        marginTop: 25,
-                    }, {
-                        marginTop: 10,
-                    }),
             },
             icon: {
                 fontSize: 25,
@@ -55,14 +50,7 @@ export default class Styles {
                 width: setWidth('50%'),
                 fontWeight:
                     '400',
-                fontSize:
-                    25,
-                ...
-                    ifIphoneX({
-                        marginTop: 24,
-                    }, {
-                        marginTop: 10,
-                    }),
+                fontSize: 25,
                 textAlign: 'center',
             },
 

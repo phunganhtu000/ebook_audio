@@ -21,26 +21,14 @@ import styles_three from './styles/style_three';
 import {connect} from 'react-redux';
 import {getCategory} from '../../redux/actions/productAction';
 import Constant from '../../utils/Constant_Api';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
 class Category extends Component {
   constructor(props) {
     super();
     this.state = {
       isLoading: true,
-      data: [
-        {cate: 'New Book', image: 'https://ss-images.catscdn.vn/2017/12/04/1874881/1-1510294339925.jpg'},
-        {cate: 'Ebook', image: 'https://cdn02.static-adayroi.com/0/2016/03/11/1457670736919_2736158.jpg'},
-        {
-          cate: 'Audio Book',
-          image: 'https://isach.info/images/story/cover/gui_thoi_dep_de_don_thuan_cua_chung_ta__trieu_kien_kien.jpg',
-        },
-        {cate: 'Economic', image: 'https://ss-images.catscdn.vn/2017/12/04/1874881/1-1510294339925.jpg'},
-        {cate: 'Delicious', image: 'https://cdn02.static-adayroi.com/0/2016/03/11/1457670736919_2736158.jpg'},
-        {
-          cate: 'Mentality',
-          image: 'http://img.thichtruyen.vn/data/anh-truyen/2015/ky-an-anh-trang-thichtruyen.vn.jpg',
-        },
-      ],
       styles: Styles.getSheet(false),
     };
   }
@@ -112,8 +100,10 @@ class Category extends Component {
     const styles = this.state.styles;
     console.log('styles :' + JSON.stringify(styles));
     const {navigate} = this.props.navigation;
+      const {isDarkTheme} = this.props;
+      const theme = isDarkTheme ? 'dark' : 'light';
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,{backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
         <HeaderComponent
           left='true'
           onPressRight={() => navigate('Search')}
@@ -154,7 +144,8 @@ function mapStateToProps(state) {
   return {
     category: state.productReducers.category,
     isFetching: state.productReducers.isFetching,
+      isDarkTheme: state.settingReducers.currentValue,
   };
 }
 
-export default connect(mapStateToProps, {getCategory})(Category);
+export default connect(mapStateToProps, {getCategory,darkMode})(Category);

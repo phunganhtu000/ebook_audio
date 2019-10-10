@@ -19,7 +19,7 @@ export default class Styles {
         return StyleSheet.create({
             container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
             shadow: {
                 borderRadius: 15,

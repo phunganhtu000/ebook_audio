@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
-import FastImage from "react-native-fast-image";
+import FastImage from 'react-native-fast-image';
 import Locales from '../../assets/languages/languages';
 import Styles from './styles/Styles';
 import {marginTop10, marginTop20} from '../../cores/styles/styleView';
-import api from '../../api/offline/api'
+import api from '../../api/offline/api';
 import {
     StyleSheet,
     Text,
@@ -15,23 +15,27 @@ import {
     TouchableOpacity,
     View,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
 } from 'react-native';
 import {colors} from '../../cores/styles/colors';
 import Constant from '../../utils/Constant_Api';
+import {connect} from 'react-redux';
+import {getSubCategory} from '../../redux/actions/productAction';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
-export default class Search extends Component {
+class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: '',
-            dataSource:[],
+            dataSource: [],
             input: false,
             check: null,
             address: '',
             color: colors.white,
             ModalVisibleStatus: false,
-        }
+        };
 
     }
 
@@ -42,14 +46,14 @@ export default class Search extends Component {
 
     onFocus() {
         this.setState({
-            color: colors.iOSBlue
-        })
+            color: colors.iOSBlue,
+        });
     }
 
     onBlur() {
         this.setState({
-            color: colors.white
-        })
+            color: colors.white,
+        });
     }
 
     search = text => {
@@ -62,22 +66,25 @@ export default class Search extends Component {
     SearchFilterFunction(text) {
         this.setState({
             search: text,
-        },()=>{this.fetchData(this.state.search)});
+        }, () => {
+            this.fetchData(this.state.search);
+        });
     }
+
     fetchData(text) {
-        this.setState({ text });
+        this.setState({text});
         const url = `${Constant.url}${Constant.searchApi}${this.state.search}`;
-        console.log('ủrl'+url)
+        console.log('ủrl' + url);
         fetch(url)
-          .then(response => response.json())
-          .then((responseJson) => {
-              this.setState({
-                  dataSource: responseJson.EBOOK_APP,
-              });
-          })
-          .catch((error) => {
-              console.log(error);
-          });
+            .then(response => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    dataSource: responseJson.EBOOK_APP,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     ListViewItemSeparator = () => {
@@ -94,27 +101,33 @@ export default class Search extends Component {
 
     render() {
         // const {data}=this.props;
-        console.log('dataLog  '+JSON.stringify(this.state.dataSource))
-        const styles = Styles.getSheet(this.state.isRTL)
+        console.log('dataLog  ' + JSON.stringify(this.state.dataSource));
+        const styles = Styles.getSheet(this.state.isRTL);
         const {navigation} = this.props;
         const {navigate} = this.props.navigation;
         const image = `${Constant.images}`;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <KeyboardAvoidingView style={styles.container}  enabled>
+            <KeyboardAvoidingView style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}
+                                  enabled>
                 <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent/>
                 <View style={styles.accBar}>
-                    <View style={styles.searchBar}>
-                        <TextInput
-                            autoFocus={true}
-                            round
-                            onChangeText={text => this.SearchFilterFunction(text)}
-                            onClear={text => this.SearchFilterFunction('')}
-                            placeholder={Locales.TypeHere}
-                            value={this.state.search}
-                        />
-                    </View>
+                    <TextInput
+                        autoFocus={true}
+                        round
+                        onChangeText={text => this.SearchFilterFunction(text)}
+                        onClear={text => this.SearchFilterFunction('')}
+                        placeholder={Locales.TypeHere}
+                        placeholderTextColor={ThemeConstants[theme].textColor}
+                        value={this.state.search}
+                        style={[styles.input, {
+                            backgroundColor: ThemeConstants[theme].backgroundCard,
+                            color: ThemeConstants[theme].textColor,
+                        }]}
+                    />
                     <TouchableOpacity onPress={() => {
-                        navigation.goBack()
+                        navigation.goBack();
                     }} style={styles.filter}>
                         <Text style={[styles.txtBar, {color: colors.iOSBlue, fontSize: 15}]}>{Locales.Cancel}</Text>
                     </TouchableOpacity>
@@ -135,13 +148,11 @@ export default class Search extends Component {
                                                    source={{uri: `${image}${item.book_cover_img}`}}/>
                                     </View>
                                     <View style={styles.viewText}>
-                                        <TextComponent style={styles.text}>{item.book_title}</TextComponent>
+                                        <TextComponent numberOfLines={2}
+                                                       style={[styles.text, {color: ThemeConstants[theme].textColor}]}>{item.book_title}</TextComponent>
                                         <View style={styles.horizontal}>
-                                            <View style={styles.row}><TextComponent
-                                                style={[styles.textAuthor, {...marginTop10}]}>Published
-                                                from </TextComponent><TextComponent
-                                                style={[styles.texttag, {...marginTop10}]}>istudio</TextComponent>
-                                            </View>
+                                            <TextComponent
+                                                style={[styles.textAuthor, {...marginTop10}]}>{item.author_name}</TextComponent>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -155,13 +166,13 @@ export default class Search extends Component {
         );
     }
 }
-// function mapStateToProps(state) {
-//     return {
-//         data: state.productReducers.search,
-//         isFetching: state.productReducers.isFetching,
-//     };
-// }
-//
-// export default connect(mapStateToProps, {getSearch})(Search);
+
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {getSubCategory, darkMode})(Search);
 
 

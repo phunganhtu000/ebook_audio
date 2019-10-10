@@ -17,33 +17,31 @@ export default class Styles {
         return StyleSheet.create({
             container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
             body: {
-                marginTop: 25,
-                alignItems: 'center',
-                justifyContent: 'center',
-                ...marginComponent,
-
+                paddingHorizontal:setWidth('2.5%'),
+                marginTop:setWidth('2.5%')
             },
             itemView: {
                 flexDirection: 'row',
+            },
+            image: {
+                width: setWidth('42.5%'),
+                height: setWidth('60%'),
+                borderRadius: 10,
+                resizeMode: 'cover',
                 alignItems: 'center',
                 justifyContent: 'center',
 
             },
-            image: {
-                width: '100%',
-                height: setWidth('60%'),
-                borderRadius: 10,
-                resizeMode: 'cover',
-
-            },
             imageItemTwo: {
-                width: '100%',
-                height: setWidth('65%'),
+                width: setWidth('42.5%'),
+                height: setWidth('67%'),
                 borderRadius: 10,
                 resizeMode: 'cover',
+                alignItems: 'center',
+                justifyContent: 'center',
             },
             tab: {
                 backgroundColor: colors.background,
@@ -55,14 +53,14 @@ export default class Styles {
             column: {
                 flex: 1,
                 flexDirection: 'column',
-                margin: 5,
             },
             row: {
                 flexDirection: 'row',
             },
             item: {
                 flex: 1,
-                marginBottom: 15,
+               // marginBottom: 15,
+                margin:setWidth('2.5%')
 
             },
             title: {
@@ -110,20 +108,18 @@ export default class Styles {
             },
             btnPlay: {
                 position: 'absolute',
-                backgroundColor: colors.transparentBlack,
                 right: 10,
                 bottom: 10,
+                backgroundColor: 'black',
                 width: setWidth('10%'),
                 height: setWidth('10%'),
-                borderRadius: 37 / 2,
+                borderRadius: setWidth('10%'),
                 alignItems: 'center',
                 justifyContent: 'center',
             },
-
             iconPlay: {
                 color: colors.white,
-                marginLeft: 5,
-                fontSize: 18,
+                fontSize: 20,
             },
             viewList: {
                 width: setWidth('100%'),

@@ -5,19 +5,23 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native';
-import FastImage from "react-native-fast-image";
-import api from '../../api/offline/api'
-import Video from "react-native-video";
+import FastImage from 'react-native-fast-image';
+import api from '../../api/offline/api';
+import Video from 'react-native-video';
 import {getDataOfflineMode, inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import styles_three from './style/style_three';
 import Playmusic from '../music/playMusic/Playmusic';
 import Styles from './style/Styles';
 import Styles_Two from './style/style_two';
-import GLOBAL from '../../cores/utils/global'
+import GLOBAL from '../../cores/utils/global';
 import PlayRadio from './PlayRadio';
+import {connect} from 'react-redux';
+import {getSubCategory} from '../../redux/actions/productAction';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
-export default class Radio extends Component {
+class Radio extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,7 +38,7 @@ export default class Radio extends Component {
             data: [],
             radio: '',
             channels: '',
-            name: ''
+            name: '',
 
         },
             this.video = Video;
@@ -44,8 +48,8 @@ export default class Radio extends Component {
     async componentDidMount() {
         this.setState({
             data: api.radio,
-        })
-        this.changeStyle();
+        });
+        // this.changeStyle();
     }
 
 
@@ -61,7 +65,7 @@ export default class Radio extends Component {
 
     // video ends
     onEnd = () => {
-        this.setState({paused: true, pausedText: 'Play'})
+        this.setState({paused: true, pausedText: 'Play'});
         this.video.seek(0);
     };
 
@@ -84,8 +88,9 @@ export default class Radio extends Component {
             pausedText = 'Play';
 
             // always show controls
-            if (this.timeoutHandle)
+            if (this.timeoutHandle) {
                 clearTimeout(this.timeoutHandle);
+            }
         } else {
             pausedText = 'Pause';
 
@@ -116,13 +121,13 @@ export default class Radio extends Component {
         var seconds = sec_num - (hours * 3600) - (minutes * 60);
 
         if (hours < 10) {
-            hours = "0" + hours;
+            hours = '0' + hours;
         }
         if (minutes < 10) {
-            minutes = "0" + minutes;
+            minutes = '0' + minutes;
         }
         if (seconds < 10) {
-            seconds = "0" + seconds;
+            seconds = '0' + seconds;
         }
 
         return minutes + ':' + seconds;
@@ -139,55 +144,57 @@ export default class Radio extends Component {
     //         });
     // }
 
-    async changeStyle() {
-        const rtl = await getDataOfflineMode(constants.isRTL)
-        this.setState({
-            isRTL: rtl
-        })
-        const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
-
-        this.setState({
-            changeStyle: change_style
-        }, () => {
-            if (inValidateText(change_style)) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-
-
-            } else if (this.state.changeStyle === 0) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 1) {
-                this.setState({
-                    styles: Styles_Two.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 2) {
-                this.setState({
-                    styles: styles_three.getSheet(this.state.isRTL)
-                })
-            } else if (this.state.changeStyle === 3) {
-                this.setState({
-                    styles: Styles.getSheet(this.state.isRTL)
-                })
-            }
-
-        }, console.log("change_style :" + change_style))
-        this.setState({
-            // styles: getStyleType()
-        })
-    }
+    // async changeStyle() {
+    //     const rtl = await getDataOfflineMode(constants.isRTL)
+    //     this.setState({
+    //         isRTL: rtl
+    //     })
+    //     const change_style = await getDataOfflineMode(constants.CHANGE_STYLE);
+    //
+    //     this.setState({
+    //         changeStyle: change_style
+    //     }, () => {
+    //         if (inValidateText(change_style)) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //
+    //
+    //         } else if (this.state.changeStyle === 0) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 1) {
+    //             this.setState({
+    //                 styles: Styles_Two.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 2) {
+    //             this.setState({
+    //                 styles: styles_three.getSheet(this.state.isRTL)
+    //             })
+    //         } else if (this.state.changeStyle === 3) {
+    //             this.setState({
+    //                 styles: Styles.getSheet(this.state.isRTL)
+    //             })
+    //         }
+    //
+    //     }, console.log("change_style :" + change_style))
+    //     this.setState({
+    //         // styles: getStyleType()
+    //     })
+    // }
 
 
     render() {
         const {navigate} = this.props.navigation;
-        console.log("GLOBAL: " + JSON.stringify(GLOBAL.isRTL))
-        console.log("GLOBAL hhgch: " + GLOBAL.isRTL)
-        const styles = this.state.styles
+        console.log('GLOBAL: ' + JSON.stringify(GLOBAL.isRTL));
+        console.log('GLOBAL hhgch: ' + GLOBAL.isRTL);
+        const styles = this.state.styles;
         //const styles = Styles.getSheet(this.state.isRTL)
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <ScrollView>
                     <View style={styles.body}>
                         {/*<FlatList*/}
@@ -213,9 +220,9 @@ export default class Radio extends Component {
                                         radio: item.url,
                                         channels: item.channels,
                                         name: item.name,
-                                        image: item.image
+                                        image: item.image,
                                     })}
-                                    style={styles.touchall}>
+                                    style={[styles.touchall, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                                     <FastImage style={styles.imageview} source={{uri: item.image}}
                                                resizeMode={FastImage.resizeMode.contain}/>
                                 </TouchableOpacity>
@@ -223,31 +230,6 @@ export default class Radio extends Component {
                             numColumns={3}/>
                     </View>
                 </ScrollView>
-                {/*<View style={styles.fooder}>*/}
-                {/*    <View>*/}
-                {/*        <View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
-                {/*            <Icon style={styles.iconbar} type='Foundation' name='graph-bar'/>*/}
-                {/*            <TextComponent style={{color: '#fff', fontSize: 18}}>{this.state.channels}</TextComponent>*/}
-                {/*        </View>*/}
-                {/*        <TextComponent*/}
-                {/*            style={{color: '#fff', fontSize: 18, marginTop: 2}}>{this.state.name}</TextComponent>*/}
-
-                {/*    </View>*/}
-                {/*    <TouchableOpacity*/}
-                {/*        onPress={() => this.onPressBtnPlay()}*/}
-                {/*        style={{flexDirection: 'row'}}>*/}
-                {/*        /!*<Icon style={styles.iconplay} type='SimpleLineIcons' name='refresh'/>*!/*/}
-                {/*        <Icon style={styles.iconplay1} type='FontAwesome' name='play'/>*/}
-                {/*    </TouchableOpacity>*/}
-                {/*</View>*/}
-                {/*{this.state.check == false ? null : <View style={styles.viewplay}>*/}
-                {/*    <PlayRadio*/}
-                {/*        name={this.state.name}*/}
-                {/*        radio={this.state.radio}*/}
-                {/*        channels={this.state.channels}*/}
-                {/*        closeRadio={() => this.setState({check: false})}*/}
-                {/*        navigation={this.props.navigation}/>*/}
-                {/*</View>}*/}
                 {this.state.check == false ? null : <View style={styles.viewplay}>
                     <PlayRadio
                         name={this.state.name}
@@ -262,3 +244,10 @@ export default class Radio extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {getSubCategory, darkMode})(Radio);

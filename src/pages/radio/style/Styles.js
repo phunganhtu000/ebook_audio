@@ -17,10 +17,11 @@ export default class styles {
         return StyleSheet.create({
             container: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#F3F6F5',
             },
             body: {
-                ...marginComponent
+                paddingHorizontal: setWidth('2%'),
+                marginTop: setWidth('2%'),
             },
             viewflatl: {
                 flexDirection: 'row',
@@ -85,13 +86,13 @@ export default class styles {
             },
             touchall: {
                 justifyContent: 'center',
-                flex: 1,
                 alignItems: 'center',
-                height: 150,
-                margin: 5,
-                backgroundColor: colors.lightGray,
-                paddingHorizontal: 5,
+                width: setWidth('28%'),
+                height: setWidth('40%'),
+                margin: setWidth('2%'),
+                backgroundColor: '#fff',
                 borderRadius: 10,
+                paddingHorizontal:setWidth('2%')
                 // ...shadowComponent,
             },
             viewplay: {
