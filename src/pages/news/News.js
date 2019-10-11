@@ -14,7 +14,7 @@ import {
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import FastImage from 'react-native-fast-image';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import {getDataOfflineMode, inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import Styles from './styles/styles';

@@ -18,7 +18,7 @@ import {colors} from '../../../cores/styles/colors';
 import ButtonBottom from '../../button/ButtonBottom';
 import {getDataOfflineMode, saveDataOfflineMode} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../../assets/constants';
-import Locales from '../../../assets/languages/languages';
+import Locales from '../../../cores/languages/languages';
 import saveDownload from '../../../api/saveDownload/saveData';
 import Constant from '../../../utils/Constant_Api';
 import HTML from 'react-native-render-html';

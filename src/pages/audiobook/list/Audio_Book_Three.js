@@ -25,6 +25,7 @@ import Constant from '../../../utils/Constant_Api';
 import {medium} from '../../../cores/styles/styleText';
 import {darkMode} from '../../../redux/actions/settingAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
+import Locales from '../../../cores/languages/languages';
 
 class AudioBookThree extends Component {
     constructor(props) {
@@ -254,7 +255,7 @@ class AudioBookThree extends Component {
                                                 ...medium,
                                                 marginLeft: 15,
                                                 color: ThemeConstants[theme].textColor,
-                                            }}>Sách liên quan</TextComponent>
+                                            }}>{Locales.relatedbooks}</TextComponent>
                                             <View style={styles.body2}>
                                                 <FlatList
                                                     // horizontal

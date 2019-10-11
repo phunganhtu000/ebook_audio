@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import {styles} from './styles/styles';
 import {Container, Header, Tab, Tabs, ScrollableTab, TabHeading} from 'native-base';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import api from '../../api/offline/api';
 import Comment from './tabEbook/Comment';
 import Infor from './tabEbook/Infor';
@@ -50,7 +50,7 @@ class Ebook extends Component {
                     iconLeft='ios-arrow-back'
                     left='back'
                     typeIconRight='EvilIcons'
-                    title={Locales.EBook}
+                    title={Locales.Ebook}
                     iconRight='share-apple'
                     onPressLeft={() => navigation.goBack()}
                 />
@@ -60,7 +60,7 @@ class Ebook extends Component {
                     <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          textStyle={{color: '#C5C4C4'}}
-                         activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.E_book}>
+                         activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Infor}>
                         <Infor
                             navigation={this.props.navigation}/>
                     </Tab>

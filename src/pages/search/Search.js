@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import Styles from './styles/Styles';
 import {marginTop10, marginTop20} from '../../cores/styles/styleView';
 import api from '../../api/offline/api';
@@ -118,7 +118,7 @@ class Search extends Component {
                         round
                         onChangeText={text => this.SearchFilterFunction(text)}
                         onClear={text => this.SearchFilterFunction('')}
-                        placeholder={Locales.TypeHere}
+                        placeholder={Locales.Search}
                         placeholderTextColor={ThemeConstants[theme].textColor}
                         value={this.state.search}
                         style={[styles.input, {

@@ -16,10 +16,10 @@ import Styles from './styles/Styles';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
 import {Icon} from 'native-base';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import Mailer from 'react-native-mail';
 import Rate, {AndroidMarket} from 'react-native-rate';
-import {getDataOfflineMode, validateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
+import {getDataOfflineMode, setWidth, validateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import firebaseConfig from 'firebase';
 import global from '../../cores/utils/global';
@@ -27,6 +27,7 @@ import {connect} from 'react-redux';
 import {checkLogin} from '../../redux/actions/loginAction';
 import {darkMode} from '../../redux/actions/settingAction';
 import {ThemeConstants} from '../../cores/theme/Theme';
+import HeaderLogin from '../../compoment/HeaderLogin';
 
 class Profile extends Component {
     constructor(props) {
@@ -122,37 +123,39 @@ class Profile extends Component {
                     title={Locales.Profile}/>
                 <ScrollView>
                     <View style={styles.body}>
+                        {/*<HeaderLogin navigation={this.props.navigation}/>*/}
                         {/*{validateText(login) ?*/}
-                        <TouchableOpacity
-                            onPress={() => navigate('UpdateProfile')}
-                            style={[styles.information2, styles.horizontal2]}>
+                        {/*    <TouchableOpacity*/}
+                        {/*        onPress={() => navigate('UpdateProfile')}*/}
+                        {/*        style={[styles.information2, styles.horizontal2]}>*/}
 
-                            <View>
-                                <FastImage style={styles.avatar}
-                                           source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
-                                           resizeMode={FastImage.resizeMode.contain}/>
-                            </View>
-                            <View>
-                                <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt
-                                    Jye</TextComponent>
-                                <TextComponent style={styles.email}>Vietjye2707</TextComponent>
-                            </View>
-                        </TouchableOpacity>
-                        {/*: null*/}
+                        {/*        <View>*/}
+                        {/*            <FastImage style={styles.avatar}*/}
+                        {/*                       source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}*/}
+                        {/*                       resizeMode={FastImage.resizeMode.contain}/>*/}
+                        {/*        </View>*/}
+                        {/*        <View>*/}
+                        {/*            <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt*/}
+                        {/*                Jye</TextComponent>*/}
+                        {/*            <TextComponent style={styles.email}>Vietjye2707</TextComponent>*/}
+                        {/*        </View>*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*    : <HeaderLogin navigation={this.props.navigation}/>*/}
                         {/*}*/}
-
-
                         <TouchableOpacity
                             onPress={() => navigate('Setting')}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Setting}</TextComponent>
-                            </View>
-                            <View>
+                            <View style={{flexDirection: 'row'}}>
                                 <Icon name='settings' type='SimpleLineIcons'
-                                      style={[styles.icon, {color: ThemeConstants[theme].textColor}]}/>
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Settings}</TextComponent>
                             </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         {/*<TouchableOpacity*/}
                         {/*    onPress={() => navigate('Downloads')}*/}
@@ -167,26 +170,32 @@ class Profile extends Component {
                         <TouchableOpacity
                             onPress={() => this.openWeb()}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.frequently_asked_questions}</TextComponent>
-                            </View>
-                            <View>
+                            <View style={{flexDirection: 'row'}}>
                                 <Icon name='questioncircleo' type='AntDesign'
-                                      style={[styles.icon, {color: ThemeConstants[theme].textColor}]}/>
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.frequentlyaskedquestions}</TextComponent>
                             </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.openWeb()}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.MoreApps}</TextComponent>
-                            </View>
-                            <View>
+                            <View style={{flexDirection: 'row'}}>
                                 <Icon name='appstore-o' type='AntDesign'
-                                      style={[styles.icon, {color: ThemeConstants[theme].textColor}]}/>
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.MoreApp}</TextComponent>
                             </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         {/*<TouchableOpacity*/}
                         {/*    onPress={() => this.openWeb()}*/}
@@ -202,12 +211,17 @@ class Profile extends Component {
                             // onPress={() => navigate('Downloads')}
                             onPress={() => this.handleEmail()}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent style={[styles.lang,{color: ThemeConstants[theme].textColor}]}>{Locales.Feedback}</TextComponent>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='message1' type='AntDesign'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Feedback}</TextComponent>
                             </View>
-                            <View>
-                                <Icon name='message1' type='AntDesign' style={[styles.icon,{color: ThemeConstants[theme].textColor}]}/>
-                            </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         {/*<TouchableOpacity*/}
                         {/*    // onPress={() => this.setState({ isModalOpen: true })}*/}
@@ -263,12 +277,17 @@ class Profile extends Component {
                         <TouchableOpacity
                             onPress={this.signOut}
                             style={[styles.information, styles.horizontal]}>
-                            <View>
-                                <TextComponent style={[styles.lang,{color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='logout' type='AntDesign'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>
                             </View>
-                            <View>
-                                <Icon name='logout' type='AntDesign' style={[styles.icon,{color: ThemeConstants[theme].textColor}]}/>
-                            </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         {/*: null*/}
                         {/*}*/}

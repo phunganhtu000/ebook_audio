@@ -11,9 +11,8 @@ export default class Styles {
 
             },
             body: {
-                marginLeft: 10,
-                marginRight: 10,
-                paddingHorizontal:10
+
+                paddingHorizontal:20
             },
             information: {
                 marginTop: 20,
@@ -47,11 +46,9 @@ export default class Styles {
                 marginBottom: 5
             },
             icon: {
-                fontSize: setWidth('5%'),
+                fontSize: setWidth('7%'),
                 // color: '$textColor'
                 transform: [{scaleX: isRTL ? -1 : 1}],
-                marginLeft: isRTL ? 0 : 10,
-                marginRight: isRTL ? 10 : 0,
             },
             modal: {
                 flex: 1,

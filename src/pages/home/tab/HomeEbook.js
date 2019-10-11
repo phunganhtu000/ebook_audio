@@ -24,7 +24,7 @@ import constants from '../../../assets/constants';
 import Styles from '../styles/styleEbook';
 import Styles_Two from '../styles/styleEbook_two';
 import styles_three from '../styles/styleEbook_three';
-import Locales from '../../../assets/languages/languages';
+import Locales from '../../../cores/languages/languages';
 import {connect} from 'react-redux';
 import {getDataHome} from '../../../redux/actions/productAction';
 import Constant from '../../../utils/Constant_Api';
@@ -196,7 +196,7 @@ class HomeEbook extends Component {
                     </ScrollView>
                     <View style={styles.body}>
                         <View style={styles.itemHeader}>
-                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.News}</TextComponent>
+                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.New}</TextComponent>
                             <TextComponent onPress={() => navigate('ListItem', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
@@ -206,7 +206,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.featured_books || []}
                             renderItem={({item}) => (
-                                <Card onPress={() => navigate('Ebook', {
+                                <Card onPress={() => navigate('Details', {
                                     data: item,
                                 })}
                                       style={[styles.topSing, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
@@ -245,7 +245,7 @@ class HomeEbook extends Component {
                             // data={data}
                             data={getdatahome.popular_books || []}
                             renderItem={({item}) => (
-                                <Card onPress={() => navigate('Ebook', {data: item})}
+                                <Card onPress={() => navigate('Details', {data: item})}
                                       style={[styles.topSing, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                                     <FastImage style={styles.imageSinger}
                                                source={{uri: `${image}${item.book_cover_img}`}}/>

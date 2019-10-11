@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Tab, Container, TabHeading, Tabs, ScrollableTab} from 'native-base';
 import AudioBookThree from './list/Audio_Book_Three';
 import HeaderComponent from '../headerComponent/HeaderComponent';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import AudioBook from './list/AudioBook';
 import Comment from './list/Comment';
 import {connect} from 'react-redux';
@@ -40,14 +40,14 @@ class Tab_AudioBook extends Component {
                     <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          textStyle={{color: '#C5C4C4'}}
-                         activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.NowPlaying}>
+                         activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.NowPlay}>
                         <AudioBookThree data={data} navigation={navigations}/>
                     </Tab>
                     <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                          textStyle={{color: '#C5C4C4'}}
                          activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}}
-                         heading={Locales.Info}>
+                         heading={Locales.Infor}>
                         <AudioBook data={data} navigation={navigations}/>
                     </Tab>
                     <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}

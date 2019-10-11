@@ -15,6 +15,22 @@ export const getlanguage = async () => {
         return value;
     }
 };
+export const saveDarkMode = async (theme) => {
+    await AsyncStorage.setItem('@darkmode', JSON.stringify(theme));
+
+};
+export const getdarkmode = async () => {
+    let value = '';
+    try {
+        const value = await AsyncStorage.getItem('@darkmode');
+        if (value !== null) {
+            return JSON.parse(value);
+        }
+        return value;
+    } catch (error) {
+        return value;
+    }
+};
 export const saveProfile = async (language) => {
     await AsyncStorage.setItem('@profile', JSON.stringify(language));
 

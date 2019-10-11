@@ -24,6 +24,8 @@ import styles_three from './styles/style_three';
 import {connect} from 'react-redux';
 import {getDetail, getSubCategory} from '../../redux/actions/productAction';
 import Constant from '../../utils/Constant_Api';
+import {darkMode} from '../../redux/actions/settingAction';
+import {ThemeConstants} from '../../cores/theme/Theme';
 
 class AllItem extends Component {
     constructor(props) {
@@ -111,8 +113,10 @@ class AllItem extends Component {
         const {navigate} = this.props.navigation;
         const {navigation} = this.props;
         const image = `${Constant.images}`;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <HeaderComponent
                     iconLeft='ios-arrow-back'
                     left='back'
@@ -124,26 +128,31 @@ class AllItem extends Component {
                             // horizontal
                             // numColumns={2}
                             data={data}
-                            renderItem={({item}) => (
+                            renderItem={({item, index}) => (
                                 <TouchableOpacity
                                     onPress={() => navigate('Details', {data: item})}
                                     style={styles.item}>
                                     <View style={styles.viewId}>
-                                        <TextComponent></TextComponent>
+                                        <TextComponent
+                                            style={{color: ThemeConstants[theme].textColor}}>{index + 1}</TextComponent>
                                     </View>
                                     <View style={styles.shadow}>
                                         <FastImage style={[styles.imageItem]}
                                                    source={{uri: `${image}${item.book_cover_img}`}}/>
                                     </View>
                                     <View style={styles.viewText}>
-                                        <TextComponent style={styles.text}>{item.book_title}</TextComponent>
+                                        <TextComponent
+                                            style={[styles.text, {color: ThemeConstants[theme].textColor}]}>{item.book_title}</TextComponent>
                                         <View style={styles.horizontal}>
                                             <View style={styles.row}>
                                                 <TextComponent
                                                     style={[styles.textAuthor, {...marginTop10}]}>Published
                                                     from </TextComponent>
                                                 <TextComponent
-                                                    style={[styles.texttag, {...marginTop10}]}>{item.author_name}</TextComponent>
+                                                    style={[styles.texttag, {
+                                                        ...marginTop10,
+                                                        color: ThemeConstants[theme].textColor,
+                                                    }]}>{item.author_name}</TextComponent>
                                             </View>
                                             {/*<TextComponent style={styles.textAuthor}>00:50</TextComponent>*/}
                                         </View>
@@ -160,7 +169,8 @@ class AllItem extends Component {
 function mapStateToProps(state) {
     return {
         data: state.productReducers.sub_category,
+        isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {getSubCategory})(AllItem);
+export default connect(mapStateToProps, {getSubCategory, darkMode})(AllItem);

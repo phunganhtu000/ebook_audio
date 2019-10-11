@@ -18,9 +18,14 @@ import Styles from './stylePlaymusic';
 import Video from 'react-native-video';
 import Slider from '@react-native-community/slider';
 import constants from '../../../assets/constants';
+import {connect} from 'react-redux';
+import {getLatest} from '../../../redux/actions/productAction';
+import {darkMode} from '../../../redux/actions/settingAction';
+import {ThemeConstants} from '../../../cores/theme/Theme';
 
 const {width} = Dimensions.get('window');
-export default class Playmusic extends Component {
+
+class Playmusic extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -158,13 +163,15 @@ export default class Playmusic extends Component {
     render() {
         const styles = Styles.getSheet(this.state.isRTL);
         const {navigate} = this.props.navigation;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.body}
+            <View style={[styles.container,{backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                <TouchableOpacity style={[styles.body,{backgroundColor: ThemeConstants[theme].backgroundCard}]}
                                   onPress={() => {
                                       this.setModalVisible(true);
                                   }}>
-                    <View style={styles.viewplay}>
+                    <View style={[styles.viewplay]}>
                         {/*<Icon style={styles.iconbar} type='Foundation' name='graph-bar'/>*/}
                         <FastImage style={styles.imageplay}
                                    source={{uri: this.props.avt}}>
@@ -180,8 +187,8 @@ export default class Playmusic extends Component {
                             {/*</TouchableOpacity>*/}
                         </FastImage>
                         <View style={styles.viewnamesinger}>
-                            <TextComponent style={styles.textmusic}>{this.props.name}</TextComponent>
-                            <TextComponent style={styles.textsinger}>{this.props.singer}</TextComponent>
+                            <TextComponent style={[styles.textmusic,{color: ThemeConstants[theme].textColor}]}>{this.props.name}</TextComponent>
+                            <TextComponent style={[styles.textsinger,{color: ThemeConstants[theme].textColor}]}>{this.props.singer}</TextComponent>
                         </View>
                     </View>
                     <TouchableOpacity>
@@ -312,3 +319,10 @@ export default class Playmusic extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {darkMode})(Playmusic);

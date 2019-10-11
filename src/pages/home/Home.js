@@ -5,7 +5,7 @@ import Styles from './styles/styles';
 import {Container, Header, Tab, Tabs, ScrollableTab, TabHeading} from 'native-base';
 import Ebook from './tab/Ebook';
 import AudioBook from './tab/AudioBook';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import ListVideo from '../video/ListVideo';
 import Radio from '../radio/Radio';
 import api from '../../api/offline/api';
@@ -122,7 +122,7 @@ class Home extends Component {
                         <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
-                             activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.EBook}>
+                             activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Ebook}>
                             <HomeEbook
                                 // data={getdatahome}
                                 navigation={this.props.navigation}/>
@@ -138,7 +138,7 @@ class Home extends Component {
                         <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
                              textStyle={{color: '#C5C4C4'}}
-                             activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.TVshow}>
+                             activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.TvShow}>
                             <ListVideo navigation={this.props.navigation}/>
                         </Tab>
                         <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}

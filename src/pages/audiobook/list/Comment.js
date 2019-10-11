@@ -6,57 +6,77 @@ import TextComponent from '../../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
 import {Icon, Input} from 'native-base';
 import {colors} from '../../../cores/styles/colors';
+import {connect} from 'react-redux';
+import {darkMode} from '../../../redux/actions/settingAction';
+import {ThemeConstants} from '../../../cores/theme/Theme';
+import Locales from '../../../cores/languages/languages';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default class Comment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+class Comment extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.body}>
-            <FlatList
-              data={this.props.data[0].user_comments}
-              renderItem={({item}) =>
-                <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 20, width: '90%'}}>
-                  <FastImage
-                    source={{uri: 'https://yt3.ggpht.com/a/AGF-l799RR3CxLJyrEVhm8cplh4DLoB58UC3qfKqBQ=s900-mo-c-c0xffffffff-rj-k-no'}}
-                    style={styles.image}/>
-                  <View style={{marginLeft: '2.5%', width: '80%'}}>
-                    <View style={styles.horizontal}>
-                      <TextComponent style={styles.txtName}>{item.user_name}</TextComponent>
-                      <TextComponent
-                        style={{color: colors.color_text_second, fontSize: 13}}>{item.dt_rate}</TextComponent>
-                    </View>
-                    <View style={{width: '20%'}}>
-                    </View>
-                    <TextComponent
-                      style={{color: colors.color_text_second, fontSize: 14}}>{item.comment_text}</TextComponent>
-                  </View>
-                </View>}
-            />
+    render() {
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
+        return (
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
+                <View style={styles.body}>
+                    <FlatList
+                        data={this.props.data[0].user_comments}
+                        renderItem={({item}) =>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 10,
+                                width: '90%',
+                            }}>
+                                <FastImage
+                                    source={{uri: 'https://yt3.ggpht.com/a/AGF-l799RR3CxLJyrEVhm8cplh4DLoB58UC3qfKqBQ=s900-mo-c-c0xffffffff-rj-k-no'}}
+                                    style={styles.image}/>
+                                <View style={{marginLeft: '2.5%', width: '80%'}}>
+                                    <View style={styles.horizontal}>
+                                        <TextComponent
+                                            style={[styles.txtName, {color: ThemeConstants[theme].textColor}]}>{item.user_name}</TextComponent>
+                                        <TextComponent
+                                            style={{
+                                                color: colors.color_text_second,
+                                                fontSize: 13,
+                                            }}>{item.dt_rate}</TextComponent>
+                                    </View>
+                                    <TextComponent
+                                        style={{
+                                            color: colors.color_text_second,
+                                            fontSize: 14,
+                                        }}>{item.comment_text}</TextComponent>
+                                </View>
+                            </View>}
+                    />
 
-          </View>
-        </ScrollView>
-        <View style={styles.viewallinput}>
-          <View style={styles.viewinput}>
-            <TextInput
-              style={styles.input}
-              placeholder="Comment..."
-            />
-            <TouchableOpacity style={styles.toucoment}>
-              <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    );
-  }
+                </View>
+                <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                    <TextInput
+                        style={[styles.input, {color: ThemeConstants[theme].textColor}]}
+                        placeholderTextColor={ThemeConstants[theme].textColor}
+                        placeholder={Locales.Comment2}
+                    />
+                    <TouchableOpacity style={styles.toucoment}>
+                        <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
 }
 
+function mapStateToProps(state) {
+    return {
 
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {darkMode})(Comment);

@@ -1,5 +1,7 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../../../cores/styles/colors';
+import {StyleSheet, Dimensions} from 'react-native';
+import {colors} from '../../../cores/styles/colors';
+import {setHeight, setWidth} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -8,50 +10,43 @@ export const styles = StyleSheet.create({
     },
     body: {
         marginTop: 10,
-        marginLeft: "2.5%",
-        height:'100%'
+        marginLeft: '2.5%',
+        height: setHeight('75%'),
 
     },
-    viewallinput:{
-        width: "95%",
-        height: 60,
+    viewallinput: {
+        width: setWidth('94%'),
+        height: setWidth('12%'),
+        paddingHorizontal: setWidth('3%'),
+        marginHorizontal: setWidth('3%'),
         borderRadius: 15,
-        position:'absolute',
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        bottom:5
-    },
-    viewinput: {
-        width: "95%",
-        backgroundColor: colors.lightGray,
-        borderRadius: 15,
-        justifyContent: 'center',
     },
     input: {
-        width: "90%",
-        marginLeft: 10,
-        marginRight:10,
-        fontSize: 15
+        fontSize: 15,
+        width: setWidth('81%'),
     },
     toucoment: {
-        position: 'absolute',
-        right: 0,
-        width: "8%"
+        width: setWidth('7%'),
+        // backgroundColor: 'red'
     },
     iconcomment: {
         color: colors.red,
     },
     image: {
-        width: 60,
-        height: 60,
-        borderRadius: 50,
-        borderColor:"#BCC0B6",
-        borderWidth:0.5
+        width: setWidth('15%'),
+        height: setWidth('15%'),
+        borderRadius: setWidth('15%'),
+        borderColor: '#BCC0B6',
+        borderWidth: 0.5,
     },
     horizontal: {
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems: 'center'
+        // flexDirection: 'row',
+        //justifyContent: 'space-between',
+        // alignItems: 'center',
+        //  textAlign: isRTL ? 'right' : 'left',
     },
     btnBook: {
         justifyContent: 'center',
@@ -59,12 +54,16 @@ export const styles = StyleSheet.create({
         height: '90%',
         width: '90%',
         borderRadius: 10,
-        backgroundColor: colors.froly
+        backgroundColor: colors.froly,
     },
     txtName: {
-        color: 'black',
+        color: '#00003D',
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
+    txtcontent: {
+        color: colors.color_text_second,
+        fontSize: 14,
+    },
 
-})
+});

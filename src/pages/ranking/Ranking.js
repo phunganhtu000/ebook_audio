@@ -25,7 +25,7 @@ import {
 import {Icon} from 'native-base';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import {marginTop10, marginTop20} from '../../cores/styles/styleView';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import constants from '../../assets/constants';
 import Styles from './styles/styles';
 import Styles_Two from './styles/style_two';
@@ -58,7 +58,7 @@ class Ranking extends Component {
             <View style={[styles.ThumbnailBackgroundView, Platform.OS === 'ios' ? styles.shadow : null]}>
 
                 <TouchableOpacity
-                    onPress={() => navigate('Details', {item: item})}
+                    onPress={() => navigate('Details', {data: item})}
                 >
                     <FastImage style={[styles.CarouselImage, styles.shadow]}
                                source={{uri: `${image}${item.book_cover_img}`}}/>

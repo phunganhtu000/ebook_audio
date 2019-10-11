@@ -11,7 +11,7 @@ export default class Styles {
             body: {
                 marginTop: 10,
                 marginLeft: "2.5%",
-                height:setHeight('80%')
+                height:setHeight('75%')
 
             },
             viewall: {

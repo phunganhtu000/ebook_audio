@@ -12,7 +12,7 @@ import { Tab, Tabs, ScrollableTab} from 'native-base';
 import Util from './Utils'
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import {getDataOfflineMode} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import ListTV from './tabTV/ListTV';
 import Comment from './tabTV/Comment';
 import Showtime from './tabTV/Showtimes';
@@ -63,13 +63,13 @@ export default class VideoPlayerTV extends Component {
                 />
                 <Tabs tabBarUnderlineStyle={{backgroundColor: '#D0021B', height: 1}}
                       renderTabBar={() => <ScrollableTab style={{backgroundColor: '#fff', borderBottomWidth: 0}}/>}>
-                    <Tab tabStyle={{backgroundColor: '#fff'}}
-                         activeTabStyle={{backgroundColor: '#fff'}}
-                         textStyle={{color: '#C5C4C4'}}
-                         activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Showtime}>
-                        <Showtime
-                            navigation={this.props.navigation}/>
-                    </Tab>
+                    {/*<Tab tabStyle={{backgroundColor: '#fff'}}*/}
+                    {/*     activeTabStyle={{backgroundColor: '#fff'}}*/}
+                    {/*     textStyle={{color: '#C5C4C4'}}*/}
+                    {/*     activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Showtime}>*/}
+                    {/*    <Showtime*/}
+                    {/*        navigation={this.props.navigation}/>*/}
+                    {/*</Tab>*/}
                     <Tab tabStyle={{backgroundColor: '#fff'}}
                          activeTabStyle={{backgroundColor: '#fff'}}
                          textStyle={{color: '#C5C4C4'}}

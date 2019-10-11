@@ -6,12 +6,12 @@ import Styles from './styles/Styles';
 import {StackActions, NavigationActions} from 'react-navigation';
 import {
     getDataOfflineMode,
-    saveDataOfflineMode,
+    saveDataOfflineMode, setWidth,
 } from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import {colors} from '../../cores/styles/colors';
 import {selectLanguage, darkMode} from '../../redux/actions/settingAction';
 
@@ -76,23 +76,13 @@ class Setting extends Component {
         });
         Locales.setLanguage(this.state.getLanguage);
         // await this.getProfile();
-        // const isDarkMode = await getDataOfflineMode(constants.DARK_MODE);
-        // this.setState(
-        //     {
-        //         shouldRender: isDarkMode,
-        //         switchValue: isDarkMode,
-        //     }, () => {
-        //         if (isDarkMode === false || inValidateText(isDarkMode)) {
-        //             EStyleSheet.build(lightTheme);
-        //             StatusBar.setBarStyle('dark-content');
-        //             console.log('log :', isDarkMode)
-        //         } else {
-        //             EStyleSheet.build(darkTheme);
-        //             StatusBar.setBarStyle('light-content');
-        //         }
-        //         console.log('theme isDarkMode: ' + isDarkMode)
-        //     }
-        // );
+        const isDarkMode = await getDataOfflineMode(constants.DARK_MODE);
+        this.setState(
+            {
+                shouldRender: isDarkMode,
+                switchValue: isDarkMode,
+            },
+        );
 
 
     }
@@ -159,22 +149,32 @@ class Setting extends Component {
             <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor}]}>
                 <HeaderComponent
                     iconLeft='ios-arrow-back'
+                    left='back'
                     onPressLeft={() => this.props.navigation.dispatch(resetAction)}
-                    title={Locales.Setting}/>
+                    title={Locales.Settings}/>
                 <ScrollView>
                     <View style={styles.body}>
                         <TouchableOpacity
-                            onPress={this.toggleModal}
+                            onPress={() => navigate('SettingLanguage')}
                             style={[styles.information, styles.horizontal]}>
-                            <TextComponent
-                                style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Selectyourlanguage}</TextComponent>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='globe' type='Entypo'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Language}</TextComponent>
+                            </View>
                             <Icon name='right' type='AntDesign'
-                                  style={[styles.icon, {color: ThemeConstants[theme].textColor}]}/>
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
                         </TouchableOpacity>
                         <View style={[styles.information, styles.horizontal]}>
-                            <View>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='theme-light-dark' type='MaterialCommunityIcons'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
                                 <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.DarkMode}</TextComponent>
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.DarkMore}</TextComponent>
                             </View>
                             <View style={styles.viewswitch}>
                                 <Switch

@@ -21,6 +21,7 @@ import Constant from '../../../utils/Constant_Api';
 import ButtonBottom from '../../button/ButtonBottom';
 import {darkMode} from '../../../redux/actions/settingAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
+import Locales from '../../../cores/languages/languages';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -92,7 +93,7 @@ class Comment extends Component {
                     <TextInput
                         style={[styles.input,{color:ThemeConstants[theme].textColor}]}
                         placeholderTextColor={ThemeConstants[theme].textColor}
-                        placeholder="Comment..."
+                        placeholder={Locales.Comment2}
                     />
                     <TouchableOpacity style={styles.toucoment}>
                         <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>

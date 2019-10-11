@@ -34,76 +34,6 @@ export default class Comment extends Component {
                     image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
                     time: '1:30'
                 },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
-                {
-                    id: 3,
-                    name: 'PewPew',
-                    content: 'Anh không muốn ra Hà Nội nữa',
-                    image: 'https://znews-photo.zadn.vn/w660/Uploaded/lce_jwqqc/2019_05_17/45835161_621715544913361_7201762915249029120_n.jpg',
-                    time: '1:30'
-                },
             ],
             starCount: 2
         };
@@ -156,11 +86,11 @@ export default class Comment extends Component {
                         />
                     </View>
                 </ScrollView>
-                <View style={styles.viewallinput}>
-                    <TouchableOpacity style={styles.btnBook}>
-                        <Text style={{color: colors.white}}>RATE</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style={styles.viewallinput}>*/}
+                {/*    <TouchableOpacity style={styles.btnBook}>*/}
+                {/*        <Text style={{color: colors.white}}>RATE</Text>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
             </View>
         );
     }

@@ -25,7 +25,7 @@ import styles_four from './style/styles_four';
 import Styles from './style/styles';
 import Styles_Two from './style/styleMusic';
 import Playmusic from './playMusic/Playmusic';
-import Locales from '../../assets/languages/languages';
+import Locales from '../../cores/languages/languages';
 import GLOBAL from '../../cores/utils/global';
 import constants from '../../assets/constants';
 import {connect} from 'react-redux';
@@ -182,7 +182,7 @@ class ListMusic extends Component {
                     }]}>
                         <View style={styles.itemHeader}>
                             <TextComponent
-                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.Topsingertd}</TextComponent>
+                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.TopSignerTopday}</TextComponent>
                             {/*<TextComponent style={styles.textMin}>More</TextComponent>*/}
                         </View>
                         <View>
@@ -211,7 +211,7 @@ class ListMusic extends Component {
                         style={[styles.viewItem, {backgroundColor: ThemeConstants[theme].backgroundCard, ...marginTop10}]}>
                         <View style={styles.itemHeader}>
                             <TextComponent
-                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.Topmusictd}</TextComponent>
+                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.TopMusicTopday}</TextComponent>
                             {/*<TextComponent style={styles.textMin}>More</TextComponent>*/}
                         </View>
 
@@ -349,7 +349,7 @@ class ListMusic extends Component {
                         style={[styles.viewItem, {backgroundColor: ThemeConstants[theme].backgroundCard, ...marginTop10}]}>
                         <View style={styles.itemHeader}>
                             <TextComponent
-                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.MusicNew}</TextComponent>
+                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.New}</TextComponent>
                             <TextComponent onPress={() => navigate('ListItem', {item: this.state.new})}
                                            style={styles.textMin}>{Locales.More}</TextComponent>
                         </View>

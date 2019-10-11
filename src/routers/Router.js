@@ -15,6 +15,7 @@ import Details from '../pages/details/Details';
 import NewsDetails from '../pages/news/News_Details';
 // import EpubReader from '../pages/epub/Epub';
 import Setting from '../pages/setting/Setting';
+import SettingLanguage from '../pages/setting/SettingLanguage';
 import SplashScreen from '../pages/splashscreen/SplashScreen';
 import VideoPlayerTV from '../pages/video/VideoPlay';
 import Downloads from '../pages/downloads/Downloads';
@@ -48,19 +49,31 @@ const Routes = createStackNavigator({
     //     screen: Detail,
     // },
 
-    Menu: {
-        screen: Menu,
-        navigationOptions: {
-            header: null,
-        },
-    },
+
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
             header: null,
         },
     },
-
+    Menu: {
+        screen: Menu,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    SignUp: {
+        screen: SignUp,
+        navigationOptions: {
+            header: null,
+        },
+    },
     Comment: {
         screen: Comment,
         navigationOptions: {
@@ -127,6 +140,12 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
+    SettingLanguage: {
+        screen: SettingLanguage,
+        navigationOptions: {
+            header: null,
+        },
+    },
     VideoPlayerTV: {
         screen: VideoPlayerTV,
         navigationOptions: {
@@ -181,18 +200,7 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null,
-        },
-    },
-    SignUp: {
-        screen: SignUp,
-        navigationOptions: {
-            header: null,
-        },
-    },
+
     Audio_Book_Three: {
         screen: Audio_Book_Three,
         navigationOptions: {
