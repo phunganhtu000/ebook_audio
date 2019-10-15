@@ -13,7 +13,7 @@ const Locales = new LocalizedStrings({
         Radio: 'Radio',
         Music: 'Music',
         News: 'News',
-        New: 'News',
+        New: 'New',
         More: 'More',
         PopularBook: 'Popular Book',
         Today: 'Today',

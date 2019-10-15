@@ -37,8 +37,8 @@ export default class Singer extends Component {
             <View style={styles.container}>
                 <HeaderComponent
                     iconLeft='ios-arrow-back'
+                    left='back'
                     typeIconRight='MaterialCommunityIcons'
-                    iconRight='dots-vertical'
                     title='Singer'
                     onPressLeft={() => navigation.goBack()}
                 />
@@ -46,30 +46,30 @@ export default class Singer extends Component {
                     <FastImage style={styles.imageSinger} source={{uri: item.image}}/>
                     <TextComponent style={styles.fullName}>Na Dam Dang</TextComponent>
                     <TextComponent style={styles.name}>@_Nakarot</TextComponent>
-                    <TouchableOpacity style={{
-                        ...rowView,
-                        alignItems: 'center',
-                        borderWidth: 1,
-                        borderColor: colors.lightGrey,
-                        padding: 5,
-                        marginTop: 10,
-                        borderRadius: 3
-                    }}>
-                        <Icon name='plus' type='AntDesign'
-                              style={{fontSize: 15, color: colors.black, marginRight: 5}}/>
-                        <TextComponent style={[styles.fullName, {fontSize: 15, marginTop: 0}]}>Fan</TextComponent>
-                    </TouchableOpacity>
+                    {/*<TouchableOpacity style={{*/}
+                    {/*    ...rowView,*/}
+                    {/*    alignItems: 'center',*/}
+                    {/*    borderWidth: 1,*/}
+                    {/*    borderColor: colors.lightGrey,*/}
+                    {/*    padding: 5,*/}
+                    {/*    marginTop: 10,*/}
+                    {/*    borderRadius: 3*/}
+                    {/*}}>*/}
+                    {/*    <Icon name='plus' type='AntDesign'*/}
+                    {/*          style={{fontSize: 15, color: colors.black, marginRight: 5}}/>*/}
+                    {/*    <TextComponent style={[styles.fullName, {fontSize: 15, marginTop: 0}]}>Fan</TextComponent>*/}
+                    {/*</TouchableOpacity>*/}
                     <TextComponent style={styles.fb}>Fb: Viet Jye</TextComponent>
                     <View style={styles.fanAndFollow}>
                         <View style={styles.fan}>
                             <TextComponent style={styles.txtFan}>6,282</TextComponent>
                             <TextComponent>Fans</TextComponent>
                         </View>
-                        <View style={styles.view}></View>
-                        <View style={styles.follow}>
-                            <TextComponent style={styles.txtFollow}>1</TextComponent>
-                            <TextComponent>Following </TextComponent>
-                        </View>
+                        {/*<View style={styles.view}></View>*/}
+                        {/*<View style={styles.follow}>*/}
+                        {/*    <TextComponent style={styles.txtFollow}>1</TextComponent>*/}
+                        {/*    <TextComponent>Following </TextComponent>*/}
+                        {/*</View>*/}
                     </View>
                     <View style={[{...horizontalView}, {
                         width: setWidth('100%')

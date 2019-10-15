@@ -60,7 +60,7 @@ class HeaderComponent extends Component {
 
                     </TouchableOpacity>
                     <View>
-                        <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor}]}
+                        <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor},this.props.style]}
                                        numberOfLines={1}>{this.props.title}</TextComponent>
                     </View>
                     <TouchableOpacity

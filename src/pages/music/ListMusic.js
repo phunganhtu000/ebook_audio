@@ -176,37 +176,37 @@ class ListMusic extends Component {
                         </View>
                     </View>
                     {/*singer*/}
-                    <View style={[styles.viewItem, {
-                        ...marginTop10,
-                        backgroundColor: ThemeConstants[theme].backgroundCard,
-                    }]}>
-                        <View style={styles.itemHeader}>
-                            <TextComponent
-                                style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.TopSignerTopday}</TextComponent>
-                            {/*<TextComponent style={styles.textMin}>More</TextComponent>*/}
-                        </View>
-                        <View>
-                            <FlatList
-                                showsHorizontalScrollIndicator={false}
-                                inverted={this.state.isRTL}// scroll nguoc
-                                horizontal
-                                data={this.state.singer}
-                                renderItem={({item}) => (
-                                    <TouchableOpacity onPress={() => navigate('Singer', {item: item})}
-                                                      style={styles.topSing}>
-                                        <View style={[styles.viewSing, styles.shadowcom]}>
-                                            <FastImage style={styles.imageSinger} source={{uri: item.image}}/>
-                                            <FastImage style={styles.imgTop} source={{uri: item.top}}/>
-                                        </View>
-                                        <View style={styles.viewBottomSinger}>
-                                            <TextComponent
-                                                style={[styles.textMin, {textAlign: 'center'}]}>{item.singer}</TextComponent>
-                                        </View>
+                    {/*<View style={[styles.viewItem, {*/}
+                    {/*    ...marginTop10,*/}
+                    {/*    backgroundColor: ThemeConstants[theme].backgroundCard,*/}
+                    {/*}]}>*/}
+                    {/*    <View style={styles.itemHeader}>*/}
+                    {/*        <TextComponent*/}
+                    {/*            style={[styles.title, {color: ThemeConstants[theme].textColor}]}>{Locales.TopSignerTopday}</TextComponent>*/}
+                    {/*        /!*<TextComponent style={styles.textMin}>More</TextComponent>*!/*/}
+                    {/*    </View>*/}
+                    {/*    <View>*/}
+                    {/*        <FlatList*/}
+                    {/*            showsHorizontalScrollIndicator={false}*/}
+                    {/*            inverted={this.state.isRTL}// scroll nguoc*/}
+                    {/*            horizontal*/}
+                    {/*            data={this.state.singer}*/}
+                    {/*            renderItem={({item}) => (*/}
+                    {/*                <TouchableOpacity onPress={() => navigate('Singer', {item: item})}*/}
+                    {/*                                  style={styles.topSing}>*/}
+                    {/*                    <View style={[styles.viewSing, styles.shadowcom]}>*/}
+                    {/*                        <FastImage style={styles.imageSinger} source={{uri: item.image}}/>*/}
+                    {/*                        <FastImage style={styles.imgTop} source={{uri: item.top}}/>*/}
+                    {/*                    </View>*/}
+                    {/*                    <View style={styles.viewBottomSinger}>*/}
+                    {/*                        <TextComponent*/}
+                    {/*                            style={[styles.textMin, {textAlign: 'center'}]}>{item.singer}</TextComponent>*/}
+                    {/*                    </View>*/}
 
-                                    </TouchableOpacity>
-                                )}/>
-                        </View>
-                    </View>
+                    {/*                </TouchableOpacity>*/}
+                    {/*            )}/>*/}
+                    {/*    </View>*/}
+                    {/*</View>*/}
                     <View
                         style={[styles.viewItem, {backgroundColor: ThemeConstants[theme].backgroundCard, ...marginTop10}]}>
                         <View style={styles.itemHeader}>

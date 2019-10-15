@@ -7,6 +7,7 @@ import HeaderComponent from '../headerComponent/HeaderComponent';
 import {WebView} from 'react-native-webview';
 import {getDataOfflineMode} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
+import {medium, small} from '../../cores/styles/styleText';
 
 export default class News_Details extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class News_Details extends Component {
           // iconRight='ios-search'
           left='back'
           title={item}
+          style={{...small}}
           onPressLeft={() => navigation.goBack()}
         />
         <WebView
