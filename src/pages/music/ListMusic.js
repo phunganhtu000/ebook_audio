@@ -40,7 +40,7 @@ class ListMusic extends Component {
         super(props);
         this.state = {
             today: Locales.Today,
-            new: Locales.MusicNew,
+            new: Locales.New,
             popular: Locales.Popular,
             data: [],
             banner: [],

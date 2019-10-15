@@ -197,7 +197,7 @@ class HomeEbook extends Component {
                     <View style={styles.body}>
                         <View style={styles.itemHeader}>
                             <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.New}</TextComponent>
-                            <TextComponent onPress={() => navigate('ListItem', {item: this.state.today})}
+                            <TextComponent onPress={() => navigate('EbookMore', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
                         <FlatList
@@ -236,7 +236,7 @@ class HomeEbook extends Component {
                             )}/>
                         <View style={[styles.itemHeader, {marginTop: 20}]}>
                             <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.PopularBook}</TextComponent>
-                            <TextComponent onPress={() => navigate('ListItem', {item: this.state.today})}
+                            <TextComponent onPress={() => navigate('EbookPopurlate', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
                         <FlatList

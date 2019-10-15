@@ -37,8 +37,12 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/signup/SignUp';
 import Audio_Book_Three from '../pages/audiobook/list/Audio_Book_Three';
 import Tab_AudioBook from '../pages/audiobook/Tab_AudioBook';
+import EbookMore from '../pages/home/more/EbookMore';
+import EbookPopurlate from '../pages/home/more/EbookPopurlate';
 import {getLanguage, darkMode} from '../redux/actions/settingAction';
 import {connect} from 'react-redux';
+import Locales from '../cores/languages/languages';
+import {ThemeConstants} from '../cores/theme/Theme';
 
 const ThemeContext = React.createContext(null);
 const Routes = createStackNavigator({
@@ -124,6 +128,18 @@ const Routes = createStackNavigator({
     },
     NewsDetails: {
         screen: NewsDetails,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    EbookMore: {
+        screen: EbookMore,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    EbookPopurlate: {
+        screen: EbookPopurlate,
         navigationOptions: {
             header: null,
         },

@@ -134,7 +134,7 @@ export default class Styles {
             },
             flatList: {
                 marginTop: 20,
-                flex: 1,
+                // flex: 1,
             },
             view: {
                 width: width - 40,

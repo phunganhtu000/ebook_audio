@@ -1,6 +1,7 @@
 import LocalizedStrings from 'react-native-localization';
 import {Text} from 'react-native';
 import React from 'react';
+import TextComponent from '../viewComponents/text/TextComponent';
 
 const Locales = new LocalizedStrings({
     'en': {
@@ -47,6 +48,10 @@ const Locales = new LocalizedStrings({
         SignUp: 'SignUp',
         Forgotthepassword: 'Forgot the password ?',
         Signinwith: 'Sign in with Facebook',
+        or: 'or',
+        Loginwith: 'Login with',
+        Donaccount: 'Don\'t have an account?',
+        Alreadyaccount: 'Already have an account?'
     },
 
     'vn': {
@@ -93,6 +98,10 @@ const Locales = new LocalizedStrings({
         SignUp: 'Đăng kí',
         Forgotthepassword: 'Quyên mật khẩu ?',
         Signinwith: 'Đăng nhập bằng Facebook',
+        or: 'hoặc',
+        Loginwith: 'Đăng nhập với',
+        Donaccount: 'Chưa có tài khoản?',
+        Alreadyaccount: 'Đã có tài khoản ?'
     },
 });
 export default Locales;
