@@ -28,11 +28,16 @@ import {connect} from 'react-redux';
 import {getDetail} from '../../../redux/actions/productAction';
 import {darkMode} from '../../../redux/actions/settingAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
+import {addToFavorite, getDataFavorite, removeFavorite} from '../../../redux/actions/favoriteAction';
+import {addToDownload, getDataDownload} from '../../../redux/actions/downloadAction';
 
 class Infor extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            quantity: 1,
+            check: false,
+        };
     }
 
     componentWillMount() {
@@ -81,12 +86,49 @@ class Infor extends Component {
         });
     }
 
+
     async componentDidMount() {
+        this.props.getDataDownload();
+        this.props.getDataFavorite();
+        this.checkFavorite();
         const rtl = await getDataOfflineMode(constants.isRTL);
         this.setState({
             isRTL: rtl,
         });
+
     }
+
+    checkFavorite() {
+        const data = this.props.navigation.state.params.data;
+        const {favorite} = this.props;
+        const check = favorite.some(favorite => data.id === favorite.id);
+        this.setState({
+            check: check,
+        });
+        console.log('checkckekc: ' + JSON.stringify(check));
+    }
+
+    _favorite(data) {
+        const {favorite} = this.props;
+        const check = favorite.some(favorite => data.id === favorite.id);
+        console.log('check: ' + JSON.stringify(check));
+        if (check == false) {
+            this.props.addToFavorite(data);
+            this.setState({
+                check: true,
+            });
+
+        } else {
+            this.props.removeFavorite(data);
+            this.setState({
+                check: false,
+            });
+        }
+    }
+
+    addToDownload(product) {
+        this.props.addToDownload(product);
+    };
 
     renderItem = ({item}) => {
         const styles = Styles.getSheet(this.state.isRTL);
@@ -160,14 +202,44 @@ class Infor extends Component {
         const {navigate} = this.props.navigation;
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+        const {favorite} = this.props;
         return (
-            <View>
-                <ButtonBottom
-                    onPressReadNow={() => navigate('ReadPdf', {data: item.book_file_url})}
+
+            <View
+                style={[styles.container, styles.horizontal, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                <TouchableOpacity
+                    // onPress={this.props.download}
+                    onPress={() => this.addToDownload(item)}
+                    style={styles.button}>
+                    <Icon name='cloud-download' type='SimpleLineIcons'
+                          style={{fontSize: 20, color: 'silver'}}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={this.props.onPressNotification}
+                    style={styles.button}>
+                    <Icon name='notifications-active' type='MaterialIcons'
+                          style={{fontSize: 20, color: 'silver'}}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this._favorite(item)}
+                                  style={styles.button}>
+                    {this.state.check ?
+                        <Icon name='heart' type='AntDesign' style={{fontSize: 20, color: '#D0021B'}}/> :
+                        <Icon name='heart' type='AntDesign' style={{fontSize: 20, color: 'silver'}}/>}
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigate('ReadPdf', {data: item.book_file_url})}
                     download={() => this.saveDownloadData()}
-                />
+                    style={[styles.button2, {backgroundColor: '#D0021B'}]}>
+                    <TextComponent style={{color: colors.white}}>{Locales.ReadNow}</TextComponent>
+                </TouchableOpacity>
+                {/*<ButtonBottom*/}
+                {/*    onPressReadNow={() => navigate('ReadPdf', {data: item.book_file_url})}*/}
+                {/*    download={() => this.saveDownloadData()}*/}
+                {/*/>*/}
             </View>
-        );
+
+        )
+            ;
     };
 
     render() {
@@ -176,7 +248,7 @@ class Infor extends Component {
         const {navigation} = this.props;
         // const item = this.props.navigation.state.params.item;
         const {data} = this.props;
-        console.log('data ebook' + JSON.stringify(data));
+        // console.log('data ebook' + JSON.stringify(data));
         const image = `${Constant.images}`;
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
@@ -199,6 +271,7 @@ class Infor extends Component {
                 <View style={styles.viewButtonBottom}>
                     <FlatList data={data} renderItem={this.renderItem2}/>
                 </View>
+
             </View>
         );
     }
@@ -208,8 +281,16 @@ function mapStateToProps(state) {
     return {
         data: state.productReducers.detail,
         isDarkTheme: state.settingReducers.currentValue,
+        favorite: state.favoriteReducers,
+        download: state.downloadReducers,
     };
 }
 
-export default connect(mapStateToProps, {getDetail, darkMode})(Infor);
+export default connect(mapStateToProps, {
+    getDetail, darkMode, addToFavorite,
+    removeFavorite,
+    getDataFavorite,
+    addToDownload,
+    getDataDownload,
+})(Infor);
 

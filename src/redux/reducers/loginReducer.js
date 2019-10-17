@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 const loginState = {
-    login:[]
+    login: [],
 };
 export default function (state = loginState, action) {
     // console.log("testFirebaseInRedux: action" + JSON.stringify(action.payload));
@@ -9,10 +9,10 @@ export default function (state = loginState, action) {
         case types.CHECK_LOGIN:
             return {
                 ...state,
-                login:action.payload
+                login: action.payload,
             };
 
         default:
-            return state
+            return state;
     }
 }

@@ -165,7 +165,7 @@ class HomeEbook extends Component {
         // const column2Data = data.filter((item, i) => i % 2 === 1);
         const {navigate} = this.props.navigation;
         const {getdatahome, isFetching} = this.props;
-        console.log('getdatahome :' + JSON.stringify(getdatahome));
+        // console.log('getdatahome :' + JSON.stringify(getdatahome));
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
         return (

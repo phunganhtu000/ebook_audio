@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "33899068605",
+    "firebase_url": "https://econtent-c848c.firebaseio.com",
+    "project_id": "econtent-c848c",
+    "storage_bucket": "econtent-c848c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33899068605:android:9e14f84f6d4b0d0fd08bd4",
+        "android_client_info": {
+          "package_name": "com.all_moza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33899068605-31juge0lk0accm0johar64lh8ep8cogp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.all_moza",
+            "certificate_hash": "c0d5d98e953bec18aa43ec13c0df729eea89ba77"
+          }
+        },
+        {
+          "client_id": "33899068605-fuuhrd5rlm3uq197o8hrerrkogi38ueb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.all_moza",
+            "certificate_hash": "699d13c76ad74331d4cf921f2ecd3a3665898cea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moza.mrbean"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33899068605:android:552fd8d452461968",
+        "android_client_info": {
+          "package_name": "com.coffee_house"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33899068605-oos32424hrcnabmg3sdkeiutrccr1gs6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coffee_house",
+            "certificate_hash": "eaf5c2a0139b7497f942563ca5adf262de4bf45c"
+          }
+        },
+        {
+          "client_id": "33899068605-sl675jgh1deoub7li0f0sodokbf63mdv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coffee_house",
+            "certificate_hash": "c0d5d98e953bec18aa43ec13c0df729eea89ba77"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moza.mrbean"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33899068605:android:fa6dc7f1e39c6945d08bd4",
+        "android_client_info": {
+          "package_name": "com.ebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moza.mrbean"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

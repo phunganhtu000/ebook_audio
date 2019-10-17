@@ -157,6 +157,21 @@ class Profile extends Component {
                                       fontSize: setWidth('5%'),
                                   }]}/>
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigate('Downloads')}
+                            style={[styles.information, styles.horizontal]}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='clouddownloado' type='AntDesign'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Downloads}</TextComponent>
+                            </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
+                        </TouchableOpacity>
                         {/*<TouchableOpacity*/}
                         {/*    onPress={() => navigate('Downloads')}*/}
                         {/*    style={[styles.information, styles.horizontal]}>*/}
@@ -223,6 +238,7 @@ class Profile extends Component {
                                       fontSize: setWidth('5%'),
                                   }]}/>
                         </TouchableOpacity>
+
                         {/*<TouchableOpacity*/}
                         {/*    // onPress={() => this.setState({ isModalOpen: true })}*/}
                         {/*    onPress={() => {*/}
@@ -274,21 +290,21 @@ class Profile extends Component {
 
 
                         {/*{validateText(login) ?*/}
-                        <TouchableOpacity
-                            onPress={this.signOut}
-                            style={[styles.information, styles.horizontal]}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Icon name='logout' type='AntDesign'
-                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
-                                <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>
-                            </View>
-                            <Icon name='right' type='AntDesign'
-                                  style={[styles.icon, {
-                                      color: ThemeConstants[theme].textColor,
-                                      fontSize: setWidth('5%'),
-                                  }]}/>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress={this.signOut}*/}
+                        {/*    style={[styles.information, styles.horizontal]}>*/}
+                        {/*    <View style={{flexDirection: 'row'}}>*/}
+                        {/*        <Icon name='logout' type='AntDesign'*/}
+                        {/*              style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>*/}
+                        {/*        <TextComponent*/}
+                        {/*            style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>*/}
+                        {/*    </View>*/}
+                        {/*    <Icon name='right' type='AntDesign'*/}
+                        {/*          style={[styles.icon, {*/}
+                        {/*              color: ThemeConstants[theme].textColor,*/}
+                        {/*              fontSize: setWidth('5%'),*/}
+                        {/*          }]}/>*/}
+                        {/*</TouchableOpacity>*/}
                         {/*: null*/}
                         {/*}*/}
                     </View>

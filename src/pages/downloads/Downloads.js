@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList} from 'react-native';
+import {Platform, StyleSheet, Image, View, ScrollView, TouchableOpacity, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import HeaderComponent from '../headerComponent/HeaderComponent';
 import {styles} from './styles/styles';
@@ -9,63 +9,76 @@ import {marginTop10} from '../../cores/styles/styleView';
 import {getDataOfflineMode} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import getDowload from '../../api/saveDownload/getData';
+import {getDataDownload, removeFromDownload} from '../../redux/actions/downloadAction';
+import {connect} from 'react-redux';
+import {ThemeConstants} from '../../cores/theme/Theme';
+import Constant from '../../utils/Constant_Api';
+import {darkMode} from '../../redux/actions/settingAction';
+import Locales from '../../cores/languages/languages';
 
-export default class Ebook extends Component {
+class Downloads extends Component {
     constructor(props) {
         super();
-        this.state = {
-            data: []
-        };
-        this._carousel = {};
-
+        this.state = {};
     }
 
     async componentDidMount(): void {
         getDowload().then(value => {
             this.setState({
-                data: value
-            },console.log("data" + JSON.stringify(value)))
-        })
+                data: value,
+            }, console.log('data' + JSON.stringify(value)));
+        });
 
     }
 
+    removeItem(item) {
+        this.props.removeFromDownload(item);
+    }
+
     render() {
-        console.log("data ahihi" + JSON.stringify(this.state.data))
+
         const {navigate} = this.props.navigation;
         const {navigation} = this.props;
+        const {download} = this.props;
+        console.log('CartOver: ' + JSON.stringify(download));
+        const image = `${Constant.images}`;
+        const {isDarkTheme} = this.props;
+        const theme = isDarkTheme ? 'dark' : 'light';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <HeaderComponent
                     iconLeft='ios-arrow-back'
+                    left='back'
                     onPressLeft={() => navigation.goBack()}
-                    title='Downloads'/>
+                    title={Locales.Downloads}/>
                 <ScrollView>
                     <View style={styles.body}>
                         <FlatList
                             // horizontal
                             // numColumns={2}
-                            data={this.state.data}
-                            renderItem={({item}) => (
+                            data={download || []}
+                            renderItem={({item, index}) => (
                                 <TouchableOpacity
-                                    onPress={() => navigate('Details', {item: item})}
+                                    onPress={() => navigate('Details', {data: item})}
                                     style={styles.item}>
                                     <View style={styles.viewId}>
-                                        <TextComponent>{item._id}</TextComponent>
+                                        <TextComponent
+                                            style={{color: ThemeConstants[theme].textColor}}>{index + 1}</TextComponent>
                                     </View>
                                     <View style={styles.shadow}>
                                         <FastImage style={[styles.imageItem]}
-                                                   source={{uri: item.image}}/>
+                                                   source={{uri: `${image}${item.image}`}}/>
                                     </View>
                                     <View style={styles.viewText}>
-                                        <TextComponent style={styles.text}>{item.title}</TextComponent>
-                                        <View style={styles.horizontal}>
-                                            <View style={styles.row}><TextComponent
-                                                style={[styles.textAuthor, {...marginTop10}]}>Published
-                                                from </TextComponent><TextComponent
-                                                style={[styles.texttag, {...marginTop10}]}>istudio</TextComponent>
-                                            </View>
-                                            {/*<TextComponent style={styles.textAuthor}>00:50</TextComponent>*/}
-                                        </View>
+                                        <TextComponent
+                                            style={[styles.text, {color: ThemeConstants[theme].textColor}]}>{item.name}</TextComponent>
+                                        <TextComponent
+                                            style={[styles.textAuthor, {...marginTop10}]}>{item.author}</TextComponent>
+                                        <TextComponent
+                                            style={[styles.texttag, {
+                                                ...marginTop10,
+                                                color: ThemeConstants[theme].textColor,
+                                            }]}>{item.category}</TextComponent>
                                     </View>
                                 </TouchableOpacity>
                             )}/>
@@ -76,3 +89,11 @@ export default class Ebook extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        download: state.downloadReducers,
+        isDarkTheme: state.settingReducers.currentValue,
+    };
+}
+
+export default connect(mapStateToProps, {getDataDownload, removeFromDownload, darkMode})(Downloads);

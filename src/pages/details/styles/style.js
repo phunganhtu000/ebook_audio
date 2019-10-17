@@ -14,6 +14,18 @@ export default class Styles {
                 flex: 1,
                 backgroundColor: '#fff',
             },
+            button: {
+                height: setWidth('12%'),
+                width: setWidth('13%'),
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            button2: {
+                height: setWidth('13%'),
+                width: setWidth('61%'),
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
             body: {marginTop:10},
             viewMagin10: {
                 marginLeft: 10,

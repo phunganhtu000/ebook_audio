@@ -27,6 +27,7 @@ const Locales = new LocalizedStrings({
         NowPlay: 'Now Playing',
         relatedbooks: 'Related books',
         details: 'Details',
+        Downloads: 'Downloads',
         Home: 'Home',
         Ranking: 'Ranking',
         Top: 'Top',
@@ -51,7 +52,7 @@ const Locales = new LocalizedStrings({
         or: 'or',
         Loginwith: 'Login with',
         Donaccount: 'Don\'t have an account?',
-        Alreadyaccount: 'Already have an account?'
+        Alreadyaccount: 'Already have an account?',
     },
 
     'vn': {
@@ -77,6 +78,7 @@ const Locales = new LocalizedStrings({
         NowPlay: 'Nghe ngay',
         relatedbooks: 'Sách liên quan',
         details: 'Chi tiết',
+        Downloads: 'Tải xuống',
         Home: 'Trang Chủ',
         Ranking: 'Xếp hạng',
         Top: 'Hàng đầu',
@@ -101,7 +103,7 @@ const Locales = new LocalizedStrings({
         or: 'hoặc',
         Loginwith: 'Đăng nhập với',
         Donaccount: 'Chưa có tài khoản?',
-        Alreadyaccount: 'Đã có tài khoản ?'
+        Alreadyaccount: 'Đã có tài khoản ?',
     },
 });
 export default Locales;

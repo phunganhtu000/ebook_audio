@@ -34,6 +34,7 @@ import ReadPdf from '../screen1/detail/ReadPdf';
 import Infor from '../pages/ebook/tabEbook/Infor';
 import Ebook from '../pages/ebook/Ebook';
 import Login from '../pages/login/Login';
+import Confirm from '../pages/login/Confirm';
 import SignUp from '../pages/signup/SignUp';
 import Audio_Book_Three from '../pages/audiobook/list/Audio_Book_Three';
 import Tab_AudioBook from '../pages/audiobook/Tab_AudioBook';
@@ -52,32 +53,37 @@ const Routes = createStackNavigator({
     // Detail: {
     //     screen: Detail,
     // },
-
-
     SplashScreen: {
         screen: SplashScreen,
         navigationOptions: {
             header: null,
         },
     },
+    // Login: {
+    //     screen: Login,
+    //     navigationOptions: {
+    //         header: null,
+    //     },
+    // },
+    // Confirm: {
+    //     screen: Confirm,
+    //     navigationOptions: {
+    //         header: null,
+    //     },
+    // },
+    // SignUp: {
+    //     screen: SignUp,
+    //     navigationOptions: {
+    //         header: null,
+    //     },
+    // },
     Menu: {
         screen: Menu,
         navigationOptions: {
             header: null,
         },
     },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null,
-        },
-    },
-    SignUp: {
-        screen: SignUp,
-        navigationOptions: {
-            header: null,
-        },
-    },
+
     Comment: {
         screen: Comment,
         navigationOptions: {

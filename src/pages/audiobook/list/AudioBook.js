@@ -56,17 +56,17 @@ class AudioBook extends Component {
                                 <FastImage style={styles.image}
                                            source={{uri: `${image}${this.props.data[0].book_cover_img}`}}/>
 
-                                <View style={styles.viewPlay}>
-                                    <View style={styles.btnInfo}>
-                                        <Icon name='information-outline' type='MaterialCommunityIcons'
-                                              style={styles.iconWhite}/>
-                                    </View>
-                                    <View style={styles.btnPlay}>
-                                        <Icon name='control-play' type='SimpleLineIcons'
-                                              style={[styles.iconWhite, {fontSize: 18}]}/>
-                                        <TextComponent style={styles.textPlay}>Audio Book</TextComponent>
-                                    </View>
-                                </View>
+                                {/*<View style={styles.viewPlay}>*/}
+                                {/*    <View style={styles.btnInfo}>*/}
+                                {/*        <Icon name='information-outline' type='MaterialCommunityIcons'*/}
+                                {/*              style={styles.iconWhite}/>*/}
+                                {/*    </View>*/}
+                                {/*    <View style={styles.btnPlay}>*/}
+                                {/*        <Icon name='control-play' type='SimpleLineIcons'*/}
+                                {/*              style={[styles.iconWhite, {fontSize: 18}]}/>*/}
+                                {/*        <TextComponent style={styles.textPlay}>Audio Book</TextComponent>*/}
+                                {/*    </View>*/}
+                                {/*</View>*/}
                             </View>
                         </View>
                         <View style={[styles.marginTop30, styles.viewMagin10]}>

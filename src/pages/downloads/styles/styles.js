@@ -6,17 +6,19 @@ import {
     marginRight10,
     marginRight20,
     marginTop20,
-    rowView
+    rowView,
 } from '../../../cores/styles/styleView';
 import {text13, texts, textTitle, typeText} from '../../../cores/viewComponents/text/texts';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {setWidth} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
     shadow: {
         borderRadius: 15,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 5.5,
@@ -27,31 +29,31 @@ export const styles = StyleSheet.create({
     title: {
         ...textTitle,
         // color: colors.purple,
-        fontWeight: '500'
+        fontWeight: '500',
     },
     body: {
-        ...margin10
+        ...margin10,
     },
     e_book: {...marginTop20},
     type: {
         color: colors.red,
         paddingBottom: 5,
-        ...typeText
+        ...typeText,
     },
     row: {
-        ...rowView
+        ...rowView,
     },
-    textAuthor:{
-        marginTop:5,
+    textAuthor: {
+        marginTop: 5,
         ...text13,
         color: colors.color_text_second,
-        paddingRight:5
+        paddingRight: 5,
     },
     text: {
         // ...marginTop20,
         ...texts,
         // color: colors.purple,
-        width:wp('60%'),
+        width: wp('60%'),
 
     },
     texttag: {
@@ -62,29 +64,29 @@ export const styles = StyleSheet.create({
     item: {
         ...rowView,
         ...marginTop20,
-        width:wp('100%'),
+        width: wp('100%'),
 
     },
-    imageItem:{
-        width:wp('25%'),
-        height:wp('25%'),
-        borderRadius:15,
+    imageItem: {
+        width: setWidth('25%'),
+        height: setWidth('25%'),
+        borderRadius: 15,
         elevation: 5,
-        ...marginRight10
+        ...marginRight10,
     },
-    viewText:{
+    viewText: {
 
-        width:wp('60%'),
+        width: wp('60%'),
         // backgroundColor:'red'
     },
-    horizontal:{
+    horizontal: {
         ...horizontalView,
-        width:wp('60%'),
+        width: wp('60%'),
     },
     book_audio: {},
-    viewId:{
-        marginRight:10
-    }
+    viewId: {
+        marginRight: 10,
+    },
 
-})
+});
 

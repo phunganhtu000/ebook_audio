@@ -1,4 +1,5 @@
-import AsyncStorage  from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
+
 export const saveLanguage = async (language) => {
     await AsyncStorage.setItem('@language', JSON.stringify(language));
 
@@ -31,19 +32,40 @@ export const getdarkmode = async () => {
         return value;
     }
 };
-export const saveProfile = async (language) => {
-    await AsyncStorage.setItem('@profile', JSON.stringify(language));
-
-};
-export const getProfile = async () => {
-    let value = '';
+export const saveFavorite = async (favorites) => {
     try {
-        const value = await AsyncStorage.getItem('@profile');
+        await AsyncStorage.setItem('@favorite', JSON.stringify(favorites));
+    } catch (error) {
+        return [];
+    }
+};
+export const getFavorites = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@favorite');
         if (value !== null) {
             return JSON.parse(value);
         }
-        return value;
+        return [];
     } catch (error) {
-        return value;
+        return [];
+    }
+};
+export const saveDownload = async (carts) => {
+    try {
+        await AsyncStorage.setItem('@cart', JSON.stringify(carts));
+        console.log('asyc: ' + JSON.stringify(carts));
+    } catch (error) {
+        return [];
+    }
+};
+export const getDownloads = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@cart');
+        if (value !== null) {
+            return JSON.parse(value);
+        }
+        return [];
+    } catch (error) {
+        return [];
     }
 };
