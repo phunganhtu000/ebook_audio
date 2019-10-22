@@ -149,7 +149,7 @@ class Profile extends Component {
                                 <Icon name='settings' type='SimpleLineIcons'
                                       style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
                                 <TextComponent
-                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Settings}</TextComponent>
+ww                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Settings}</TextComponent>
                             </View>
                             <Icon name='right' type='AntDesign'
                                   style={[styles.icon, {
@@ -165,6 +165,21 @@ class Profile extends Component {
                                       style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
                                 <TextComponent
                                     style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Downloads}</TextComponent>
+                            </View>
+                            <Icon name='right' type='AntDesign'
+                                  style={[styles.icon, {
+                                      color: ThemeConstants[theme].textColor,
+                                      fontSize: setWidth('5%'),
+                                  }]}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => navigate('Favorite')}
+                          style={[styles.information, styles.horizontal]}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Icon name='staro' type='AntDesign'
+                                      style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
+                                <TextComponent
+                                  style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Favorite}</TextComponent>
                             </View>
                             <Icon name='right' type='AntDesign'
                                   style={[styles.icon, {

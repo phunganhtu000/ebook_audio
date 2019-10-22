@@ -5,6 +5,7 @@ import TextComponent from '../viewComponents/text/TextComponent';
 
 const Locales = new LocalizedStrings({
     'en': {
+        Favorite:'Favorite',
         Englang: 'English',
         Vietlang: 'Vietnamese',
         Ebook: 'Ebook',
@@ -56,6 +57,7 @@ const Locales = new LocalizedStrings({
     },
 
     'vn': {
+        Favorite:'Favorite',
         Englang: 'Tiếng Anh',
         Vietlang: 'Tiếng Việt',
         Ebook: 'Ebook',

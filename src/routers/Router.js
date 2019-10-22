@@ -44,6 +44,7 @@ import {getLanguage, darkMode} from '../redux/actions/settingAction';
 import {connect} from 'react-redux';
 import Locales from '../cores/languages/languages';
 import {ThemeConstants} from '../cores/theme/Theme';
+import Favorite from '../pages/favorite/Favorite';
 
 const ThemeContext = React.createContext(null);
 const Routes = createStackNavigator({
@@ -231,6 +232,12 @@ const Routes = createStackNavigator({
     },
     ReadPdf: {
         screen: ReadPdf,
+    },
+    Favorite: {
+        screen: Favorite,
+        navigationOptions: {
+            header: null,
+        },
     },
 });
 const AppStack = createAppContainer(Routes);

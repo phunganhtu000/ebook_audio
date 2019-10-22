@@ -101,7 +101,16 @@
           "package_name": "com.ebook"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "33899068605-7r2u4lf1fnhfc3ec8t35u2tekrjnsq38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ebook",
+            "certificate_hash": "b39bbf9995ba6a9d43f10e84a6d0eef8af2ff434"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
