@@ -59,24 +59,24 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
-    // Login: {
-    //     screen: Login,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
-    // Confirm: {
-    //     screen: Confirm,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
-    // SignUp: {
-    //     screen: SignUp,
-    //     navigationOptions: {
-    //         header: null,
-    //     },
-    // },
+     Login: {
+        screen: Login,
+         navigationOptions: {
+             header: null,
+        },
+     },
+     Confirm: {
+         screen: Confirm,
+         navigationOptions: {
+             header: null,
+         },
+     },
+     SignUp: {
+         screen: SignUp,
+         navigationOptions: {
+             header: null,
+         },
+     },
     Menu: {
         screen: Menu,
         navigationOptions: {
