@@ -45,6 +45,7 @@ import {connect} from 'react-redux';
 import Locales from '../cores/languages/languages';
 import {ThemeConstants} from '../cores/theme/Theme';
 import Favorite from '../pages/favorite/Favorite';
+import UpdateProfile from '../pages/profile/UpdateProfile';
 
 const ThemeContext = React.createContext(null);
 const Routes = createStackNavigator({
@@ -60,31 +61,30 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
-     Login: {
+    Login: {
         screen: Login,
-         navigationOptions: {
-             header: null,
+        navigationOptions: {
+            header: null,
         },
-     },
-     Confirm: {
-         screen: Confirm,
-         navigationOptions: {
-             header: null,
-         },
-     },
-     SignUp: {
-         screen: SignUp,
-         navigationOptions: {
-             header: null,
-         },
-     },
+    },
+    Confirm: {
+        screen: Confirm,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    SignUp: {
+        screen: SignUp,
+        navigationOptions: {
+            header: null,
+        },
+    },
     Menu: {
         screen: Menu,
         navigationOptions: {
             header: null,
         },
     },
-
     Comment: {
         screen: Comment,
         navigationOptions: {
@@ -235,6 +235,12 @@ const Routes = createStackNavigator({
     },
     Favorite: {
         screen: Favorite,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    UpdateProfile: {
+        screen: UpdateProfile,
         navigationOptions: {
             header: null,
         },

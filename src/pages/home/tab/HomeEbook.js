@@ -58,19 +58,19 @@ class HomeEbook extends Component {
         this.listRef && this.listRef.scrollToIndex({index, animated});
     };
 
-    componentWillMount() {
-        setInterval(function () {
-            const {sliderIndex, maxSlider} = this.state;
-            let nextIndex = 0;
-
-            if (sliderIndex < maxSlider) {
-                nextIndex = sliderIndex + 1;
-            }
-
-            this.scrollToIndex(nextIndex, true);
-            this.setState({sliderIndex: nextIndex});
-        }.bind(this), 3000);
-    }
+    // componentWillMount() {
+    //     setInterval(function () {
+    //         const {sliderIndex, maxSlider} = this.state;
+    //         let nextIndex = 0;
+    //
+    //         if (sliderIndex < maxSlider) {
+    //             nextIndex = sliderIndex + 1;
+    //         }
+    //
+    //         this.scrollToIndex(nextIndex, true);
+    //         this.setState({sliderIndex: nextIndex});
+    //     }.bind(this), 3000);
+    // }
 
     async componentDidMount(): void {
         // this.setState({
@@ -188,15 +188,18 @@ class HomeEbook extends Component {
                                                source={{uri: `${image}${item.book_cover_img}`}}/>
                                 </TouchableOpacity>
                             )}
-                            onMomentumScrollEnd={(event) => {
-                                let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
-                                this.setState({sliderIndex});
-                            }}
+                            // onMomentumScrollEnd={(event) => {
+                            //     let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
+                            //     this.setState({sliderIndex});
+                            // }}
                         />
                     </ScrollView>
                     <View style={styles.body}>
                         <View style={styles.itemHeader}>
-                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.New}</TextComponent>
+                            <TextComponent style={[styles.title, {
+                                color: ThemeConstants[theme].textColor,
+                                fontSize: 20,
+                            }]}>{Locales.New}</TextComponent>
                             <TextComponent onPress={() => navigate('EbookMore', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>
@@ -235,7 +238,10 @@ class HomeEbook extends Component {
                                 </Card>
                             )}/>
                         <View style={[styles.itemHeader, {marginTop: 20}]}>
-                            <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor,fontSize: 20}]}>{Locales.PopularBook}</TextComponent>
+                            <TextComponent style={[styles.title, {
+                                color: ThemeConstants[theme].textColor,
+                                fontSize: 20,
+                            }]}>{Locales.PopularBook}</TextComponent>
                             <TextComponent onPress={() => navigate('EbookPopurlate', {item: this.state.today})}
                                            style={[styles.textMin, {fontSize: 15}]}>{Locales.More}</TextComponent>
                         </View>

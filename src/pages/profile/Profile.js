@@ -123,25 +123,21 @@ class Profile extends Component {
                     title={Locales.Profile}/>
                 <ScrollView>
                     <View style={styles.body}>
-                        {/*<HeaderLogin navigation={this.props.navigation}/>*/}
-                        {/*{validateText(login) ?*/}
-                        {/*    <TouchableOpacity*/}
-                        {/*        onPress={() => navigate('UpdateProfile')}*/}
-                        {/*        style={[styles.information2, styles.horizontal2]}>*/}
+                        <TouchableOpacity
+                            onPress={() => navigate('UpdateProfile')}
+                            style={[styles.information2, styles.horizontal2]}>
 
-                        {/*        <View>*/}
-                        {/*            <FastImage style={styles.avatar}*/}
-                        {/*                       source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}*/}
-                        {/*                       resizeMode={FastImage.resizeMode.contain}/>*/}
-                        {/*        </View>*/}
-                        {/*        <View>*/}
-                        {/*            <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt*/}
-                        {/*                Jye</TextComponent>*/}
-                        {/*            <TextComponent style={styles.email}>Vietjye2707</TextComponent>*/}
-                        {/*        </View>*/}
-                        {/*    </TouchableOpacity>*/}
-                        {/*    : <HeaderLogin navigation={this.props.navigation}/>*/}
-                        {/*}*/}
+                            <View>
+                                <FastImage style={styles.avatar}
+                                           source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
+                                           resizeMode={FastImage.resizeMode.contain}/>
+                            </View>
+                            <View>
+                                <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt
+                                    Jye</TextComponent>
+                                <TextComponent style={styles.email}>Vietjye2707</TextComponent>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => navigate('Setting')}
                             style={[styles.information, styles.horizontal]}>
@@ -149,7 +145,7 @@ class Profile extends Component {
                                 <Icon name='settings' type='SimpleLineIcons'
                                       style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
                                 <TextComponent
-ww                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Settings}</TextComponent>
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Settings}</TextComponent>
                             </View>
                             <Icon name='right' type='AntDesign'
                                   style={[styles.icon, {
@@ -173,13 +169,13 @@ ww                                    style={[styles.lang, {color: ThemeConstant
                                   }]}/>
                         </TouchableOpacity>
                         <TouchableOpacity
-                          onPress={() => navigate('Favorite')}
-                          style={[styles.information, styles.horizontal]}>
+                            onPress={() => navigate('Favorite')}
+                            style={[styles.information, styles.horizontal]}>
                             <View style={{flexDirection: 'row'}}>
-                                <Icon name='staro' type='AntDesign'
+                                <Icon name='hearto' type='AntDesign'
                                       style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>
                                 <TextComponent
-                                  style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Favorite}</TextComponent>
+                                    style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Favorite}</TextComponent>
                             </View>
                             <Icon name='right' type='AntDesign'
                                   style={[styles.icon, {

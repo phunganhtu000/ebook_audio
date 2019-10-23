@@ -10,7 +10,7 @@ import {
 } from '../../../cores/styles/styleView';
 import {text13, texts, textTitle, typeText} from '../../../cores/viewComponents/text/texts';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {setWidth} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
+import {setHeight, setWidth} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 
 export const styles = StyleSheet.create({
     container: {
@@ -87,6 +87,9 @@ export const styles = StyleSheet.create({
     viewId: {
         marginRight: 10,
     },
-
+    imgtrong: {
+        width: setWidth('30%'),
+        height:setWidth('30%')
+    },
 });
 

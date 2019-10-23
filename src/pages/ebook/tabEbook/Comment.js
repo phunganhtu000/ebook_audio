@@ -24,11 +24,14 @@ import {ThemeConstants} from '../../../cores/theme/Theme';
 import Locales from '../../../cores/languages/languages';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+import {NavigationActions, StackActions} from 'react-navigation';
 
 class Comment extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            content: '',
+        };
     }
 
     componentWillMount() {
@@ -47,6 +50,7 @@ class Comment extends Component {
             isRTL: rtl,
         });
     }
+
 
     renderItem = ({item}) => {
         const styles = Styles.getSheet(this.state.isRTL);
@@ -77,6 +81,15 @@ class Comment extends Component {
             </View>
         );
     };
+    navigateComment = (screen) => {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({routeName: screen}),
+            ],
+        });
+        this.props.navigation.dispatch(resetAction);
+    };
 
     render() {
         const styles = Styles.getSheet(this.state.isRTL);
@@ -89,13 +102,18 @@ class Comment extends Component {
                 <View style={styles.body}>
                     <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
                 </View>
-                <View style={[styles.viewallinput,{backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                     <TextInput
-                        style={[styles.input,{color:ThemeConstants[theme].textColor}]}
+                        style={[styles.input, {color: ThemeConstants[theme].textColor}]}
                         placeholderTextColor={ThemeConstants[theme].textColor}
                         placeholder={Locales.Comment2}
+                        value={this.state.content}
+                        onChangeText={(content) => {
+                            this.setState({content});
+                        }}
                     />
-                    <TouchableOpacity style={styles.toucoment}>
+                    <TouchableOpacity style={styles.toucoment}
+                                      onPress={() => this.navigateComment('Ebook', {data: data})}>
                         <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
                     </TouchableOpacity>
                 </View>

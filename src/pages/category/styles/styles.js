@@ -38,7 +38,7 @@ export default class Styles {
             },
             body: {
                 // ...marginComponent,
-                margin:setWidth('3.33333333333%')
+                margin: setWidth('3.33333333333%'),
 
             },
             e_book: {...marginTop20},
@@ -119,6 +119,7 @@ export default class Styles {
                 fontSize: 17,
                 color: colors.white,
                 fontWeight: 'bold',
+                textAlign: 'center',
             },
             fastImage: {
                 justifyContent: 'flex-end',
@@ -139,7 +140,7 @@ export default class Styles {
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderRadius: 15,
-                margin:setWidth('3.33333333333%')
+                margin: setWidth('3.33333333333%'),
             },
         });
     }

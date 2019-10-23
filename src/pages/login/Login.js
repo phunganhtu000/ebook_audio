@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import react in our code.
-import {Text, Image, ScrollView, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView} from 'react-native';
+import {Text, Image, Alert, View, TouchableOpacity, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
 import {setHeight, setWidth} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
@@ -9,6 +9,7 @@ import {colors} from '../../cores/styles/colors';
 import {Icon} from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import firebase from 'react-native-firebase';
+import {firebaseApp} from '../../api/firebase/App';
 
 export default class Login extends Component {
     constructor(props) {
@@ -22,64 +23,117 @@ export default class Login extends Component {
             phoneNumber: '+84',
             confirmResult: null,
             address: '',
+            email: '',
+            password: '',
         };
     }
 
-    componentDidMount() {
-        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({user: user.toJSON()});
-            } else {
-                // User has been signed out, reset the state
-                this.setState({
-                    user: null,
-                    message: '',
-                    codeInput: '',
-                    phoneNumber: '+84',
-                    confirmResult: null,
-                });
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        if (this.unsubscribe) {
-            this.unsubscribe();
+    // componentDidMount() {
+    //     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.setState({user: user.toJSON()});
+    //         } else {
+    //             // User has been signed out, reset the state
+    //             this.setState({
+    //                 user: null,
+    //                 message: '',
+    //                 codeInput: '',
+    //                 phoneNumber: '+84',
+    //                 confirmResult: null,
+    //             });
+    //         }
+    //     });
+    // }
+    //
+    // componentWillUnmount() {
+    //     if (this.unsubscribe) {
+    //         this.unsubscribe();
+    //     }
+    // }
+    //
+    // signIn = () => {
+    //     const {phoneNumber} = this.state;
+    //     console.log('phone: ' + phoneNumber);
+    //     this.setState({message: 'Sending code ...'});
+    //
+    //     firebase.auth().signInWithPhoneNumber(phoneNumber)
+    //         .then(confirmResult => this.setState({confirmResult, message: 'Code has been sent!'}))
+    //         .catch(error => this.setState({message: `Sign In With Phone Number Error: ${error.message}`}));
+    // };
+    // confirmCode = () => {
+    //     const {codeInput, confirmResult} = this.state;
+    //
+    //     if (confirmResult && codeInput.length) {
+    //         confirmResult.confirm(codeInput)
+    //             .then((user) => {
+    //                 this.setState({message: 'Code Confirmed!'});
+    //             })
+    //             .catch(error => this.setState({message: `Code Confirm Error: ${error.message}`}));
+    //     }
+    // };
+    //
+    // login() {
+    //     const {user, confirmResult} = this.state;
+    //     this.refuser.child(user.uid).set({
+    //         email: user.email,
+    //         name: user.displayName,
+    //         avatar: user.photoURL,
+    //         phone: user.phoneNumber,
+    //         uid: user.uid,
+    //     });
+    //     this.props.navigation.navigate('Confirm');
+    //
+    // }
+    login(email, password) {
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (this.state.email.trim() == '' | this.state.password.trim() == '') {
+            Alert.alert('thong bao', 'chua nhap');
+            return;
         }
-    }
-
-    signIn = () => {
-        const {phoneNumber} = this.state;
-        console.log('phone: ' + phoneNumber);
-        this.setState({message: 'Sending code ...'});
-
-        firebase.auth().signInWithPhoneNumber(phoneNumber)
-            .then(confirmResult => this.setState({confirmResult, message: 'Code has been sent!'}))
-            .catch(error => this.setState({message: `Sign In With Phone Number Error: ${error.message}`}));
-    };
-    confirmCode = () => {
-        const {codeInput, confirmResult} = this.state;
-
-        if (confirmResult && codeInput.length) {
-            confirmResult.confirm(codeInput)
-                .then((user) => {
-                    this.setState({message: 'Code Confirmed!'});
+        if (this.state.password.length < 6) {
+            Alert.alert('thong bao', '6 ki tu');
+            return;
+        }
+        if (reg.test(this.state.email) === false) {
+            Alert.alert('thong bao', 'chua dung dinh dang email');
+        } else {
+            firebaseApp.auth().signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    Alert.alert(
+                        'thong bao',
+                        'thanh cong' + this.state.email,
+                        [
+                            {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {
+                                text: 'OK', onPress: () => {
+                                    this.props.navigation.navigate('Menu');
+                                },
+                            },
+                        ],
+                        {cancelable: false},
+                    );
+                    this.setState({
+                        email: '',
+                        password: '',
+                    });
                 })
-                .catch(error => this.setState({message: `Code Confirm Error: ${error.message}`}));
+                .catch(function (error) {
+                    Alert.alert(
+                        'thong bao',
+                        'loi',
+                        [
+                            {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        {cancelable: false},
+                    );
+                });
+
+            this.setState({
+                email: '',
+                password: '',
+            });
         }
-    };
-
-    login() {
-        const {user, confirmResult} = this.state;
-        this.refuser.child(user.uid).set({
-            email: user.email,
-            name: user.displayName,
-            avatar: user.photoURL,
-            phone: user.phoneNumber,
-            uid: user.uid,
-        });
-        this.props.navigation.navigate('Confirm');
-
     }
 
     render() {
@@ -97,19 +151,38 @@ export default class Login extends Component {
                                     <TextInput
                                         style={styles.textInput}
                                         placeholder={Locales.UserName}
-                                        autoFocus
-                                        onChangeText={value => this.setState({phoneNumber: value})}
-                                        value={phoneNumber}
-                                        keyboardType={'numeric'}/>
-                                    {/*<TextInput*/}
-                                    {/*    style={styles.textInput}*/}
-                                    {/*    secureTextEntry={true}*/}
-                                    {/*    placeholder={Locales.Password}/>*/}
-                                    <TouchableOpacity onPress={() => this.signIn()}
-                                                      style={[styles.tologin, {
-                                                          backgroundColor: '#0099FF',
-                                                          marginTop: setWidth('2%'),
-                                                      }]}>
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={email => this.setState({email})}
+                                        returnKeyType='next'
+                                        onSubmxitEditing={() => {
+                                            this.refs.txtPassWord.focus();
+                                        }}
+                                        value={this.state.email}
+                                        // autoFocus
+                                        // onChangeText={value => this.setState({phoneNumber: value})}
+                                        // value={phoneNumber}
+                                        // keyboardType={'numeric'}
+                                    />
+                                    <TextInput
+                                        style={styles.textInput}
+                                        secureTextEntry={true}
+                                        placeholder={Locales.Password}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={password => this.setState({password})}
+                                        returnKeyType='go'
+                                        value={this.state.password}
+                                        ref={'txtPassWord'}
+                                        onSubmitEditing={() => {
+                                            this.login(this.state.email, this.state.password);
+                                        }}/>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.login(this.state.email, this.state.password);
+                                        }}
+                                        style={[styles.tologin, {
+                                            backgroundColor: '#0099FF',
+                                            marginTop: setWidth('2%'),
+                                        }]}>
                                         <TextComponent style={styles.textLogin}>{Locales.Login}</TextComponent>
                                     </TouchableOpacity>
                                     <TextComponent
@@ -251,11 +324,11 @@ const styles = StyleSheet.create({
         flex: 1,
         // backgroundColor: colors.background,
         alignItems: 'center',
-        paddingVertical: setWidth('10%')
+        paddingVertical: setWidth('10%'),
     },
     texttitle: {
         marginTop: setWidth('10%'),
-        fontSize: 15
+        fontSize: 15,
     },
     textCode: {
         width: setWidth('75%'),
@@ -267,7 +340,7 @@ const styles = StyleSheet.create({
         borderColor: colors.background,
         color: colors.black,
         fontSize: 18,
-        paddingHorizontal: setWidth('3%')
+        paddingHorizontal: setWidth('3%'),
     },
     btnConfirmCode: {
         alignItems: 'center',
@@ -280,17 +353,17 @@ const styles = StyleSheet.create({
     },
     textConfirmCode: {
         color: colors.white,
-        fontSize: 18
+        fontSize: 18,
     },
     inputphone: {
         marginHorizontal: setWidth('6%'),
         marginTop: 44,
         borderBottomWidth: 1,
         paddingBottom: 11,
-        borderBottomColor: '#fff'
+        borderBottomColor: '#fff',
     },
-    imglogo:{
-        width:setWidth('80%'),
-        height:setWidth('21%')
-    }
+    imglogo: {
+        width: setWidth('80%'),
+        height: setWidth('21%'),
+    },
 });

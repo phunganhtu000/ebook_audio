@@ -87,6 +87,9 @@ export const styles = StyleSheet.create({
     viewId: {
         marginRight: 10,
     },
-
+    imgtrong: {
+        width: setWidth('30%'),
+        height: setWidth('30%'),
+    },
 });
 

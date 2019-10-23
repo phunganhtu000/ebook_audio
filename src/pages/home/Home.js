@@ -147,14 +147,14 @@ class Home extends Component {
                              activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Radio}>
                             <Radio data={radio} navigation={this.props.navigation}/>
                         </Tab>
-                        <Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
-                             activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}
-                             textStyle={{color: '#C5C4C4'}}
-                             activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Music}>
-                            <ListMusic
-                                data={music}
-                                navigation={this.props.navigation}/>
-                        </Tab>
+                        {/*<Tab tabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}*/}
+                        {/*     activeTabStyle={{backgroundColor: ThemeConstants[theme].backgroundCard}}*/}
+                        {/*     textStyle={{color: '#C5C4C4'}}*/}
+                        {/*     activeTextStyle={{color: '#D0021B', fontWeight: 'normal'}} heading={Locales.Music}>*/}
+                        {/*    <ListMusic*/}
+                        {/*        data={music}*/}
+                        {/*        navigation={this.props.navigation}/>*/}
+                        {/*</Tab>*/}
                     </Tabs>
                 </View>
             </View>
