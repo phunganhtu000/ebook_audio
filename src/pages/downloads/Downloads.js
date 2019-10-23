@@ -22,21 +22,15 @@ class Downloads extends Component {
         this.state = {};
     }
 
-    async componentDidMount(): void {
-        getDowload().then(value => {
-            this.setState({
-                data: value,
-            }, console.log('data' + JSON.stringify(value)));
-        });
-
-    }
+  componentDidMount() {
+    this.props.getDataDownload();
+  }
 
     removeItem(item) {
         this.props.removeFromDownload(item);
     }
 
     render() {
-
         const {navigate} = this.props.navigation;
         const {navigation} = this.props;
         const {download} = this.props;

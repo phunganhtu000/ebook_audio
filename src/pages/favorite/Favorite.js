@@ -19,19 +19,14 @@ import Locales from '../../cores/languages/languages';
 class Favorite extends Component {
     constructor(props) {
         super();
-        this.state = {};
+        this.state = {
+        };
+    }
+    componentDidMount() {
+      this.props.getDataFavorite();
     }
 
-    async componentDidMount(): void {
-        getDowload().then(value => {
-            this.setState({
-                data: value,
-            }, console.log('data' + JSON.stringify(value)));
-        });
-
-    }
-
-    removeItem(item) {
+  removeItem(item) {
         this.props.removeFromDownload(item);
     }
 
@@ -56,7 +51,7 @@ class Favorite extends Component {
                         <FlatList
                             // horizontal
                             // numColumns={2}
-                            data={favorite || []}
+                            data={favorite}
                             renderItem={({item, index}) => (
                                 <TouchableOpacity
                                     onPress={() => navigate('Details', {data: item})}
