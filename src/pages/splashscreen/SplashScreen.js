@@ -64,7 +64,7 @@ export default class SplashScreen extends Component {
     async getApiData() {
         // const login_token = await getDataOfflineMode(constants.TOKEN);
             setTimeout(() => {
-                this.props.navigation.navigate('Menu')
+                this.props.navigation.navigate('Login')
             }, 1000);
 
     }

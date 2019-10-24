@@ -37,7 +37,6 @@ target 'Ebook' do
 
 
 
-  pod 'RNRate', :path => '../node_modules/react-native-rate'
 
 
 

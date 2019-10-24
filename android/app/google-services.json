@@ -1,138 +1,110 @@
 {
   "project_info": {
-    "project_number": "33899068605",
-    "firebase_url": "https://econtent-c848c.firebaseio.com",
-    "project_id": "econtent-c848c",
-    "storage_bucket": "econtent-c848c.appspot.com"
+    "project_number": "872612520063",
+    "firebase_url": "https://ebook-d9937.firebaseio.com",
+    "project_id": "ebook-d9937",
+    "storage_bucket": "ebook-d9937.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:33899068605:android:9e14f84f6d4b0d0fd08bd4",
-        "android_client_info": {
-          "package_name": "com.all_moza"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "33899068605-0f7sk8u98ibo3gt97193fnaq51m7l695.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.all_moza",
-            "certificate_hash": "b39bbf9995ba6a9d43f10e84a6d0eef8af2ff434"
-          }
-        },
-        {
-          "client_id": "33899068605-31juge0lk0accm0johar64lh8ep8cogp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.all_moza",
-            "certificate_hash": "c0d5d98e953bec18aa43ec13c0df729eea89ba77"
-          }
-        },
-        {
-          "client_id": "33899068605-fuuhrd5rlm3uq197o8hrerrkogi38ueb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.all_moza",
-            "certificate_hash": "699d13c76ad74331d4cf921f2ecd3a3665898cea"
-          }
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.moza.mrbean"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:33899068605:android:552fd8d452461968",
-        "android_client_info": {
-          "package_name": "com.coffee_house"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "33899068605-oos32424hrcnabmg3sdkeiutrccr1gs6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coffee_house",
-            "certificate_hash": "eaf5c2a0139b7497f942563ca5adf262de4bf45c"
-          }
-        },
-        {
-          "client_id": "33899068605-sl675jgh1deoub7li0f0sodokbf63mdv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coffee_house",
-            "certificate_hash": "c0d5d98e953bec18aa43ec13c0df729eea89ba77"
-          }
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.moza.mrbean"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:33899068605:android:fa6dc7f1e39c6945d08bd4",
+        "mobilesdk_app_id": "1:872612520063:android:5596bcaa837425033a5f4a",
         "android_client_info": {
           "package_name": "com.ebook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "33899068605-7r2u4lf1fnhfc3ec8t35u2tekrjnsq38.apps.googleusercontent.com",
+          "client_id": "872612520063-af0m1ma6indsq3ms4ret9r8471f9croq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ebook",
-            "certificate_hash": "b39bbf9995ba6a9d43f10e84a6d0eef8af2ff434"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
+        },
+        {
+          "client_id": "872612520063-g2jncqjgc3oln147vbg1h4siigffapjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ebook",
+            "certificate_hash": "2ee74b1bf6e2f79606ed0f20dcab06c06500f69e"
+          }
+        },
+        {
+          "client_id": "872612520063-b69jngaiovol5ke17fcfntkr4k4b84pd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ebook",
+            "certificate_hash": "b0ce5f17c529440f761259deafb8ef646a3f2f96"
+          }
+        },
+        {
+          "client_id": "872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCWC8HbJ1sb90vpBTlmN-dkqh5Qz-HiGFw"
+          "current_key": "AIzaSyBRjdbPjFgJEzQpXuRHiE9bxOjt3Hm3Z7Q"
+        },
+        {
+          "current_key": "AIzaSyBRjdbPjFgJEzQpXuRHiE9bxOjt3Hm3Z7Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "33899068605-b8b35aurgakleek47n0ebj2potnjafrc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.moza.mrbean"
-              }
+              "client_id": "872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872612520063:android:49ad0baae0e5f4e53a5f4a",
+        "android_client_info": {
+          "package_name": "com.moza.ebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872612520063-bvm3m8qp1g7mtegv0t8kdtugua7m9lf5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moza.ebook",
+            "certificate_hash": "b0ce5f17c529440f761259deafb8ef646a3f2f96"
+          }
+        },
+        {
+          "client_id": "872612520063-no05drg8gaofuklhqd5n9o3471722fqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moza.ebook",
+            "certificate_hash": "b39bbf9995ba6a9d43f10e84a6d0eef8af2ff434"
+          }
+        },
+        {
+          "client_id": "872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRjdbPjFgJEzQpXuRHiE9bxOjt3Hm3Z7Q"
+        },
+        {
+          "current_key": "AIzaSyBRjdbPjFgJEzQpXuRHiE9bxOjt3Hm3Z7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }

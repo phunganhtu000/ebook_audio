@@ -28,113 +28,113 @@ export default class Login extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.setState({user: user.toJSON()});
-    //         } else {
-    //             // User has been signed out, reset the state
-    //             this.setState({
-    //                 user: null,
-    //                 message: '',
-    //                 codeInput: '',
-    //                 phoneNumber: '+84',
-    //                 confirmResult: null,
-    //             });
-    //         }
-    //     });
-    // }
-    //
-    // componentWillUnmount() {
-    //     if (this.unsubscribe) {
-    //         this.unsubscribe();
-    //     }
-    // }
-    //
-    // signIn = () => {
-    //     const {phoneNumber} = this.state;
-    //     console.log('phone: ' + phoneNumber);
-    //     this.setState({message: 'Sending code ...'});
-    //
-    //     firebase.auth().signInWithPhoneNumber(phoneNumber)
-    //         .then(confirmResult => this.setState({confirmResult, message: 'Code has been sent!'}))
-    //         .catch(error => this.setState({message: `Sign In With Phone Number Error: ${error.message}`}));
-    // };
-    // confirmCode = () => {
-    //     const {codeInput, confirmResult} = this.state;
-    //
-    //     if (confirmResult && codeInput.length) {
-    //         confirmResult.confirm(codeInput)
-    //             .then((user) => {
-    //                 this.setState({message: 'Code Confirmed!'});
-    //             })
-    //             .catch(error => this.setState({message: `Code Confirm Error: ${error.message}`}));
-    //     }
-    // };
-    //
-    // login() {
-    //     const {user, confirmResult} = this.state;
-    //     this.refuser.child(user.uid).set({
-    //         email: user.email,
-    //         name: user.displayName,
-    //         avatar: user.photoURL,
-    //         phone: user.phoneNumber,
-    //         uid: user.uid,
-    //     });
-    //     this.props.navigation.navigate('Confirm');
-    //
-    // }
-    login(email, password) {
-        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (this.state.email.trim() == '' | this.state.password.trim() == '') {
-            Alert.alert('thong bao', 'chua nhap');
-            return;
-        }
-        if (this.state.password.length < 6) {
-            Alert.alert('thong bao', '6 ki tu');
-            return;
-        }
-        if (reg.test(this.state.email) === false) {
-            Alert.alert('thong bao', 'chua dung dinh dang email');
-        } else {
-            firebaseApp.auth().signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    Alert.alert(
-                        'thong bao',
-                        'thanh cong' + this.state.email,
-                        [
-                            {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                            {
-                                text: 'OK', onPress: () => {
-                                    this.props.navigation.navigate('Menu');
-                                },
-                            },
-                        ],
-                        {cancelable: false},
-                    );
-                    this.setState({
-                        email: '',
-                        password: '',
-                    });
-                })
-                .catch(function (error) {
-                    Alert.alert(
-                        'thong bao',
-                        'loi',
-                        [
-                            {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                            {text: 'OK', onPress: () => console.log('OK Pressed')},
-                        ],
-                        {cancelable: false},
-                    );
+    componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user: user.toJSON()});
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+                    message: '',
+                    codeInput: '',
+                    phoneNumber: '+84',
+                    confirmResult: null,
                 });
+            }
+        });
+    }
 
-            this.setState({
-                email: '',
-                password: '',
-            });
+    componentWillUnmount() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
         }
     }
+
+    signIn = () => {
+        const {phoneNumber} = this.state;
+        console.log('phone: ' + phoneNumber);
+        this.setState({message: 'Sending code ...'});
+
+        firebase.auth().signInWithPhoneNumber(phoneNumber)
+            .then(confirmResult => this.setState({confirmResult, message: 'Code has been sent!'}))
+            .catch(error => this.setState({message: `Sign In With Phone Number Error: ${error.message}`}));
+    };
+    confirmCode = () => {
+        const {codeInput, confirmResult} = this.state;
+
+        if (confirmResult && codeInput.length) {
+            confirmResult.confirm(codeInput)
+                .then((user) => {
+                    this.setState({message: 'Code Confirmed!'});
+                })
+                .catch(error => this.setState({message: `Code Confirm Error: ${error.message}`}));
+        }
+    };
+
+    login() {
+        const {user, confirmResult} = this.state;
+        this.refuser.child(user.uid).set({
+            email: user.email,
+            name: user.displayName,
+            avatar: user.photoURL,
+            phone: user.phoneNumber,
+            uid: user.uid,
+        });
+        this.props.navigation.navigate('Confirm');
+
+    }
+    // login(email, password) {
+    //     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    //     if (this.state.email.trim() == '' | this.state.password.trim() == '') {
+    //         Alert.alert('thong bao', 'chua nhap');
+    //         return;
+    //     }
+    //     if (this.state.password.length < 6) {
+    //         Alert.alert('thong bao', '6 ki tu');
+    //         return;
+    //     }
+    //     if (reg.test(this.state.email) === false) {
+    //         Alert.alert('thong bao', 'chua dung dinh dang email');
+    //     } else {
+    //         firebaseApp.auth().signInWithEmailAndPassword(email, password)
+    //             .then(() => {
+    //                 Alert.alert(
+    //                     'thong bao',
+    //                     'thanh cong' + this.state.email,
+    //                     [
+    //                         {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+    //                         {
+    //                             text: 'OK', onPress: () => {
+    //                                 this.props.navigation.navigate('Menu');
+    //                             },
+    //                         },
+    //                     ],
+    //                     {cancelable: false},
+    //                 );
+    //                 this.setState({
+    //                     email: '',
+    //                     password: '',
+    //                 });
+    //             })
+    //             .catch(function (error) {
+    //                 Alert.alert(
+    //                     'thong bao',
+    //                     'loi',
+    //                     [
+    //                         {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+    //                         {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //                     ],
+    //                     {cancelable: false},
+    //                 );
+    //             });
+    //
+    //         this.setState({
+    //             email: '',
+    //             password: '',
+    //         });
+    //     }
+    // }
 
     render() {
         const {user, confirmResult} = this.state;
@@ -152,32 +152,32 @@ export default class Login extends Component {
                                         style={styles.textInput}
                                         placeholder={Locales.UserName}
                                         underlineColorAndroid='transparent'
-                                        onChangeText={email => this.setState({email})}
-                                        returnKeyType='next'
-                                        onSubmxitEditing={() => {
-                                            this.refs.txtPassWord.focus();
-                                        }}
-                                        value={this.state.email}
-                                        // autoFocus
-                                        // onChangeText={value => this.setState({phoneNumber: value})}
-                                        // value={phoneNumber}
-                                        // keyboardType={'numeric'}
+                                        // onChangeText={email => this.setState({email})}
+                                        // returnKeyType='next'
+                                        // onSubmxitEditing={() => {
+                                        //     this.refs.txtPassWord.focus();
+                                        // }}
+                                        // value={this.state.email}
+                                        autoFocus
+                                        onChangeText={value => this.setState({phoneNumber: value})}
+                                        value={phoneNumber}
+                                        keyboardType={'numeric'}
                                     />
-                                    <TextInput
-                                        style={styles.textInput}
-                                        secureTextEntry={true}
-                                        placeholder={Locales.Password}
-                                        underlineColorAndroid='transparent'
-                                        onChangeText={password => this.setState({password})}
-                                        returnKeyType='go'
-                                        value={this.state.password}
-                                        ref={'txtPassWord'}
-                                        onSubmitEditing={() => {
-                                            this.login(this.state.email, this.state.password);
-                                        }}/>
+                                    {/*<TextInput*/}
+                                    {/*    style={styles.textInput}*/}
+                                    {/*    secureTextEntry={true}*/}
+                                    {/*    placeholder={Locales.Password}*/}
+                                    {/*    underlineColorAndroid='transparent'*/}
+                                    {/*    onChangeText={password => this.setState({password})}*/}
+                                    {/*    returnKeyType='go'*/}
+                                    {/*    value={this.state.password}*/}
+                                    {/*    ref={'txtPassWord'}*/}
+                                    {/*    onSubmitEditing={() => {*/}
+                                    {/*        this.login(this.state.email, this.state.password);*/}
+                                    {/*    }}/>*/}
                                     <TouchableOpacity
                                         onPress={() => {
-                                            this.login(this.state.email, this.state.password);
+                                            this.signIn();
                                         }}
                                         style={[styles.tologin, {
                                             backgroundColor: '#0099FF',
@@ -223,7 +223,7 @@ export default class Login extends Component {
 
     renderMessage() {
         const {message} = this.state;
-
+        console.log('message: '+message)
         if (!message.length) {
             return null;
         }
