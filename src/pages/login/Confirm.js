@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Button, Text, TextInput, Image, TouchableOpacity, Alert} from 'react-native';
-import firebaseConfig from 'firebase';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 
 const successImageUri = 'https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803718_1280.png';
 import {connect} from 'react-redux';
@@ -71,7 +71,7 @@ class Confirm extends Component {
 
     goToUpdateProfile() {
         setTimeout(() => {
-            this.props.navigation.navigate('Menu');
+            this.props.navigation.navigate('UpdateProfile', {data: this.state.item});
         }, 2000);
 
     };
@@ -82,7 +82,7 @@ class Confirm extends Component {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Image source={{uri: successImageUri}} style={{width: 100, height: 100, marginBottom: 25}}/>
-                <Text style={{fontSize: 25}}>Loginss</Text>
+                <Text style={{fontSize: 25}}>LoginOk</Text>
             </View>
         );
     }

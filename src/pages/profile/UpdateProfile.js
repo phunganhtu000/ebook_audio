@@ -1,251 +1,397 @@
+//This is an example code for Bottom Navigation//
 import React, {Component} from 'react';
+//import react in our code.
 import {
-    View, StyleSheet, ScrollView, TouchableOpacity, TextInput, Image,
+    Text,
+    Platform,
+    View,
+    TouchableOpacity,
+    StyleSheet,
+    SafeAreaView,
+    Image,
+    ActivityIndicator,
+    Alert,
 } from 'react-native';
-import HeaderComponent from '../headerComponent/HeaderComponent';
-import Locales from '../../cores/languages/languages';
-import {h2, medium, small, small2} from '../../cores/styles/styleText';
-import LinearGradient from 'react-native-linear-gradient';
-import TextComponent from '../../cores/viewComponents/text/TextComponent';
-import {Icon} from 'native-base';
-import {setWidth} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
-import {horizontalView, marginLeft20, marginRight10, marginRight20} from '../../cores/styles/styleView';
-
+import {Icon} from 'native-base'
+    ;
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob';
+import {connect} from 'react-redux';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
+import TextInputArea from '../../cores/viewComponents/textInput/TextInputArea';
+import {horizontalView, horizontal} from '../../cores/styles/styleView';
+import {inValidateText, setHeight, setWidth} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 
-export default class UpdateProfile extends Component {
-    state = {
-        avatarSource: null,
-        videoSource: null,
-    };
+const options = {
+    title: 'Select Avatar',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+};
+import {colors} from '../../cores/styles/colors';
+import TextComponent from '../../cores/viewComponents/text/TextComponent';
+import ButtonComponent from '../../cores/viewComponents/button/ButtonComponent';
 
+const storage = firebaseConfig.storage();
+const Blob = RNFetchBlob.polyfill.Blob;
+const fs = RNFetchBlob.fs;
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = Blob;
+const uploadImage = (uri, uid, mime = 'application/octet-stream') => {
+    // console.log('uri'+ uri);
+    console.log('uid' + uid);
+    return new Promise((resolve, reject) => {
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        // let uploadBlob = null;
+
+        const imageRef = storage.ref('avatar').child(`${uid}.jpg`);
+        console.log('imageRef: ' + imageRef);
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, {type: `${mime};BASE64`});
+            }).then((blob) => {
+            uploadBlob = blob;
+            return imageRef.put(blob, {contentType: mime});
+        })
+            .then(() => {
+                uploadBlob.close();
+                return imageRef.getDownloadURL();
+            })
+            .then((url) => {
+                resolve(url);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
+
+class UpdateProfile extends Component {
+    //Setting Screen to show in Setting Option
     constructor(props) {
-        super();
-        this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
-        this.selectVideoTapped = this.selectVideoTapped.bind(this);
-        this.state = {};
+        super(props);
+        this.firebase = firebaseConfig.database();
+        const data = this.props.navigation.state.params.data;
+        this.state = {
+            name: data.name,
+            address: data.address,
+            email: data.email,
+            data: data,
+            // avatar: data.avatar,
+            birthday: data.birthday,
+            phone: data.phone,
+            uid: data.uid,
+        };
     }
 
+    componentDidMount() {
+        // const uid = this.props.user.uid;
+        // this.firebase.ref(`user`).child(uid).on('value', snapshoot => {
+        //     if (snapshoot.val()) {
+        //         let obj = snapshoot.val();
+        //         obj.key = snapshoot.key
+        //         this.setState({
+        //             data: obj,
+        //             avatar: obj.avatar,
+        //             name: obj.name,
+        //             email: obj.email,
+        //             birthday: obj.birthday,
+        //             phone: obj.phone,
+        //             address: obj.address,
+        //             uid: obj.uid,
+        //             loadingImage: false
+        //         })
+        //     }
+        // })
 
-    selectPhotoTapped() {
-        const options = {
-            quality: 1.0,
-            maxWidth: 500,
-            maxHeight: 500,
-            storageOptions: {
-                skipBackup: true,
-            },
-        };
+    }
 
-        ImagePicker.showImagePicker(options, response => {
-            console.log('Response = ', response);
-
+    imagePicker() {
+        ImagePicker.showImagePicker(options, (response) => {
             if (response.didCancel) {
-                console.log('User cancelled photo picker');
+
             } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
+
             } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
+
             } else {
-                let source = {uri: response.uri};
-
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                this.setState({
-                    avatarSource: source,
+                this.setState({loadingImage: true});
+                uploadImage(response.uri, this.props.user.uid)
+                    .then(url => {
+                        this.setState({avatar: url});
+                    }).then(() => {
+                    setTimeout(() => {
+                        this.setState({loadingImage: false});
+                    }, 3000);
+                }).catch(err => {
+                    this.setState({loadingImage: false});
                 });
             }
         });
     }
 
-    selectVideoTapped() {
-        const options = {
-            title: 'Video Picker',
-            takePhotoButtonTitle: 'Take Video...',
-            mediaType: 'video',
-            videoQuality: 'medium',
+    checkForm() {
+        let {avatar, name, phone, address, uid, email, birthday} = this.state;
+        let user = {
+            // avatar: avatar,
+            name: name,
+            phone: phone,
+            address: address,
+            email: email,
+            uid: uid,
+            birthday: birthday,
+
         };
+        if (inValidateText(this.state.name)) {
+            Alert.alert(
+                'ten qua ngan');
+        } else if (inValidateText(this.state.phone)) {
+            Alert.alert(
+                'Số điện thoại sai');
+        } else if (inValidateText(this.state.address)) {
+            Alert.alert(
+                'Sai địa chỉ');
+        } else if (inValidateText(this.state.email)) {
+            Alert.alert(
+                'Email sai');
+        } else if (inValidateText(this.state.birthday)) {
+            Alert.alert(
+                'Ngày sinh không đúng');
+        } else {
+            this.addUserToFirebase(user);
+        }
+    }
 
-        ImagePicker.showImagePicker(options, response => {
-            console.log('Response = ', response);
+    addUserToFirebase(user) {
+        console.log('updateuser:' + JSON.stringify(user));
 
-            if (response.didCancel) {
-                console.log('User cancelled video picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                this.setState({
-                    videoSource: response.uri,
-                });
-            }
+        this.firebase.ref('user').child(user.uid).update({
+            // avatar: user.avatar,
+            name: user.name,
+            phone: user.phone,
+            address: user.address,
+            email: user.email,
+            uid: user.uid,
+            birthday: user.birthday,
+
+        }).then(() => {
+            Alert.alert(
+                'thong bao',
+                'thanh cong',
+                [
+                    {
+                        text: 'Ok', onPress: () => {
+                            this.props.navigation.navigate('Menu');
+                        },
+                    },
+                ],
+            );
+        }).catch((err) => {
+            Alert.alert(
+                err.message);
+        });
+    }
+
+    update() {
+        this.firebase.ref('user').child(this.state.uid).push({
+            name: this.state.name,
         });
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         const {navigation} = this.props;
+        const {name, address, email, avatar, phone, surname, birthday} = this.state;
+        // console.log('update:' + JSON.stringify(this.state.data))
         return (
-            <View style={styles.container}>
-                <HeaderComponent
-                    iconLeft='ios-arrow-back'
-                    // iconRight='ios-search'
-                    left='back'
-                    title='UpdateProfile'
-                    style={{...small}}
-                    onPressLeft={() => navigation.goBack()}
-                />
-                <View style={styles.body}>
-                    <ScrollView>
-                        <View style={styles.imageall}>
-                            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}
-                                              style={styles.touall}>
-                                <Icon style={styles.icon} type='Entypo' name='camera'/>
-                                <Image
-                                    source={this.state.avatarSource}
-                                    style={{width: 120, height: 120, borderRadius: 80}}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        {/* <Button title="Choose File" /> */}
-                        <View style={{alignItems: 'center', marginBottom: 20}}>
-                            <View style={styles.viewuser}>
-                                <LinearGradient
-                                    colors={['#D0021B', '#fff']}
-                                    start={{x: 1.25, y: 0}} end={{x: 1.25, y: 2.5}}
-                                    style={styles.graicon}
-                                >
-                                    <Icon style={styles.inputIcon1} type='FontAwesome' name='user'/>
-                                </LinearGradient>
-                                <TextInput style={styles.inputuser}
-                                           placeholder='name'/>
-                            </View>
-                        </View>
-                        <View style={{alignItems: 'center', marginBottom: 20}}>
-                            <View style={styles.viewuser}>
-                                <LinearGradient
-                                    colors={['#D0021B', '#fff']}
-                                    start={{x: 1.25, y: 0}} end={{x: 1.25, y: 2.5}}
-                                    style={styles.graicon}
-                                >
-                                    <Icon style={styles.inputIcon1} type='FontAwesome' name='mobile-phone'/>
-                                </LinearGradient>
-                                <TextInput style={styles.inputuser}
-                                           placeholder='phone'/>
-                            </View>
-                        </View>
-                        <View style={{alignItems: 'center', marginBottom: 20}}>
-                            <View style={styles.viewuser}>
-                                <LinearGradient
-                                    colors={['#D0021B', '#fff']}
-                                    start={{x: 1.25, y: 0}} end={{x: 1.25, y: 2.5}}
-                                    style={styles.graicon}
-                                >
-                                    <Icon style={styles.inputIcon1} type='Entypo' name='location-pin'/>
-                                </LinearGradient>
-                                <TextInput style={styles.inputuser}
-                                           placeholder='dia chi'/>
-                            </View>
-                        </View>
-                        <View style={{alignItems: 'center', marginBottom: 20}}>
-                            <TouchableOpacity style={styles.tousave} onPress={() => {
-                                navigate('Menutab');
+            <SafeAreaView style={styles.saf}>
+                <KeyboardAwareScrollView>
+                    <View style={styles.container}>
+                        <View style={[styles.header, styles.horizontal]}>
+                            <View/>
+                            <TouchableOpacity onPress={() => {
+                                this.imagePicker();
                             }}>
-                                <LinearGradient
-                                    colors={['#D0021B', '#E96273']}
-                                    start={{x: 0.0, y: 1.0}} end={{x: 1.0, y: 1.0}}
-                                    style={styles.graicon2}>
-                                    <TextComponent style={styles.textsave}>Save</TextComponent>
-                                </LinearGradient>
+                                {this.state.loadingImage ?
+                                    <ActivityIndicator color="red" style={styles.avatar} size="large"/> :
+                                    <Image style={styles.avatar} source={{uri: avatar}}/>}
+                                <View style={styles.viewEdit}>
+                                    <Icon name='edit' type='MaterialIcons' style={{color: colors.white, fontSize: 20}}/>
+                                </View>
                             </TouchableOpacity>
+                            <View style={{width: setWidth('5%')}}/>
                         </View>
-                    </ScrollView>
-                </View>
-            </View>
+
+                        <View style={styles.listViewTitle}>
+
+                        </View>
+
+                        <View style={styles.viewUpdateUser}>
+
+
+                            <View style={[{...horizontalView}, styles.itemUpdateUser]}>
+                                <View>
+                                    <TextComponent>FullName : </TextComponent>
+                                    <TextInputArea
+                                        placeholder='name'
+                                        onChangeText={(name) => this.setState({name})}
+                                        value={name}/>
+                                </View>
+                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                            </View>
+                            <View style={styles.barHorizontal}/>
+
+                            <View style={[{...horizontalView}, styles.itemUpdateUser]}>
+                                <View>
+                                    <TextComponent>Dateofbirth :</TextComponent>
+                                    <TextInputArea
+                                        placeholder='birthday'
+                                        onChangeText={(birthday) => this.setState({birthday})}
+                                        value={birthday}/>
+                                </View>
+                            </View>
+                            <View style={styles.barHorizontal}/>
+
+                            <View style={[{...horizontalView}, styles.itemUpdateUser]}>
+                                <View>
+                                    <TextComponent>.Email :</TextComponent>
+                                    <TextInputArea
+                                        placeholder='Email'
+                                        onChangeText={(email) => this.setState({email})}
+                                        value={email}/>
+                                </View>
+                            </View>
+                            <View style={styles.barHorizontal}/>
+
+                            <View style={[{...horizontalView}, styles.itemUpdateUser]}>
+                                <View>
+                                    <TextComponent>Phonenumber :</TextComponent>
+                                    <TextInputArea
+                                        placeholder='Phonenumber'
+                                        maxLength={10}
+                                        keyboa08692633978rdType='number-pad'
+                                        onChangeText={(phone) => this.setState({phone})}
+                                        value={phone}/>
+                                </View>
+                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                            </View>
+                            <View style={styles.barHorizontal}/>
+                            <View style={[{...horizontalView}, styles.itemUpdateUser]}>
+                                <View>
+                                    <TextComponent>Address : </TextComponent>
+                                    <TextInputArea
+                                        placeholder='Address'
+                                        maxLength={10}
+                                        keyboa08692633978rdType='number-pad'
+                                        onChangeText={(address) => this.setState({address})}
+                                        value={address}/>
+                                </View>
+                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                            </View>
+                            <View style={styles.barHorizontal}/>
+                        </View>
+                        <View style={styles.bottom}>
+                            <ButtonComponent
+                                style={{backgroundColor: colors.black}}
+                                onPress={() => this.checkForm()}
+                                text='UpdateProfile'
+                            />
+                        </View>
+                    </View>
+                </KeyboardAwareScrollView>
+            </SafeAreaView>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.loginReducer.login,
+    };
+}
+
+export default connect(mapStateToProps)(UpdateProfile);
 const styles = StyleSheet.create({
+    saf: {
+        flex: 1,
+        backgroundColor: colors.white,
+    },
     container: {
         flex: 1,
+        backgroundColor: colors.background,
     },
-    body: {},
-    imageall: {
-        justifyContent: 'center',
-        alignItems: 'center',
+    header: {
+        backgroundColor: colors.white,
+        paddingVertical: 10,
+        paddingHorizontal: 10,
     },
-    touall: {
-        width: setWidth('34%'),
-        height: setWidth('34%'),
-        backgroundColor: '#D5D8CE',
-        borderRadius: setWidth('34%'),
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 30,
-        marginBottom: 20,
-        borderColor: '#BBBBBB',
-        borderWidth: 1,
+    horizontal: {
+        ...horizontal,
     },
     icon: {
-        color: 'silver',
-        // fontSize: 30,
-        ...h2,
+        fontSize: 25,
+        color: colors.black,
+    },
+    avatar: {
+        width: setWidth('22%'),
+        height: setWidth('22%'),
+        borderRadius: setWidth('11%'),
+        backgroundColor: colors.background,
+    },
+    viewEdit: {
+        width: setWidth('7%'),
+        height: setWidth('7%'),
+        borderRadius: setWidth('3.5%'),
+        backgroundColor: colors.orange,
         position: 'absolute',
-    },
-    viewuser: {
-        width: setWidth('80%'),
-        flexDirection: 'row',
+        bottom: 0,
+        right: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        height: setWidth('12%'),
-        borderColor: 'silver',
-        borderWidth: 0.2,
-        borderRadius: setWidth('10%'),
-        backgroundColor: '#fff',
     },
-    tousave: {
-        width: setWidth('80%'),
-        ...horizontalView,
+    listViewTitle: {
+        marginVertical: 20,
+    },
+    viewItem: {
+        width: '50%',
         alignItems: 'center',
         justifyContent: 'center',
-        height: setWidth('12%'),
-        borderRadius: setWidth('10%'),
-        backgroundColor: '#fff',
     },
-    graicon: {
-        width: setWidth('8%'),
-        height: setWidth('8%'),
-        borderRadius: setWidth('10%'),
-        alignItems: 'center',
-        justifyContent: 'center',
-        ...marginRight10,
-        ...marginLeft20,
+    barVertical: {
+        width: 0.5,
+        height: setWidth('10%'),
+        backgroundColor: colors.lightGrey,
+        marginVertical: 8,
     },
-    graicon2: {
+    barHorizontal: {
         width: '100%',
-        height: '100%',
+        height: 0.5,
+        backgroundColor: colors.lightGrey,
+
+    },
+    title: {
+        marginVertical: 5,
+        fontSize: 12,
+        color: colors.black,
+    },
+    number: {
+        color: colors.orange,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    viewUpdateUser: {
+        backgroundColor: colors.white,
+
+    },
+    itemUpdateUser: {
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        marginBottom: 5,
+    },
+    bottom: {
+        marginVertical: setHeight('10%'),
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: setWidth('10%'),
-    },
-    inputIcon1: {
-        color: '#fff',
-        // fontSize: 20,
-        ...medium,
-    },
-    inputuser: {
-        width: setWidth('65%'),
-        borderRadius: setWidth('10%'),
-        // fontSize: 15,
-        ...small,
-        ...marginRight20,
-    },
-    textsave: {
-        color: '#fff',
-        // fontSize: 15,
-        ...small2,
-        fontWeight: 'bold',
     },
 });

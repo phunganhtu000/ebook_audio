@@ -1,5 +1,5 @@
-import firebase from 'react-native-firebase';
-import * as types from './actionTypes';
+import firebase from "react-native-firebase";
+import * as types from "./actionTypes";
 
 export const checkLogin = () => {
     return (dispatch) => {
@@ -8,15 +8,15 @@ export const checkLogin = () => {
                 // console.log("testFirebaseInRedux: logged in" + JSON.stringify(user.toJSON()));
                 dispatch({
                     type: types.CHECK_LOGIN,
-                    payload: user.toJSON(),
+                    payload: user.toJSON()
                 });
             } else {
                 // console.log("testFirebaseInRedux: not logged in" + JSON.stringify(user.toJSON()));
                 dispatch({
                     type: types.CHECK_LOGIN,
-                    payload: null,
+                    payload: null
                 });
             }
-        });
-    };
-};
+        })
+    }
+}

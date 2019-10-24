@@ -9,12 +9,13 @@ import {colors} from '../../cores/styles/colors';
 import {Icon} from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import firebase from 'react-native-firebase';
-import {firebaseApp} from '../../api/firebase/App';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.unsubscribe = null;
+        this.refuser = firebaseConfig.database().ref('user');
         this.state = {
             myNumber: '',
             user: null,
@@ -84,57 +85,6 @@ export default class Login extends Component {
         this.props.navigation.navigate('Confirm');
 
     }
-    // login(email, password) {
-    //     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //     if (this.state.email.trim() == '' | this.state.password.trim() == '') {
-    //         Alert.alert('thong bao', 'chua nhap');
-    //         return;
-    //     }
-    //     if (this.state.password.length < 6) {
-    //         Alert.alert('thong bao', '6 ki tu');
-    //         return;
-    //     }
-    //     if (reg.test(this.state.email) === false) {
-    //         Alert.alert('thong bao', 'chua dung dinh dang email');
-    //     } else {
-    //         firebaseApp.auth().signInWithEmailAndPassword(email, password)
-    //             .then(() => {
-    //                 Alert.alert(
-    //                     'thong bao',
-    //                     'thanh cong' + this.state.email,
-    //                     [
-    //                         {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //                         {
-    //                             text: 'OK', onPress: () => {
-    //                                 this.props.navigation.navigate('Menu');
-    //                             },
-    //                         },
-    //                     ],
-    //                     {cancelable: false},
-    //                 );
-    //                 this.setState({
-    //                     email: '',
-    //                     password: '',
-    //                 });
-    //             })
-    //             .catch(function (error) {
-    //                 Alert.alert(
-    //                     'thong bao',
-    //                     'loi',
-    //                     [
-    //                         {text: Locales.Cancel, onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //                         {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //                     ],
-    //                     {cancelable: false},
-    //                 );
-    //             });
-    //
-    //         this.setState({
-    //             email: '',
-    //             password: '',
-    //         });
-    //     }
-    // }
 
     render() {
         const {user, confirmResult} = this.state;
@@ -223,7 +173,7 @@ export default class Login extends Component {
 
     renderMessage() {
         const {message} = this.state;
-        console.log('message: '+message)
+        console.log('message: ' + message);
         if (!message.length) {
             return null;
         }

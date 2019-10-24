@@ -28,6 +28,7 @@ import {checkLogin} from '../../redux/actions/loginAction';
 import {darkMode} from '../../redux/actions/settingAction';
 import {ThemeConstants} from '../../cores/theme/Theme';
 import HeaderLogin from '../../compoment/HeaderLogin';
+import firebase from 'react-native-firebase';
 
 class Profile extends Component {
     constructor(props) {
@@ -41,6 +42,22 @@ class Profile extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.checkLogin();
+        const {navigation} = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.props.checkLogin();
+        });
+
+    }
+
+    componentWillUnmount() {
+        this.focusListener.remove();
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
+    }
+
     // async componentDidMount(): void {
     //     const rtl = await getDataOfflineMode(constants.isRTL)
     //     this.setState({
@@ -50,6 +67,7 @@ class Profile extends Component {
     // }
 
     signOut = () => {
+        firebase.auth().signOut();
     };
 
     getProfile(user) {
@@ -123,21 +141,29 @@ class Profile extends Component {
                     title={Locales.Profile}/>
                 <ScrollView>
                     <View style={styles.body}>
-                        <TouchableOpacity
-                            onPress={() => navigate('UpdateProfile')}
-                            style={[styles.information2, styles.horizontal2]}>
 
-                            <View>
-                                <FastImage style={styles.avatar}
-                                           source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
-                                           resizeMode={FastImage.resizeMode.contain}/>
-                            </View>
-                            <View>
-                                <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt
-                                    Jye</TextComponent>
-                                <TextComponent style={styles.email}>Vietjye2707</TextComponent>
-                            </View>
-                        </TouchableOpacity>
+                        {validateText(login) ?
+                            <TouchableOpacity
+                                onPress={() => navigate('UpdateProfile')}
+                                style={[styles.information2, styles.horizontal2]}>
+
+                                <View>
+                                    <FastImage style={styles.avatar}
+                                               source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
+                                               resizeMode={FastImage.resizeMode.contain}/>
+                                </View>
+                                <View>
+                                    <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt
+                                        Jye</TextComponent>
+                                    <TextComponent style={styles.email}>Vietjye2707</TextComponent>
+                                </View>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={() => navigate('Login')}>
+                                <TextComponent>Login</TextComponent>
+                            </TouchableOpacity>
+                        }
+
                         <TouchableOpacity
                             onPress={() => navigate('Setting')}
                             style={[styles.information, styles.horizontal]}>
@@ -300,55 +326,31 @@ class Profile extends Component {
                         {/*</TouchableOpacity>*/}
 
 
-                        {/*{validateText(login) ?*/}
-                        {/*<TouchableOpacity*/}
-                        {/*    onPress={this.signOut}*/}
-                        {/*    style={[styles.information, styles.horizontal]}>*/}
-                        {/*    <View style={{flexDirection: 'row'}}>*/}
-                        {/*        <Icon name='logout' type='AntDesign'*/}
-                        {/*              style={[styles.icon, {color: ThemeConstants[theme].textColor, marginRight: 10}]}/>*/}
-                        {/*        <TextComponent*/}
-                        {/*            style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>*/}
-                        {/*    </View>*/}
-                        {/*    <Icon name='right' type='AntDesign'*/}
-                        {/*          style={[styles.icon, {*/}
-                        {/*              color: ThemeConstants[theme].textColor,*/}
-                        {/*              fontSize: setWidth('5%'),*/}
-                        {/*          }]}/>*/}
-                        {/*</TouchableOpacity>*/}
-                        {/*: null*/}
-                        {/*}*/}
+                        {validateText(login) ?
+
+                            <TouchableOpacity
+                                onPress={this.signOut}
+                                style={[styles.information, styles.horizontal]}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Icon name='logout' type='AntDesign'
+                                          style={[styles.icon, {
+                                              color: ThemeConstants[theme].textColor,
+                                              marginRight: 10,
+                                          }]}/>
+                                    <TextComponent
+                                        style={[styles.lang, {color: ThemeConstants[theme].textColor}]}>{Locales.Logout}</TextComponent>
+                                </View>
+                                <Icon name='right' type='AntDesign'
+                                      style={[styles.icon, {
+                                          color: ThemeConstants[theme].textColor,
+                                          fontSize: setWidth('5%'),
+                                      }]}/>
+                            </TouchableOpacity>
+                            : null
+                        }
                     </View>
                 </ScrollView>
-                {/*<RateModal*/}
-                {/*    rateBtnText={'Rate'}*/}
-                {/*    cancelBtnText={'Cancel'}*/}
-                {/*    totalStarCount={5}*/}
-                {/*    defaultStars={5}*/}
-                {/*    isVisible={true}*/}
-                {/*    sendBtnText={'Send'}*/}
-                {/*    commentPlaceholderText={'Placeholder text'}*/}
-                {/*    emptyCommentErrorMessage={'Empty comment error message'}*/}
-                {/*    iTunesStoreUrl={'itms-apps://itunes.apple.com/app/${APP_ID}'}*/}
-                {/*    androidUrl={'market://details?id=${com.radio_kismayo_new}'}*/}
-                {/*    isModalOpen={this.state.isModalOpen}*/}
-                {/*    storeRedirectThreshold={3}*/}
-                {/*    style={{*/}
-                {/*        paddingHorizontal: 30,*/}
-                {/*    }}*/}
-                {/*    onStarSelected={(e) => {*/}
-                {/*        console.log('change rating', e);*/}
-                {/*    }}*/}
-                {/*    onClosed={() => {*/}
-                {/*        console.log('pressed cancel button...')*/}
-                {/*        this.setState({*/}
-                {/*            isModalOpen: false*/}
-                {/*        })*/}
-                {/*    }}*/}
-                {/*    sendContactUsForm={(state) => {*/}
-                {/*        alert(JSON.stringify(state));*/}
-                {/*    }}*/}
-                {/*/>*/}
+
             </View>
         );
     }
@@ -358,4 +360,4 @@ const mapStateToProps = (state) => ({
     login: state.loginReducer.login,
     isDarkTheme: state.settingReducers.currentValue,
 });
-export default connect(mapStateToProps, {checkLogin, darkMode})(Profile);
+export default connect(mapStateToProps, {darkMode, checkLogin})(Profile);
