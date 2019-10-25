@@ -159,8 +159,8 @@ class Profile extends Component {
                                 </View>
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity onPress={() => navigate('Login')}>
-                                <TextComponent>Login</TextComponent>
+                            <TouchableOpacity onPress={() => navigate('Login')} style={styles.tologin}>
+                                <TextComponent style={styles.textlogin}>{Locales.Login}</TextComponent>
                             </TouchableOpacity>
                         }
 

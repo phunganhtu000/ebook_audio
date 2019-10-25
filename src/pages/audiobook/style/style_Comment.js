@@ -65,5 +65,16 @@ export const styles = StyleSheet.create({
         color: colors.color_text_second,
         fontSize: 14,
     },
-
+    viewTrong: {
+        backgroundColor: '#D0021B',
+        width: setWidth('50%'),
+        height: setWidth('12%'),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: setWidth('25%'),
+        marginBottom: setWidth('2%'),
+    },
+    textTrong: {
+        color: colors.white,
+    },
 });

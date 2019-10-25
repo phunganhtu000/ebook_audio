@@ -8,8 +8,10 @@ import {Icon, Input} from 'native-base';
 import {colors} from '../../../cores/styles/colors';
 import {connect} from 'react-redux';
 import {darkMode} from '../../../redux/actions/settingAction';
+import {checkLogin} from '../../../redux/actions/loginAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
 import Locales from '../../../cores/languages/languages';
+import {validateText} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -22,6 +24,8 @@ class Comment extends Component {
     render() {
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+        const {login} = this.props;
+        const {navigate} = this.props.navigation;
         return (
             <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <View style={styles.body}>
@@ -57,16 +61,22 @@ class Comment extends Component {
                     />
 
                 </View>
-                <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
-                    <TextInput
-                        style={[styles.input, {color: ThemeConstants[theme].textColor}]}
-                        placeholderTextColor={ThemeConstants[theme].textColor}
-                        placeholder={Locales.Comment2}
-                    />
-                    <TouchableOpacity style={styles.toucoment}>
-                        <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                {validateText(login) ?
+                    <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                        <TextInput
+                            style={[styles.input, {color: ThemeConstants[theme].textColor}]}
+                            placeholderTextColor={ThemeConstants[theme].textColor}
+                            placeholder={Locales.Comment2}
+                        />
+                        <TouchableOpacity style={styles.toucoment}>
+                            <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <TouchableOpacity onPress={() => navigate('Login')} style={styles.viewTrong}>
+                        <TextComponent style={styles.textTrong}>{Locales.logintocomment}</TextComponent>
                     </TouchableOpacity>
-                </View>
+                }
             </View>
         );
     }
@@ -74,9 +84,9 @@ class Comment extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        login: state.loginReducer.login,
         isDarkTheme: state.settingReducers.currentValue,
     };
 }
 
-export default connect(mapStateToProps, {darkMode})(Comment);
+export default connect(mapStateToProps, {darkMode, checkLogin})(Comment);

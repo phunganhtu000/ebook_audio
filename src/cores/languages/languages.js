@@ -54,6 +54,26 @@ const Locales = new LocalizedStrings({
         Loginwith: 'Login with',
         Donaccount: 'Don\'t have an account?',
         Alreadyaccount: 'Already have an account?',
+        description:'Description',
+        logintocomment: 'Login to comment',
+        Loginsuccessful:'Login successful',
+        Notification:'Notification',
+        numberphone:'Number phone',
+        Name:'Full name',
+        Dateofbirth:'Date of birth',
+        Email:'Email',
+        address:'Address',
+        Save:'Save',
+
+        Nhapten:'Please enter a name',
+        Nhapngay: 'Please enter your birthday',
+        NhapEmail: 'Please enter your Email',
+        Nhapphone: 'Please enter the phone number',
+        Nhapaddress: 'Please enter your address',
+
+        Emailincorrect:'Email format is incorrect',
+        Congratulations:'Congratulations',
+        Success:'Success'
     },
 
     'vn': {
@@ -106,6 +126,26 @@ const Locales = new LocalizedStrings({
         Loginwith: 'Đăng nhập với',
         Donaccount: 'Chưa có tài khoản?',
         Alreadyaccount: 'Đã có tài khoản ?',
+        description:'Mô tả',
+        logintocomment:'Đăng nhập để bình luận',
+        Loginsuccessful:'Đăng nhâp thành công',
+        Notification:'Thông báo',
+        numberphone: 'Số điện thoại',
+        Name:'Họ và tên',
+        Dateofbirth:'Ngày sinh',
+        Email:'Email',
+        address:'Địa chỉ',
+        Save:'Lưu',
+
+        Nhapten:'Vui lòng nhập tên',
+        Nhapngay: 'Vui lòng nhập ngày sinh',
+        NhapEmail: 'Vui lòng nhập Email',
+        Nhapphone: 'Vui lòng nhập số điện thoại',
+        Nhapaddress: 'Vui lòng nhập địa chỉ',
+
+        Emailincorrect:'Định dạng email không chính xác',
+        Congratulations:'Xin chúc mừng',
+        Success:'Thành công'
     },
 });
 export default Locales;

@@ -33,6 +33,7 @@ const options = {
 import {colors} from '../../cores/styles/colors';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import ButtonComponent from '../../cores/viewComponents/button/ButtonComponent';
+import Locales from '../../cores/languages/languages';
 
 const storage = firebaseConfig.storage();
 const Blob = RNFetchBlob.polyfill.Blob;
@@ -134,6 +135,7 @@ class UpdateProfile extends Component {
 
     checkForm() {
         let {avatar, name, phone, address, uid, email, birthday} = this.state;
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let user = {
             // avatar: avatar,
             name: name,
@@ -146,19 +148,22 @@ class UpdateProfile extends Component {
         };
         if (inValidateText(this.state.name)) {
             Alert.alert(
-                'ten qua ngan');
+                Locales.Nhapten);
         } else if (inValidateText(this.state.phone)) {
             Alert.alert(
-                'Số điện thoại sai');
+                Locales.Nhapphone);
         } else if (inValidateText(this.state.address)) {
             Alert.alert(
-                'Sai địa chỉ');
+                Locales.Nhapaddress);
         } else if (inValidateText(this.state.email)) {
             Alert.alert(
-                'Email sai');
+                Locales.NhapEmail);
         } else if (inValidateText(this.state.birthday)) {
             Alert.alert(
-                'Ngày sinh không đúng');
+                Locales.Nhapngay);
+        } else if (reg.test(this.state.email) === false) {
+            Alert.alert(
+                Locales.Emailincorrect);
         } else {
             this.addUserToFirebase(user);
         }
@@ -178,8 +183,8 @@ class UpdateProfile extends Component {
 
         }).then(() => {
             Alert.alert(
-                'thong bao',
-                'thanh cong',
+                Locales.Congratulations,
+                Locales.Success,
                 [
                     {
                         text: 'Ok', onPress: () => {
@@ -208,45 +213,45 @@ class UpdateProfile extends Component {
             <SafeAreaView style={styles.saf}>
                 <KeyboardAwareScrollView>
                     <View style={styles.container}>
-                        <View style={[styles.header, styles.horizontal]}>
-                            <View/>
-                            <TouchableOpacity onPress={() => {
-                                this.imagePicker();
-                            }}>
-                                {this.state.loadingImage ?
-                                    <ActivityIndicator color="red" style={styles.avatar} size="large"/> :
-                                    <Image style={styles.avatar} source={{uri: avatar}}/>}
-                                <View style={styles.viewEdit}>
-                                    <Icon name='edit' type='MaterialIcons' style={{color: colors.white, fontSize: 20}}/>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={{width: setWidth('5%')}}/>
-                        </View>
+                        {/*<View style={[styles.header, styles.horizontal]}>*/}
+                        {/*    <View/>*/}
+                        {/*    <TouchableOpacity onPress={() => {*/}
+                        {/*        this.imagePicker();*/}
+                        {/*    }}>*/}
+                        {/*        {this.state.loadingImage ?*/}
+                        {/*            <ActivityIndicator color="red" style={styles.avatar} size="large"/> :*/}
+                        {/*            <Image style={styles.avatar} source={{uri: avatar}}/>}*/}
+                        {/*        <View style={styles.viewEdit}>*/}
+                        {/*            <Icon name='edit' type='MaterialIcons' style={{color: colors.white, fontSize: 20}}/>*/}
+                        {/*        </View>*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*    <View style={{width: setWidth('5%')}}/>*/}
+                        {/*</View>*/}
 
-                        <View style={styles.listViewTitle}>
+                        {/*<View style={styles.listViewTitle}>*/}
 
-                        </View>
+                        {/*</View>*/}
 
                         <View style={styles.viewUpdateUser}>
 
 
                             <View style={[{...horizontalView}, styles.itemUpdateUser]}>
                                 <View>
-                                    <TextComponent>FullName : </TextComponent>
+                                    <TextComponent>{Locales.Name} : </TextComponent>
                                     <TextInputArea
-                                        placeholder='name'
+                                        placeholder={Locales.Name}
                                         onChangeText={(name) => this.setState({name})}
                                         value={name}/>
                                 </View>
-                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                                {/*<Icon name='angle-right' type='FontAwesome' style={styles.icon}/>*/}
                             </View>
                             <View style={styles.barHorizontal}/>
 
                             <View style={[{...horizontalView}, styles.itemUpdateUser]}>
                                 <View>
-                                    <TextComponent>Dateofbirth :</TextComponent>
+                                    <TextComponent>{Locales.Dateofbirth} :</TextComponent>
                                     <TextInputArea
-                                        placeholder='birthday'
+                                        placeholder={Locales.Dateofbirth}
                                         onChangeText={(birthday) => this.setState({birthday})}
                                         value={birthday}/>
                                 </View>
@@ -255,9 +260,9 @@ class UpdateProfile extends Component {
 
                             <View style={[{...horizontalView}, styles.itemUpdateUser]}>
                                 <View>
-                                    <TextComponent>.Email :</TextComponent>
+                                    <TextComponent>{Locales.Email} :</TextComponent>
                                     <TextInputArea
-                                        placeholder='Email'
+                                        placeholder={Locales.Email}
                                         onChangeText={(email) => this.setState({email})}
                                         value={email}/>
                                 </View>
@@ -266,28 +271,28 @@ class UpdateProfile extends Component {
 
                             <View style={[{...horizontalView}, styles.itemUpdateUser]}>
                                 <View>
-                                    <TextComponent>Phonenumber :</TextComponent>
+                                    <TextComponent>{Locales.numberphone} :</TextComponent>
                                     <TextInputArea
-                                        placeholder='Phonenumber'
+                                        placeholder={Locales.numberphone}
                                         maxLength={10}
                                         keyboa08692633978rdType='number-pad'
                                         onChangeText={(phone) => this.setState({phone})}
                                         value={phone}/>
                                 </View>
-                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                                {/*<Icon name='angle-right' type='FontAwesome' style={styles.icon}/>*/}
                             </View>
                             <View style={styles.barHorizontal}/>
                             <View style={[{...horizontalView}, styles.itemUpdateUser]}>
                                 <View>
-                                    <TextComponent>Address : </TextComponent>
+                                    <TextComponent>{Locales.address} : </TextComponent>
                                     <TextInputArea
-                                        placeholder='Address'
+                                        placeholder={Locales.address}
                                         maxLength={10}
                                         keyboa08692633978rdType='number-pad'
                                         onChangeText={(address) => this.setState({address})}
                                         value={address}/>
                                 </View>
-                                <Icon name='angle-right' type='FontAwesome' style={styles.icon}/>
+                                {/*<Icon name='angle-right' type='FontAwesome' style={styles.icon}/>*/}
                             </View>
                             <View style={styles.barHorizontal}/>
                         </View>
@@ -295,7 +300,7 @@ class UpdateProfile extends Component {
                             <ButtonComponent
                                 style={{backgroundColor: colors.black}}
                                 onPress={() => this.checkForm()}
-                                text='UpdateProfile'
+                                text={Locales.Save}
                             />
                         </View>
                     </View>
@@ -319,7 +324,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: colors.background,
+        // backgroundColor: colors.background,
     },
     header: {
         backgroundColor: colors.white,
@@ -382,6 +387,7 @@ const styles = StyleSheet.create({
     },
     viewUpdateUser: {
         backgroundColor: colors.white,
+        marginTop: setWidth('20%'),
 
     },
     itemUpdateUser: {

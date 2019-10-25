@@ -10,6 +10,7 @@ import {Icon} from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import firebase from 'react-native-firebase';
 import {firebaseConfig} from '../../api/firebase/firebaseConfig';
+import {LoginManager, AccessToken, LoginButton} from 'react-native-fbsdk';
 
 export default class Login extends Component {
     constructor(props) {
@@ -86,6 +87,28 @@ export default class Login extends Component {
 
     }
 
+    onLoginFb = () => {
+        LoginManager
+            .logInWithPermissions(['public_profile', 'email'])
+            .then((result) => {
+                if (result.isCancelled) {
+                    return Promise.reject(new Error('the user cancelled the request'));
+                }
+                console.log(`login success with permissions: ${result.grantedPermissions.toString()}`);
+                return AccessToken.getCurrentAccessToken();
+            })
+            .then(data => {
+                const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+                return firebase.auth().signInWithCredential(credential);
+            })
+            .then((currentUser) => {
+                console.log(`Facebook login with user : ${JSON.stringify(currentUser.toJSON())}`);
+            })
+            .catch((error) => {
+                console.log(`Facebook login with error : ${error}`);
+            });
+    };
+
     render() {
         const {user, confirmResult} = this.state;
         const {navigate} = this.props.navigation;
@@ -100,7 +123,7 @@ export default class Login extends Component {
                                 <View style={styles.body}>
                                     <TextInput
                                         style={styles.textInput}
-                                        placeholder={Locales.UserName}
+                                        placeholder={Locales.numberphone}
                                         underlineColorAndroid='transparent'
                                         // onChangeText={email => this.setState({email})}
                                         // returnKeyType='next'
@@ -138,6 +161,7 @@ export default class Login extends Component {
                                     <TextComponent
                                         style={[styles.textOr, {marginVertical: setWidth('7%')}]}>{Locales.or}</TextComponent>
                                     <TouchableOpacity
+                                        onPress={() => this.onLoginFb()}
                                         style={[styles.tologin, {
                                             backgroundColor: '#3C5A98',
                                             marginBottom: setWidth('5%'),
@@ -153,12 +177,12 @@ export default class Login extends Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={styles.viewBottom}>
-                                <TextComponent style={styles.textOr}>{Locales.Donaccount}</TextComponent>
-                                <TouchableOpacity onPress={() => navigate('SignUp')}>
-                                    <TextComponent style={styles.textSinup}>{Locales.SignUp}</TextComponent>
-                                </TouchableOpacity>
-                            </View>
+                            {/*<View style={styles.viewBottom}>*/}
+                            {/*    <TextComponent style={styles.textOr}>{Locales.Donaccount}</TextComponent>*/}
+                            {/*    <TouchableOpacity onPress={() => navigate('SignUp')}>*/}
+                            {/*        <TextComponent style={styles.textSinup}>{Locales.SignUp}</TextComponent>*/}
+                            {/*    </TouchableOpacity>*/}
+                            {/*</View>*/}
                             {this.renderMessage()}
                         </View>)}
 

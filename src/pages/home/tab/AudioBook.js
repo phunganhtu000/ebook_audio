@@ -53,17 +53,17 @@ class AudioBook extends Component {
 
     componentWillMount() {
         this.props.getSubCategory(12);
-        setInterval(function () {
-            const {sliderIndex, maxSlider} = this.state;
-            let nextIndex = 0;
-
-            if (sliderIndex < maxSlider) {
-                nextIndex = sliderIndex + 1;
-            }
-
-            this.scrollToIndex(nextIndex, true);
-            this.setState({sliderIndex: nextIndex});
-        }.bind(this), 3000);
+        // setInterval(function () {
+        //     const {sliderIndex, maxSlider} = this.state;
+        //     let nextIndex = 0;
+        //
+        //     if (sliderIndex < maxSlider) {
+        //         nextIndex = sliderIndex + 1;
+        //     }
+        //
+        //     this.scrollToIndex(nextIndex, true);
+        //     this.setState({sliderIndex: nextIndex});
+        // }.bind(this), 3000);
     }
 
     renderPage(image, index) {
@@ -156,10 +156,10 @@ class AudioBook extends Component {
                                            source={{uri: `${image}${item.book_cover_img}`}}/>
                             </TouchableOpacity>
                         )}
-                        onMomentumScrollEnd={(event) => {
-                            let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
-                            this.setState({sliderIndex});
-                        }}
+                        // onMomentumScrollEnd={(event) => {
+                        //     let sliderIndex = event.nativeEvent.contentOffset.x ? event.nativeEvent.contentOffset.x / width : 0;
+                        //     this.setState({sliderIndex});
+                        // }}
                     />
                     <View style={styles.body}>
                         <View style={styles.itemView}>

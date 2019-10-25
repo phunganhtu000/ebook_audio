@@ -105,6 +105,21 @@ export default class Styles {
                 fontSize: 15,
                 fontWeight: '500',
             },
+            tologin: {
+                backgroundColor: 'silver',
+                 width: setWidth('35%'),
+                height: setWidth('12%'),
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius:10,
+                marginVertical:10
+            },
+            textlogin: {
+                fontSize: 15,
+                color: '#50504b',
+                ...medium,
+                fontWeight: '600',
+            },
         });
     }
 }

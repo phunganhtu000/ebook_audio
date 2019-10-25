@@ -10,8 +10,8 @@ export default class Styles {
             },
             body: {
                 marginTop: 10,
-                marginLeft: "2.5%",
-                height:setHeight('75%')
+                marginLeft: '2.5%',
+                height: setHeight('75%'),
 
             },
             viewall: {
@@ -23,10 +23,10 @@ export default class Styles {
                 //  transform: [{scaleX: isRTL ? -1 : 1}]
             },
             viewpepo: {
-                marginLeft: "2.5%", width: '75%',
+                marginLeft: '2.5%', width: '75%',
                 flexDirection: isRTL ? 'row-reverse' : 'row',
                 justifyContent: 'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
             },
             viewallinput: {
                 width: setWidth('94%'),
@@ -53,8 +53,8 @@ export default class Styles {
                 width: setWidth('15%'),
                 height: setWidth('15%'),
                 borderRadius: setWidth('15%'),
-                borderColor: "#BCC0B6",
-                borderWidth: 0.5
+                borderColor: '#BCC0B6',
+                borderWidth: 0.5,
             },
             horizontal: {
                 // flexDirection: 'row',
@@ -68,7 +68,7 @@ export default class Styles {
                 height: '90%',
                 width: '90%',
                 borderRadius: 10,
-                backgroundColor: colors.froly
+                backgroundColor: colors.froly,
             },
             txtName: {
                 color: '#00003D',
@@ -80,7 +80,19 @@ export default class Styles {
                 color: colors.color_text_second,
                 fontSize: 14,
                 textAlign: isRTL ? 'right' : 'left',
-            }
+            },
+            viewTrong: {
+                backgroundColor: '#D0021B',
+                width: setWidth('50%'),
+                height: setWidth('12%'),
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: setWidth('25%'),
+                marginBottom: setWidth('2%'),
+            },
+            textTrong: {
+                color: colors.white,
+            },
         });
     }
 }

@@ -10,7 +10,7 @@ import {
     getDataOfflineMode,
     inValidateText,
     setHeight,
-    setWidth,
+    setWidth, validateText,
 } from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../../assets/constants';
 import RatingBar from '../../../cores/viewComponents/ratingStar/RatingBar';
@@ -20,6 +20,7 @@ import saveDownload from '../../../api/saveDownload/saveData';
 import Constant from '../../../utils/Constant_Api';
 import ButtonBottom from '../../button/ButtonBottom';
 import {darkMode} from '../../../redux/actions/settingAction';
+import {checkLogin} from '../../../redux/actions/loginAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
 import Locales from '../../../cores/languages/languages';
 // import { FlatList } from 'react-native-gesture-handler';
@@ -59,6 +60,7 @@ class Comment extends Component {
         const {navigate} = this.props.navigation;
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+
         return (
             <View style={styles.viewall}>
                 <FastImage
@@ -92,31 +94,39 @@ class Comment extends Component {
     };
 
     render() {
+        const {login} = this.props;
         const styles = Styles.getSheet(this.state.isRTL);
         const {data} = this.props;
         console.log('dataaaa: ' + JSON.stringify(data[0].user_comments));
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+        const {navigate} = this.props.navigation;
         return (
             <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
                 <View style={styles.body}>
                     <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
                 </View>
-                <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
-                    <TextInput
-                        style={[styles.input, {color: ThemeConstants[theme].textColor}]}
-                        placeholderTextColor={ThemeConstants[theme].textColor}
-                        placeholder={Locales.Comment2}
-                        value={this.state.content}
-                        onChangeText={(content) => {
-                            this.setState({content});
-                        }}
-                    />
-                    <TouchableOpacity style={styles.toucoment}
-                                      onPress={() => this.navigateComment('Ebook', {data: data})}>
-                        <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                {validateText(login) ?
+                    <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                        <TextInput
+                            style={[styles.input, {color: ThemeConstants[theme].textColor}]}
+                            placeholderTextColor={ThemeConstants[theme].textColor}
+                            placeholder={Locales.Comment2}
+                            value={this.state.content}
+                            onChangeText={(content) => {
+                                this.setState({content});
+                            }}
+                        />
+                        <TouchableOpacity style={styles.toucoment}
+                                          onPress={() => this.navigateComment('Ebook', {data: data})}>
+                            <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <TouchableOpacity onPress={() => navigate('Login')} style={styles.viewTrong}>
+                        <TextComponent style={styles.textTrong}>{Locales.logintocomment}</TextComponent>
                     </TouchableOpacity>
-                </View>
+                }
             </View>
         );
     }
@@ -126,9 +136,10 @@ function mapStateToProps(state) {
     return {
         data: state.productReducers.detail,
         isDarkTheme: state.settingReducers.currentValue,
+        login: state.loginReducer.login,
     };
 }
 
-export default connect(mapStateToProps, {getDetail, darkMode})(Comment);
+export default connect(mapStateToProps, {getDetail, darkMode, checkLogin})(Comment);
 
 

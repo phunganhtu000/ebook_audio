@@ -6,6 +6,7 @@ const successImageUri = 'https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803
 import {connect} from 'react-redux';
 import {checkLogin} from '../../redux/actions/loginAction';
 import {inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
+import Locales from '../../cores/languages/languages';
 
 class Confirm extends Component {
     constructor(props) {
@@ -82,7 +83,7 @@ class Confirm extends Component {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Image source={{uri: successImageUri}} style={{width: 100, height: 100, marginBottom: 25}}/>
-                <Text style={{fontSize: 25}}>LoginOk</Text>
+                <Text style={{fontSize: 25}}>{Locales.Loginsuccessful}</Text>
             </View>
         );
     }

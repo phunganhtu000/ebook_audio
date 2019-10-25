@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet,TouchableOpacity} from 'react-native';
 import {colors} from '../../styles/colors';
 import {Dimens} from '../../styles/dimens';
+import {setWidth} from '../baseFunctions/BaseFunctions';
 
 export default class ButtonComponent extends Component {
 
@@ -26,13 +27,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: Dimens.screen.width / 1.15,
         height: 50,
-        backgroundColor: colors.orange,
+        backgroundColor: '#D0021B',
         alignItems: 'center',
         justifyContent: 'center',
 
     },
     text:{
-        fontSize:16,
+        fontSize:setWidth('5%'),
         color:colors.white,
         fontWeight: '500'
     }
