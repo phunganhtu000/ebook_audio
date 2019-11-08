@@ -227,7 +227,7 @@ const Routes = createStackNavigator({
     EditProfile: {
         screen: EditProfile,
         navigationOptions: {
-            header: 'EditProfile',
+            title: 'EditProfile',
         },
     },
     Audio_Book_Three: {

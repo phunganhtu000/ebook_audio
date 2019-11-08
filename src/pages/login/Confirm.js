@@ -18,21 +18,17 @@ class Confirm extends Component {
     }
 
     componentDidMount() {
-        const {navigation} = this.props;
-
+        // const {navigation} = this.props;
         this.data();
-        this.focusListener = navigation.addListener('didFocus', () => {
-            this.data();
-        });
-
+        // this.focusListener = navigation.addListener('didFocus', () => {
+        //   this.data();
+        // });
     }
 
-    componentWillUnmount() {
-        this.focusListener.remove();
-        if (this.unsubscribe) {
-            this.unsubscribe();
-        }
-    }
+    // componentWillUnmount() {
+    //   this.focusListener.remove();
+    //   if (this.unsubscribe) this.unsubscribe();
+    // }
 
     data() {
         const user = this.props.user;
@@ -42,9 +38,9 @@ class Confirm extends Component {
                 const childData = childSnapshot.val();
                 if (childData.uid === uid) {
                     this.props.navigation.navigate('Menu');
-                    console.log('uid if: ' + JSON.stringify(childData.uid));
+                    // console.log('uid if: ' + JSON.stringify(childData.uid));
                 } else {
-                    console.log('uid else: ' + JSON.stringify(childData.uid));
+                    // console.log('uid else: ' + JSON.stringify(childData.uid));
                     // this.firebase.ref('user').child(uid).set({
                     //   email: user.email,
                     //   name: user.displayName,
@@ -64,7 +60,6 @@ class Confirm extends Component {
             });
         });
     }
-
 
 
     render() {
