@@ -18,9 +18,7 @@ import Locales from '../../cores/languages/languages';
 import {getDataOfflineMode, inValidateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
 import Styles from './styles/styles';
-import Styles_Two from './styles/style_two';
-import styles_three from './styles/style_three';
-import {Card} from 'react-native-paper';
+
 import {connect} from 'react-redux';
 import {getSubCategory} from '../../redux/actions/productAction';
 import {darkMode} from '../../redux/actions/settingAction';

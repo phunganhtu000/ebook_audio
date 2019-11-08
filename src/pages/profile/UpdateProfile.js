@@ -12,8 +12,7 @@ import {
     ActivityIndicator,
     Alert,
 } from 'react-native';
-import {Icon} from 'native-base'
-    ;
+import {Icon} from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -34,6 +33,7 @@ import {colors} from '../../cores/styles/colors';
 import TextComponent from '../../cores/viewComponents/text/TextComponent';
 import ButtonComponent from '../../cores/viewComponents/button/ButtonComponent';
 import Locales from '../../cores/languages/languages';
+import HeaderComponent from '../headerComponent/HeaderComponent';
 
 const storage = firebaseConfig.storage();
 const Blob = RNFetchBlob.polyfill.Blob;
@@ -45,7 +45,7 @@ const uploadImage = (uri, uid, mime = 'application/octet-stream') => {
     console.log('uid' + uid);
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        // let uploadBlob = null;
+        //let uploadBlob = null;
 
         const imageRef = storage.ref('avatar').child(`${uid}.jpg`);
         console.log('imageRef: ' + imageRef);
@@ -80,7 +80,7 @@ class UpdateProfile extends Component {
             address: data.address,
             email: data.email,
             data: data,
-            // avatar: data.avatar,
+            avatar: data.avatar,
             birthday: data.birthday,
             phone: data.phone,
             uid: data.uid,
@@ -137,7 +137,7 @@ class UpdateProfile extends Component {
         let {avatar, name, phone, address, uid, email, birthday} = this.state;
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let user = {
-            // avatar: avatar,
+            avatar: avatar,
             name: name,
             phone: phone,
             address: address,
@@ -149,21 +149,21 @@ class UpdateProfile extends Component {
         if (inValidateText(this.state.name)) {
             Alert.alert(
                 Locales.Nhapten);
+        } else if (inValidateText(this.state.birthday)) {
+            Alert.alert(
+                Locales.Nhapngay);
+        } else if (inValidateText(this.state.email)) {
+            Alert.alert(
+                Locales.NhapEmail);
+        } else if (reg.test(this.state.email) === false) {
+            Alert.alert(
+                Locales.Emailincorrect);
         } else if (inValidateText(this.state.phone)) {
             Alert.alert(
                 Locales.Nhapphone);
         } else if (inValidateText(this.state.address)) {
             Alert.alert(
                 Locales.Nhapaddress);
-        } else if (inValidateText(this.state.email)) {
-            Alert.alert(
-                Locales.NhapEmail);
-        } else if (inValidateText(this.state.birthday)) {
-            Alert.alert(
-                Locales.Nhapngay);
-        } else if (reg.test(this.state.email) === false) {
-            Alert.alert(
-                Locales.Emailincorrect);
         } else {
             this.addUserToFirebase(user);
         }
@@ -173,7 +173,7 @@ class UpdateProfile extends Component {
         console.log('updateuser:' + JSON.stringify(user));
 
         this.firebase.ref('user').child(user.uid).update({
-            // avatar: user.avatar,
+            avatar: user.avatar,
             name: user.name,
             phone: user.phone,
             address: user.address,
@@ -213,24 +213,26 @@ class UpdateProfile extends Component {
             <SafeAreaView style={styles.saf}>
                 <KeyboardAwareScrollView>
                     <View style={styles.container}>
-                        {/*<View style={[styles.header, styles.horizontal]}>*/}
-                        {/*    <View/>*/}
-                        {/*    <TouchableOpacity onPress={() => {*/}
-                        {/*        this.imagePicker();*/}
-                        {/*    }}>*/}
-                        {/*        {this.state.loadingImage ?*/}
-                        {/*            <ActivityIndicator color="red" style={styles.avatar} size="large"/> :*/}
-                        {/*            <Image style={styles.avatar} source={{uri: avatar}}/>}*/}
-                        {/*        <View style={styles.viewEdit}>*/}
-                        {/*            <Icon name='edit' type='MaterialIcons' style={{color: colors.white, fontSize: 20}}/>*/}
-                        {/*        </View>*/}
-                        {/*    </TouchableOpacity>*/}
-                        {/*    <View style={{width: setWidth('5%')}}/>*/}
-                        {/*</View>*/}
+                        <HeaderComponent
+                            iconLeft='ios-arrow-back'
+                            left='back'
+                            onPressLeft={() => navigation.goBack()}
+                            title={Locales.updatedprofiles}/>
+                        <View style={[styles.header, styles.horizontal]}>
+                            <View/>
+                            <TouchableOpacity onPress={() => {
+                                this.imagePicker();
+                            }}>
+                                {this.state.loadingImage ?
+                                    <ActivityIndicator color="red" style={styles.avatar} size="large"/> :
+                                    <Image style={styles.avatar} source={{uri: avatar}}/>}
+                                {/*<View style={styles.viewEdit}>*/}
+                                {/*    <Icon name='edit' type='MaterialIcons' style={{color: colors.white, fontSize: 20}}/>*/}
+                                {/*</View>*/}
+                            </TouchableOpacity>
+                            <View style={{width: setWidth('5%')}}/>
+                        </View>
 
-                        {/*<View style={styles.listViewTitle}>*/}
-
-                        {/*</View>*/}
 
                         <View style={styles.viewUpdateUser}>
 
@@ -275,7 +277,7 @@ class UpdateProfile extends Component {
                                     <TextInputArea
                                         placeholder={Locales.numberphone}
                                         maxLength={10}
-                                        keyboa08692633978rdType='number-pad'
+                                        keyboardType={'numeric'}
                                         onChangeText={(phone) => this.setState({phone})}
                                         value={phone}/>
                                 </View>
@@ -328,7 +330,7 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: colors.white,
-        paddingVertical: 10,
+        paddingVertical: 20,
         paddingHorizontal: 10,
     },
     horizontal: {
@@ -339,10 +341,11 @@ const styles = StyleSheet.create({
         color: colors.black,
     },
     avatar: {
-        width: setWidth('22%'),
-        height: setWidth('22%'),
-        borderRadius: setWidth('11%'),
+        width: setWidth('30%'),
+        height: setWidth('30%'),
+        borderRadius: setWidth('35%'),
         backgroundColor: colors.background,
+        //marginTop: setWidth('5%'),
     },
     viewEdit: {
         width: setWidth('7%'),
@@ -387,7 +390,7 @@ const styles = StyleSheet.create({
     },
     viewUpdateUser: {
         backgroundColor: colors.white,
-        marginTop: setWidth('20%'),
+        //marginTop: setWidth('5%'),
 
     },
     itemUpdateUser: {

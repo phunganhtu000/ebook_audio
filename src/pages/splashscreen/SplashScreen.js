@@ -17,8 +17,10 @@ import {
 } from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import Locales from '../../assets/languages/languages';
 import {colors} from '../../cores/styles/colors';
+import {checkLogin} from '../../redux/actions/loginAction';
+import {connect} from "react-redux";
 
-export default class SplashScreen extends Component {
+class SplashScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -31,7 +33,7 @@ export default class SplashScreen extends Component {
     }
     async componentDidMount() {
         this.getApiData();
-
+        this.props.checkLogin();
         // const dataLanguage = await getDataOfflineMode(constants.LANGUAGE);
         // console.log('lang: '+ dataLanguage)
         // this.setState({
@@ -93,7 +95,13 @@ export default class SplashScreen extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {
+        login: state.loginReducer.login,
+    }
+}
 
+export default connect(mapStateToProps, {checkLogin})(SplashScreen)
 const styles = StyleSheet.create({
     container: {
         flex: 1,

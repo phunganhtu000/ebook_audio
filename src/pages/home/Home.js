@@ -23,10 +23,13 @@ import {connect} from 'react-redux';
 import {getDataHome} from '../../redux/actions/productAction';
 import {darkMode} from '../../redux/actions/settingAction';
 import {ThemeConstants} from '../../cores/theme/Theme';
+import firebase from 'react-native-firebase';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.firebase = firebaseConfig.database();
         this.state = {
             data1: [],
             data2: [],
@@ -34,6 +37,8 @@ class Home extends Component {
             check: false,
             au: AudioBook,
             theme: Ebook,
+            viewRef: null,
+            data: [],
         };
     }
 
@@ -42,6 +47,37 @@ class Home extends Component {
         this.setState({
             data: api.music,
             isRTL: rtl,
+        });
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.getProfile(user);
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+
+                });
+            }
+        });
+    }
+
+    getProfile(user) {
+        this.firebase.ref('user').on('value', (dataSnapshot) => {
+            dataSnapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if (childData.uid === user.uid) {
+                    this.setState({
+                        isLoading: true,
+                        data: childData,
+                    }, () => {
+                        // console.log("currentUser: " + JSON.stringify(childData));
+                        global.name = this.state.data.name;
+                        global.phone = this.state.data.phone;
+                        global.uid = user.uid;
+
+                    });
+                }
+            });
         });
     }
 
@@ -105,12 +141,14 @@ class Home extends Component {
         const radio = this.state.radio;
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+        const data = this.state.data;
         return (
             <View style={styles.container}>
                 <HeaderComponent
                     left='true'
                     onPressRight={() => navigate('Search')}
                     iconRight='ios-search'
+                    onPressLeft={() => navigate('EditProfile', {data: data})}
                     title={Locales.Home}/>
 
                 <View style={{flex: 1}}>

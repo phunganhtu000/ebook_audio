@@ -46,6 +46,7 @@ import Locales from '../cores/languages/languages';
 import {ThemeConstants} from '../cores/theme/Theme';
 import Favorite from '../pages/favorite/Favorite';
 import UpdateProfile from '../pages/profile/UpdateProfile';
+import EditProfile from '../pages/editProfile/index';
 
 const ThemeContext = React.createContext(null);
 const Routes = createStackNavigator({
@@ -223,7 +224,12 @@ const Routes = createStackNavigator({
             header: null,
         },
     },
-
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: 'EditProfile',
+        },
+    },
     Audio_Book_Three: {
         screen: Audio_Book_Three,
         navigationOptions: {

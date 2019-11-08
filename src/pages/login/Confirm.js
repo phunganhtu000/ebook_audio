@@ -35,47 +35,36 @@ class Confirm extends Component {
     }
 
     data() {
+        const user = this.props.user;
         const uid = this.props.user.uid;
-        this.firebase.ref(`user`).child(uid).on('value', snapshoot => {
-            if (snapshoot.val()) {
-                let obj = snapshoot.val();
-                obj.key = snapshoot.key;
-                this.setState({
-                    item: obj,
-                }, () => {
-                    if (inValidateText(this.state.item.name)) {
-                        console.log('name: ' + JSON.stringify(this.state.item.name));
-                        this.goToUpdateProfile();
-                    } else if (inValidateText(this.state.item.address)) {
-                        console.log('adddd: ' + JSON.stringify(this.state.item.address));
-                        this.goToUpdateProfile();
-                    } else if (inValidateText(this.state.item.email)) {
-                        console.log('email: ' + JSON.stringify(this.state.item.email));
-                        this.goToUpdateProfile();
-                    } else if (inValidateText(this.state.item.avatar)) {
-                        console.log('avatar: ' + JSON.stringify(this.state.item.avatar));
-                        this.goToUpdateProfile();
-                    } else if (inValidateText(this.state.item.phone)) {
-                        console.log('phone: ' + JSON.stringify(this.state.item.phone));
-                        this.goToUpdateProfile();
-                    } else if (inValidateText(this.state.item.birthday)) {
-                        console.log('birthday: ' + JSON.stringify(this.state.item.birthday));
-                        this.goToUpdateProfile();
-                    } else {
-                        this.props.navigation.navigate('Menu');
-
-                    }
-                });
-            }
+        this.firebase.ref('user').on('value', dataSnapshot => {
+            dataSnapshot.forEach(childSnapshot => {
+                const childData = childSnapshot.val();
+                if (childData.uid === uid) {
+                    this.props.navigation.navigate('Menu');
+                    console.log('uid if: ' + JSON.stringify(childData.uid));
+                } else {
+                    console.log('uid else: ' + JSON.stringify(childData.uid));
+                    // this.firebase.ref('user').child(uid).set({
+                    //   email: user.email,
+                    //   name: user.displayName,
+                    //   avatar: user.photoURL,
+                    //   phone: user.phoneNumber,
+                    //   uid: user.uid,
+                    // });
+                    let data = {
+                        email: user.email,
+                        name: user.displayName,
+                        avatar: user.photoURL,
+                        phone: user.phoneNumber,
+                        uid: user.uid,
+                    };
+                    this.props.navigation.navigate('UpdateProfile', {data});
+                }
+            });
         });
     }
 
-    goToUpdateProfile() {
-        setTimeout(() => {
-            this.props.navigation.navigate('UpdateProfile', {data: this.state.item});
-        }, 2000);
-
-    };
 
 
     render() {

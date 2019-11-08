@@ -27,11 +27,13 @@ function dataHomeSuccess(data) {
         data,
     };
 }
+
 function dataHomeFailure() {
     return {
         type: types.GET_DATA_HOME_FAILUSE,
     };
 }
+
 export function getAuthor() {
     const url = `${Constant.url}${Constant.author}`;
     return (dispatch) => {
@@ -56,11 +58,13 @@ function dataAuthorSuccess(data) {
         data,
     };
 }
+
 function dataAuthorFailure() {
     return {
         type: types.GET_DATA_AUTHOR_FAILUSE,
     };
 }
+
 export function getAuthorList() {
     const url = `${Constant.url}${Constant.author}`;
     return (dispatch) => {
@@ -85,11 +89,13 @@ function dataAuthorListSuccess(data) {
         data,
     };
 }
+
 function dataAuthorListFailure() {
     return {
         type: types.GET_DATA_AUTHORLIST_FAILUSE,
     };
 }
+
 export function getLatest() {
     const url = `${Constant.url}${Constant.latest}`;
     return (dispatch) => {
@@ -114,11 +120,13 @@ function dataLatestSuccess(data) {
         data,
     };
 }
+
 function dataLatestFailure() {
     return {
         type: types.GET_DATA_LATEST_FAILUSE,
     };
 }
+
 export function getCategory() {
     const url = `${Constant.url}${Constant.category}`;
     return (dispatch) => {
@@ -129,11 +137,13 @@ export function getCategory() {
         }).catch(err => dispatch(dataCategoryFailure(err)));
     };
 }
+
 function dataCategory() {
     return {
         type: types.GET_CATEGORY,
     };
 }
+
 function dataCategorySuccess(data) {
     // console.log('dataJson: ' + JSON.stringify(data));
     return {
@@ -141,12 +151,14 @@ function dataCategorySuccess(data) {
         data,
     };
 }
+
 function dataCategoryFailure() {
     return {
         type: types.GET_DATA_CATEGORY_FAILUSE,
     };
 }
-export const getSubCategory = (id) =>  {
+
+export const getSubCategory = (id) => {
     const url = `${Constant.url}${Constant.sub_category}${id}`;
     return (dispatch) => {
         dispatch(dataSubCategory());
@@ -155,12 +167,14 @@ export const getSubCategory = (id) =>  {
             return (dispatch(dataSubCategorySuccess(response.data.EBOOK_APP)));
         }).catch(err => dispatch(dataSubCategoryFailure(err)));
     };
-}
+};
+
 function dataSubCategory() {
     return {
         type: types.GET_SUB_CATEGORY,
     };
 }
+
 function dataSubCategorySuccess(data) {
     // console.log('dataJson: ' + JSON.stringify(data));
     return {
@@ -168,6 +182,7 @@ function dataSubCategorySuccess(data) {
         data,
     };
 }
+
 function dataSubCategoryFailure() {
     return {
         type: types.GET_DATA_SUB_CATEGORY_FAILUSE,
@@ -186,7 +201,30 @@ export const getDetail = (id) => {
         }).catch(err => dispatch(dataDetailFailure(err)));
     };
 };
-
+export const postComment = (data) => {
+    const id = data.id;
+    const username = data.username;
+    const comment = data.comment;
+    const url = `${Constant.url}${Constant.commentApi}${id}&user_name=${username}&comment_text=${comment}`;
+    return (dispatch) => {
+        dispatch(dataComment());
+        axios.post(url).then(function (response) {
+            return (dispatch(dataCommentSuccess(response.data.EBOOK_APP)));
+        }).catch(err => dispatch(dataCommentFailure(err)));
+    };
+};
+// export const postRate = (data) => {
+//     const id = data.id;
+//     const username = data.username;
+//     const rate = data.rate;
+//     const url = `${Constant.url}${Constant.ratingApi}${id}&user_name=${username}&comment_text=${rate}`;
+//     return (dispatch) => {
+//         dispatch(dataComment());
+//         axios.post(url).then(function (response) {
+//             return (dispatch(dataCommentSuccess(response.data.EBOOK_APP)));
+//         }).catch(err => dispatch(dataCommentFailure(err)));
+//     };
+// };
 function dataDetail() {
     return {
         type: types.GET_DATA_DETAIL,
@@ -205,6 +243,60 @@ function dataDetailFailure() {
         type: types.GET_DATA_DETAIL_FAILUSE,
     };
 }
+
+function dataComment() {
+    return {
+        type: types.GET_DATA_COMMENT,
+    };
+}
+
+function dataCommentSuccess(data) {
+    return {
+        type: types.GET_DATA_COMMENT_SUCCESS,
+        data,
+    };
+}
+
+function dataCommentFailure() {
+    return {
+        type: types.GET_DATA_COMMENT_FAILUSE,
+    };
+}
+
+
+
+
+
+// function dataRate() {
+//     return {
+//         type: types.GET_DATA_RATE,
+//     };
+// }
+//
+// function dataRateSuccess(data) {
+//     return {
+//         type: types.GET_DATA_RATE_SUCCESS,
+//         data,
+//     };
+// }
+//
+// function dataRateFailure() {
+//     return {
+//         type: types.GET_DATA_RATE_FAILUSE,
+//     };
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 export const getSearch = (id) => {
 
     const url = `${Constant.url}${Constant.searchApi}${id}`;

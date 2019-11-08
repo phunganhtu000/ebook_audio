@@ -21,7 +21,7 @@ import Mailer from 'react-native-mail';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getDataOfflineMode, setWidth, validateText} from '../../cores/viewComponents/baseFunctions/BaseFunctions';
 import constants from '../../assets/constants';
-import firebaseConfig from 'firebase';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 import global from '../../cores/utils/global';
 import {connect} from 'react-redux';
 import {checkLogin} from '../../redux/actions/loginAction';
@@ -33,7 +33,7 @@ import firebase from 'react-native-firebase';
 class Profile extends Component {
     constructor(props) {
         super(props);
-        // this.firebase = firebaseConfig.database();
+        this.firebase = firebaseConfig.database();
         this.state = {
             isModalOpen: false,
             isLoading: false,
@@ -48,7 +48,37 @@ class Profile extends Component {
         this.focusListener = navigation.addListener('didFocus', () => {
             this.props.checkLogin();
         });
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.getProfile(user);
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
 
+                });
+            }
+        });
+    }
+
+    getProfile(user) {
+        this.firebase.ref('user').on('value', (dataSnapshot) => {
+            dataSnapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if (childData.uid === user.uid) {
+                    this.setState({
+                        isLoading: true,
+                        data: childData,
+                    }, () => {
+                        // console.log("currentUser: " + JSON.stringify(childData));
+                        global.name = this.state.data.name;
+                        global.phone = this.state.data.phone;
+                        global.uid = user.uid;
+
+                    });
+                }
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -70,25 +100,6 @@ class Profile extends Component {
         firebase.auth().signOut();
     };
 
-    getProfile(user) {
-        this.firebase.ref('user').on('value', (dataSnapshot) => {
-            dataSnapshot.forEach((childSnapshot) => {
-                const childData = childSnapshot.val();
-                if (childData.uid === user.uid) {
-                    this.setState({
-                        isLoading: true,
-                        data: childData,
-                    }, () => {
-                        // console.log("currentUser: " + JSON.stringify(childData));
-                        global.name = this.state.data.name;
-                        global.phone = this.state.data.phone;
-                        global.uid = user.uid;
-
-                    });
-                }
-            });
-        });
-    }
 
     handleEmail = () => {
         Mailer.mail({
@@ -144,18 +155,18 @@ class Profile extends Component {
 
                         {validateText(login) ?
                             <TouchableOpacity
-                                onPress={() => navigate('UpdateProfile')}
+                                onPress={() => navigate('EditProfile', {data: data})}
                                 style={[styles.information2, styles.horizontal2]}>
 
                                 <View>
                                     <FastImage style={styles.avatar}
-                                               source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
+                                               source={{uri: data.avatar}}
                                                resizeMode={FastImage.resizeMode.contain}/>
                                 </View>
                                 <View>
-                                    <TextComponent style={[styles.name, {color: ThemeConstants[theme].textColor}]}>Việt
-                                        Jye</TextComponent>
-                                    <TextComponent style={styles.email}>Vietjye2707</TextComponent>
+                                    <TextComponent
+                                        style={[styles.name, {color: ThemeConstants[theme].textColor}]}>{data.name}</TextComponent>
+                                    <TextComponent style={styles.email}>{data.email}</TextComponent>
                                 </View>
                             </TouchableOpacity>
                             :

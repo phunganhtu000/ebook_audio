@@ -11,14 +11,75 @@ import {darkMode} from '../../../redux/actions/settingAction';
 import {checkLogin} from '../../../redux/actions/loginAction';
 import {ThemeConstants} from '../../../cores/theme/Theme';
 import Locales from '../../../cores/languages/languages';
-import {validateText} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
+import {getDataOfflineMode, validateText} from '../../../cores/viewComponents/baseFunctions/BaseFunctions';
+import constants from '../../../assets/constants';
+import firebase from 'react-native-firebase';
+import {firebaseConfig} from '../../../api/firebase/firebaseConfig';
+import {postComment} from '../../../redux/actions/productAction';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class Comment extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.firebase = firebaseConfig.database();
+        this.state = {
+            comment: '',
+            viewRef: null,
+            data: [],
+        };
+    }
+
+    async componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.getProfile(user);
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+
+                });
+            }
+        });
+    }
+
+    getProfile(user) {
+        this.firebase.ref('user').on('value', (dataSnapshot) => {
+            dataSnapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if (childData.uid === user.uid) {
+                    this.setState({
+                        isLoading: true,
+                        data: childData,
+                    }, () => {
+                        // console.log("currentUser: " + JSON.stringify(childData));
+                        global.name = this.state.data.name;
+                        global.phone = this.state.data.phone;
+                        global.uid = user.uid;
+
+                    });
+                }
+            });
+        });
+    }
+
+    navigateComment(data) {
+        const id = this.props.navigation.state.params.data.id;
+        const data1 = this.state.data;
+        let da = {id: id, comment: data, username: data1.name};
+        console.log('data data1: ' + JSON.stringify(data1.name));
+        this.props.postComment(da);
+        // postComment(comment)
+        //     .then((responseJson) => {
+        //         this.setState({
+        //             isLoading: false,
+        //             dataSource: responseJson,
+        //         }, function () {
+        //         });
+        //     }).catch((error) => {
+        //     console.error(error);
+        // });
     }
 
     render() {
@@ -67,8 +128,13 @@ class Comment extends Component {
                             style={[styles.input, {color: ThemeConstants[theme].textColor}]}
                             placeholderTextColor={ThemeConstants[theme].textColor}
                             placeholder={Locales.Comment2}
+                            value={this.state.comment}
+                            onChangeText={(comment) => {
+                                this.setState({comment});
+                            }}
                         />
-                        <TouchableOpacity style={styles.toucoment}>
+                        <TouchableOpacity style={styles.toucoment}
+                                          onPress={() => this.navigateComment(this.state.comment)}>
                             <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
                         </TouchableOpacity>
                     </View>
@@ -89,4 +155,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {darkMode, checkLogin})(Comment);
+export default connect(mapStateToProps, {postComment, darkMode, checkLogin})(Comment);

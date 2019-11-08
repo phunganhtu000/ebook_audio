@@ -11,6 +11,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import firebase from 'react-native-firebase';
 import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 import {LoginManager, AccessToken, LoginButton} from 'react-native-fbsdk';
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
 export default class Login extends Component {
     constructor(props) {
@@ -44,6 +45,13 @@ export default class Login extends Component {
                     confirmResult: null,
                 });
             }
+        });
+        GoogleSignin.configure({
+            scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+            //iosClientId: '872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com',
+            webClientId: '872612520063-lm9n2o13k7tt0ri4evrbpn443d8gmhfk.apps.googleusercontent.com',
+
+            offlineAccess: true,
         });
     }
 
@@ -108,6 +116,16 @@ export default class Login extends Component {
                 console.log(`Facebook login with error : ${error}`);
             });
     };
+    onLoginGoogle = () => {
+        GoogleSignin.signIn().then((data) => {
+            const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
+            return firebase.auth().signInWithCredential(credential);
+        }).then((currentUser) => {
+            console.log(`google login with user : ${JSON.stringify(currentUser.toJSON())}`);
+        }).catch((error) => {
+            console.log(`login fail with error: ${error}`);
+        });
+    };
 
     render() {
         const {user, confirmResult} = this.state;
@@ -170,10 +188,11 @@ export default class Login extends Component {
                                         <TextComponent
                                             style={styles.textLogin}>{Locales.Loginwith} Facebook</TextComponent>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.tologin, {backgroundColor: '#32CBFD'}]}>
-                                        <Icon name='twitter' type='Entypo' style={styles.icon}/>
+                                    <TouchableOpacity style={[styles.tologin, {backgroundColor: '#ca212a'}]}
+                                                      onPress={() => this.onLoginGoogle()}>
+                                        <Icon name='googleplus' type='AntDesign' style={styles.icon}/>
                                         <TextComponent
-                                            style={styles.textLogin}>{Locales.Loginwith} Twitter</TextComponent>
+                                            style={styles.textLogin}>{Locales.Loginwith} Google</TextComponent>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -214,21 +233,20 @@ export default class Login extends Component {
             <KeyboardAwareScrollView>
                 <View style={styles.container2}>
                     <Image source={require('../../assets/image/goodbye.jpg')} style={styles.imglogo}/>
-                    <Text style={styles.texttitle}>điền</Text>
+                    <Text style={styles.texttitle}>{Locales.Enterthe6numbers}</Text>
                     <TextInput
                         autoFocus
                         style={styles.textCode}
                         onChangeText={value => this.setState({codeInput: value})}
                         keyboardType={'numeric'}
-                        placeholder='phone'
+                        placeholder={Locales.Insertcode}
                         value={codeInput}
                     />
-                    <Text>gửi đến trong : </Text>
                     <TouchableOpacity
                         style={styles.btnConfirmCode}
                         onPress={() => this.confirmCode()}
                     >
-                        <Text style={styles.textConfirmCode}>Confirm</Text>
+                        <Text style={styles.textConfirmCode}>{Locales.Confirm}</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -302,7 +320,7 @@ const styles = StyleSheet.create({
     },
     texttitle: {
         marginTop: setWidth('10%'),
-        fontSize: 15,
+        fontSize: 18,
     },
     textCode: {
         width: setWidth('75%'),

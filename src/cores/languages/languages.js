@@ -64,6 +64,7 @@ const Locales = new LocalizedStrings({
         Email:'Email',
         address:'Address',
         Save:'Save',
+        updatedprofiles: 'Updated Profiles',
 
         Nhapten:'Please enter a name',
         Nhapngay: 'Please enter your birthday',
@@ -73,7 +74,10 @@ const Locales = new LocalizedStrings({
 
         Emailincorrect:'Email format is incorrect',
         Congratulations:'Congratulations',
-        Success:'Success'
+        Success:'Success',
+        Enterthe6numbers:'Enter the 6 numbers we have sent',
+        Confirm:'Confirm',
+        Insertcode:'Insert code'
     },
 
     'vn': {
@@ -136,6 +140,7 @@ const Locales = new LocalizedStrings({
         Email:'Email',
         address:'Địa chỉ',
         Save:'Lưu',
+        updatedprofiles: 'Cập nhật hồ sơ',
 
         Nhapten:'Vui lòng nhập tên',
         Nhapngay: 'Vui lòng nhập ngày sinh',
@@ -145,7 +150,10 @@ const Locales = new LocalizedStrings({
 
         Emailincorrect:'Định dạng email không chính xác',
         Congratulations:'Xin chúc mừng',
-        Success:'Thành công'
+        Success:'Thành công',
+        Enterthe6numbers:'Nhập 6 số mà chúng tôi đã gửi',
+        Confirm:'Xác nhận',
+        Insertcode:'Nhập mã'
     },
 });
 export default Locales;

@@ -11,12 +11,17 @@ import FastImage from 'react-native-fast-image';
 import {darkMode} from '../../redux/actions/settingAction';
 import {connect} from 'react-redux';
 import {ThemeConstants} from '../../cores/theme/Theme';
+import firebase from 'react-native-firebase';
+import {firebaseConfig} from '../../api/firebase/firebaseConfig';
 
 class HeaderComponent extends Component {
     constructor(props) {
         super(props);
+        this.firebase = firebaseConfig.database();
         this.state = {
             bg: colors.purple,
+            viewRef: null,
+            data: [],
         };
     }
 
@@ -29,6 +34,37 @@ class HeaderComponent extends Component {
         this.setState({
             bg: backgroundColor,
         });
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.getProfile(user);
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+
+                });
+            }
+        });
+    }
+
+    getProfile(user) {
+        this.firebase.ref('user').on('value', (dataSnapshot) => {
+            dataSnapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if (childData.uid === user.uid) {
+                    this.setState({
+                        isLoading: true,
+                        data: childData,
+                    }, () => {
+                        // console.log("currentUser: " + JSON.stringify(childData));
+                        global.name = this.state.data.name;
+                        global.phone = this.state.data.phone;
+                        global.uid = user.uid;
+
+                    });
+                }
+            });
+        });
     }
 
     render() {
@@ -36,6 +72,7 @@ class HeaderComponent extends Component {
         const color = this.state.bg;
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
+        const data = this.state.data;
         return (
             <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
                 <View style={[styles.body, styles.horizontal]}>
@@ -43,14 +80,16 @@ class HeaderComponent extends Component {
                         style={styles.btn}
                         onPress={this.props.onPressLeft}>
                         {
-                            this.props.left == 'true' ? <FastImage style={{
-                                width: 35,
-                                height: 35,
-                                borderRadius: 35 / 2,
-                                color: ThemeConstants[theme].textColor,
-                            }}
-                                                                   source={{uri: 'https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/70811049_329186837901756_8137241036092080128_n.png?_nc_cat=102&_nc_oc=AQl1n37N-QWfd-Qm1KQiQbi4k6Sf2bA1qQdZlpMC4iExNBItCa4anH1fDoCRKvcwPck&_nc_ht=scontent.fhan2-1.fna&oh=a78211620dc941fc1f039e61d6496f7a&oe=5E2D79EE'}}
-                                                                   resizeMode={FastImage.resizeMode.contain}/> : null
+                            this.props.left == 'true' ?
+                                <FastImage style={{
+                                    width: 35,
+                                    height: 35,
+                                    borderRadius: 35 / 2,
+                                    color: ThemeConstants[theme].textColor,
+                                }}
+                                           source={{uri: data.avatar}}
+                                           resizeMode={FastImage.resizeMode.contain}/>
+                                : null
                         }
                         {
                             this.props.left == 'back' ?
@@ -60,8 +99,9 @@ class HeaderComponent extends Component {
 
                     </TouchableOpacity>
                     <View>
-                        <TextComponent style={[styles.title, {color: ThemeConstants[theme].textColor},this.props.style]}
-                                       numberOfLines={1}>{this.props.title}</TextComponent>
+                        <TextComponent
+                            style={[styles.title, {color: ThemeConstants[theme].textColor}, this.props.style]}
+                            numberOfLines={1}>{this.props.title}</TextComponent>
                     </View>
                     <TouchableOpacity
                         style={styles.btn}

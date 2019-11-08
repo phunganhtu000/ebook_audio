@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, FlatList} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, FlatList, Alert} from 'react-native';
 import HeaderComponent from '../../headerComponent/HeaderComponent';
 import TextComponent from '../../../cores/viewComponents/text/TextComponent';
 import FastImage from 'react-native-fast-image';
@@ -26,18 +26,26 @@ import Locales from '../../../cores/languages/languages';
 // import { FlatList } from 'react-native-gesture-handler';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import {NavigationActions, StackActions} from 'react-navigation';
+import {postComment} from '../../../redux/actions/productAction';
+import {firebaseConfig} from '../../../api/firebase/firebaseConfig';
+import firebase from 'react-native-firebase';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 class Comment extends Component {
     constructor(props) {
         super(props);
+        this.firebase = firebaseConfig.database();
         this.state = {
-            content: '',
+            comment: '',
+            viewRef: null,
+            data: [],
         };
     }
 
     componentWillMount() {
         const data = this.props.navigation.state.params.data;
         this.props.getDetail(data.id);
+
     }
 
     saveDownloadData() {
@@ -50,8 +58,38 @@ class Comment extends Component {
         this.setState({
             isRTL: rtl,
         });
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.getProfile(user);
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+
+                });
+            }
+        });
     }
 
+    getProfile(user) {
+        this.firebase.ref('user').on('value', (dataSnapshot) => {
+            dataSnapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if (childData.uid === user.uid) {
+                    this.setState({
+                        isLoading: true,
+                        data: childData,
+                    }, () => {
+                        // console.log("currentUser: " + JSON.stringify(childData));
+                        global.name = this.state.data.name;
+                        global.phone = this.state.data.phone;
+                        global.uid = user.uid;
+
+                    });
+                }
+            });
+        });
+    }
 
     renderItem = ({item}) => {
         const styles = Styles.getSheet(this.state.isRTL);
@@ -83,51 +121,53 @@ class Comment extends Component {
             </View>
         );
     };
-    navigateComment = (screen) => {
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({routeName: screen}),
-            ],
-        });
-        this.props.navigation.dispatch(resetAction);
-    };
+
+    navigateComment(data) {
+        const id = this.props.navigation.state.params.data.id;
+        const data1 = this.state.data;
+        let da = {id: id, comment: data, username: data1.name};
+        console.log('data data1: ' + JSON.stringify(data1.name));
+        this.props.postComment(da);
+    }
 
     render() {
         const {login} = this.props;
         const styles = Styles.getSheet(this.state.isRTL);
         const {data} = this.props;
-        console.log('dataaaa: ' + JSON.stringify(data[0].user_comments));
+        // console.log('dataaaa: ' + JSON.stringify(data[0].user_comments));
         const {isDarkTheme} = this.props;
         const theme = isDarkTheme ? 'dark' : 'light';
         const {navigate} = this.props.navigation;
+        const data1 = this.state.data;
         return (
-            <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
-                <View style={styles.body}>
-                    <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
-                </View>
-                {validateText(login) ?
-                    <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
-                        <TextInput
-                            style={[styles.input, {color: ThemeConstants[theme].textColor}]}
-                            placeholderTextColor={ThemeConstants[theme].textColor}
-                            placeholder={Locales.Comment2}
-                            value={this.state.content}
-                            onChangeText={(content) => {
-                                this.setState({content});
-                            }}
-                        />
-                        <TouchableOpacity style={styles.toucoment}
-                                          onPress={() => this.navigateComment('Ebook', {data: data})}>
-                            <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
-                        </TouchableOpacity>
+            <KeyboardAwareScrollView>
+                <View style={[styles.container, {backgroundColor: ThemeConstants[theme].backgroundColor2}]}>
+                    <View style={styles.body}>
+                        <FlatList data={data[0].user_comments} renderItem={this.renderItem}/>
                     </View>
-                    :
-                    <TouchableOpacity onPress={() => navigate('Login')} style={styles.viewTrong}>
-                        <TextComponent style={styles.textTrong}>{Locales.logintocomment}</TextComponent>
-                    </TouchableOpacity>
-                }
-            </View>
+                    {validateText(login) ?
+                        <View style={[styles.viewallinput, {backgroundColor: ThemeConstants[theme].backgroundCard}]}>
+                            <TextInput
+                                style={[styles.input, {color: ThemeConstants[theme].textColor}]}
+                                placeholderTextColor={ThemeConstants[theme].textColor}
+                                placeholder={Locales.Comment2}
+                                value={this.state.comment}
+                                onChangeText={(comment) => {
+                                    this.setState({comment});
+                                }}
+                            />
+                            <TouchableOpacity style={styles.toucoment}
+                                              onPress={() => this.navigateComment(this.state.comment)}>
+                                <Icon style={styles.iconcomment} type="Ionicons" name="md-send"/>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <TouchableOpacity onPress={() => navigate('Login')} style={styles.viewTrong}>
+                            <TextComponent style={styles.textTrong}>{Locales.logintocomment}</TextComponent>
+                        </TouchableOpacity>
+                    }
+                </View>
+            </KeyboardAwareScrollView>
         );
     }
 }
@@ -140,6 +180,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {getDetail, darkMode, checkLogin})(Comment);
+export default connect(mapStateToProps, {postComment, getDetail, darkMode, checkLogin})(Comment);
 
 

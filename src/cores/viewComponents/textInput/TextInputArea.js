@@ -23,6 +23,7 @@ export default class TextInputArea extends Component {
                     onChangeText={this.props.onChangeText}
                     value={this.props.value}
                     returnKeyType="next"
+                    keyboardType={this.props.keyboardType}
                 />
             </View>
         );
